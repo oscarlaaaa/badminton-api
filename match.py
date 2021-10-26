@@ -15,7 +15,7 @@ class Match:
         else:
             p1_wins = 0
             p2_wins = 0
-            for i in range(len(points1)):
+            for i in range(len(self.points1)):
                 if self.points1[i] > self.points2[i]:
                     p1_wins = p1_wins + 1
                 else:

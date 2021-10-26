@@ -16,18 +16,48 @@ def search_player(search):
 
     for player in players:
         name = player.find('h5', {'class': 'media__title'}).find('span', {'class': 'nav-link__value'}).text
-        link = player.find('a', {'class': 'media__img'})['href']
+        link = player.find('a', {'class': 'media__img'})['href'] + '/tournaments'
         new_player = {'name': name, 'link': link}
         player_list.append(new_player)
     
     return player_list
+
+## returns links to matches from every year
+def collect_player_matches(link):
+    html_text = requests.get(f'https://bwf.tournamentsoftware.com{link}').text
+    soup = BeautifulSoup(html_text, 'lxml')
+    tournament_tabs_area = soup.find('ul', {'id': 'tabs_tournaments'})
+    year_links = tournament_tabs_area.find_all('a', {'class': 'page-nav__link js-tab'})
+    links = []
+    year = 2021
+    for i in range(0, len(year_links)):
+        year_section = {}
+
+        if (i == len(year_links) - 1):
+            year_section['year'] = 0
+        else:
+            year_section['year'] = year
+        
+            
+        string_year = str(year_section['year'])
+        year_section['link'] = 'https://bwf.tournamentsoftware.com' + year_links[i]['href']
+        links.append(year_section)
+        year = year - 1
+    
+    print(str(links))
+    return links
+
+
+
 
 ## gathers all matches, records player names/points, and outputs list of matches
 def collect_matches(matches):
     match_list = []
 
     for match in matches:
-        match_row = match.find_all('div', class_='match__row')
+        html_text = requests.get(match['link']).text
+        soup = BeautifulSoup(html_text, 'lxml')
+        match_row = soup.find_all('div', class_='match__row')
 
         player1 = ''
         player2 = ''
@@ -52,12 +82,14 @@ def collect_matches(matches):
     return match_list
 
 ## Testing beautiful soup
-html_text = requests.get('https://bwf.tournamentsoftware.com/player-profile/39ec811a-3bdf-4e29-93e9-cd1f0bd65990/tournaments/2019').text
-soup = BeautifulSoup(html_text, 'lxml')
-matches = soup.find_all('div', class_='match__body')
-match_list = collect_matches(matches)
+results = search_player("Kento Momota")
+print(str(results))
+all_matches = []
+if (len(results) == 1):
+    matches = collect_player_matches(results[0]['link'])
+    games = collect_matches(matches)
 
-    
+
 
 ######### Things I want to add: ##########
 # - total point summation
