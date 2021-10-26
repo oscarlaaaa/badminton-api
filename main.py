@@ -22,13 +22,7 @@ def search_player(search):
     
     return player_list
 
-
-
-html_text = requests.get('https://bwf.tournamentsoftware.com/player-profile/39ec811a-3bdf-4e29-93e9-cd1f0bd65990/tournaments/2019').text
-soup = BeautifulSoup(html_text, 'lxml')
-
-
-
+## gathers all matches, records player names/points, and outputs list of matches
 def collect_matches(matches):
     match_list = []
 
@@ -57,15 +51,21 @@ def collect_matches(matches):
         
     return match_list
 
+## Testing beautiful soup
+html_text = requests.get('https://bwf.tournamentsoftware.com/player-profile/39ec811a-3bdf-4e29-93e9-cd1f0bd65990/tournaments/2019').text
+soup = BeautifulSoup(html_text, 'lxml')
 matches = soup.find_all('div', class_='match__body')
-match_count = len(matches)
 match_list = collect_matches(matches)
 
     
 
-# Things I want to add:
+######### Things I want to add: ##########
 # - total point summation
 # - head-to-head stats
 # - win ratio
-# - longest win streak
-# - 
+# - longest win streaks
+# - timeline of tournaments
+# - lifetime points won/lost
+# - lifetime games won/lost
+# - yoink an image for bg
+# - top/worst 10 h2hs
