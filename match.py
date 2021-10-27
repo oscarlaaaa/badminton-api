@@ -7,7 +7,7 @@ class Match:
         self.points2 = points2
     
     def __str__(self):
-        return self.player1 + " | " + self.player2 + "\n" + str(self.points1) + " | " + str(self.points2)
+        return str(self.player1) + " | " + str(self.player2) + "\n" + str(self.points1) + " | " + str(self.points2)
     
     def who_won(self):
         if len(self.points1) == 0 and len(self.points2) == 0:
