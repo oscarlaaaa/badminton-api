@@ -55,6 +55,7 @@ def collect_matches(matches):
     match_list = []
 
     for match in matches:
+        print('>>>>>>>>>' + match['link'] + '<<<<<<<<<<<\n\n\n')
         html_text = requests.get(match['link']).text
         soup = BeautifulSoup(html_text, 'lxml')
         match_row = soup.find_all('div', class_='match__row')
@@ -65,16 +66,17 @@ def collect_matches(matches):
         points2 = []
 
         for row in match_row:
-            if not player1:
-                player1 = row.find('span', class_='nav-link__value').text
-                points = row.find_all('li', class_='points__cell')
-                for point in points:
-                    points1.append(int(point.text))
-            else:
-                player2 = row.find('span', class_='nav-link__value').text
-                points = row.find_all('li', class_='points__cell')
-                for point in points:
-                    points2.append(int(point.text))
+            if row.find('span', class_='nav-link__value'):
+                if not player1:
+                    player1 = row.find('span', class_='nav-link__value').text
+                    points = row.find_all('li', class_='points__cell')
+                    for point in points:
+                        points1.append(int(point.text))
+                else:
+                    player2 = row.find('span', class_='nav-link__value').text
+                    points = row.find_all('li', class_='points__cell')
+                    for point in points:
+                        points2.append(int(point.text))
         
         new_match = Match(player1, player2, points1, points2)
         match_list.append(new_match)      
@@ -88,6 +90,8 @@ all_matches = []
 if (len(results) == 1):
     matches = collect_player_matches(results[0]['link'])
     games = collect_matches(matches)
+    for game in games:
+        print(str(game))
 
 
 
