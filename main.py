@@ -55,43 +55,49 @@ def collect_matches(matches):
     match_list = []
 
     for match in matches:
-        print('>>>>>>>>>' + match['link'] + '<<<<<<<<<<<\n\n\n')
         html_text = requests.get(match['link']).text
         soup = BeautifulSoup(html_text, 'lxml')
-        match_row = soup.find_all('div', class_='match__row')
+        match_bodies = soup.find_all('div', class_='match__body')
+        for body in match_bodies:
+            rows = body.find_all('div', {'class': 'match__row'})
 
-        player1 = ''
-        player2 = ''
-        points1 = []
-        points2 = []
+            player1 = rows[0].find('span', {'class': 'nav-link__value'})
+            player1_points = player1.find_all('li', {'class': 'points__cell'})
+            print(str(player1_points))
+            player1_point_list = []
+            for point in player1_points:
+                print(point)
+                player1_point_list.append(point.text)
 
-        for row in match_row:
-            if row.find('span', class_='nav-link__value'):
-                if not player1:
-                    player1 = row.find('span', class_='nav-link__value').text
-                    points = row.find_all('li', class_='points__cell')
-                    for point in points:
-                        points1.append(int(point.text))
-                else:
-                    player2 = row.find('span', class_='nav-link__value').text
-                    points = row.find_all('li', class_='points__cell')
-                    for point in points:
-                        points2.append(int(point.text))
-        
-        new_match = Match(player1, player2, points1, points2)
-        match_list.append(new_match)      
+            player2 = rows[1].find('span', {'class': 'nav-link__value'})
+            player2_points = player2.find_all('li', {'class': 'points__cell'})
+            print(player2_points)
+            player2_point_list = []
+            for point in player2_points:
+                print(point)
+                player2_point_list.append(point.text)
+            
+            print(player1)
+            print(player2)
+            print(str(player1_point_list))
+            print(str(player2_point_list))
+
+            new_match = Match(player1, player2, player1_point_list, player2_point_list)
+
+         
+
+   
         
     return match_list
 
 ## Testing beautiful soup
 results = search_player("Kento Momota")
-print(str(results))
 all_matches = []
 if (len(results) == 1):
     matches = collect_player_matches(results[0]['link'])
     games = collect_matches(matches)
-    for game in games:
-        print(str(game))
+    # for game in games:
+        # print(str(game))
 
 
 
