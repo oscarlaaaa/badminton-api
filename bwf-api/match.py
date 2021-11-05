@@ -9,7 +9,7 @@ class Match:
 
     
     def __str__(self):
-        return str(self.winner) + " | " + str(self.loser) 
+        return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points)
     
     # def who_won(self):
     #     if len(self.points1) == 0 and len(self.points2) == 0:
