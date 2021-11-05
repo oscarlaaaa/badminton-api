@@ -1,11 +1,12 @@
-from bs4 import BeautifulSoup
-from match import Match
-from match_link import MatchLink
-from player_info import PlayerInfo
 import requests
+from bs4 import BeautifulSoup
 from selenium import webdriver
 
 from player_link import PlayerLink
+from match import Match
+from match_link import MatchLink
+from player_info import PlayerInfo
+
 
 ## returns a list of results from search terms
 def search_player(search):
@@ -20,15 +21,21 @@ def search_player(search):
 
     for player in players:
         name = player.find('h5', {'class': 'media__title'}).find('span', {'class': 'nav-link__value'}).text
-        link = player.find('a', {'class': 'media__img'})['href'] + '/tournaments'
+        link = player.find('a', {'class': 'media__img'})['href']
         new_player = PlayerLink(name, link)
         player_list.append(new_player)
     
     return player_list
 
+#  UNFINISHED
+# def collect_player_info(player_link):
+#     html_text = requests.get(f'https://bwf.tournamentsoftware.com{player_link.get_link()}').text
+#     soup = BeautifulSoup(html_text, 'lxml')
+#     info_section = soup.find
+
 ## returns links to matches from every year
 def collect_year_links(player_link):
-    html_text = requests.get(f'https://bwf.tournamentsoftware.com{player_link.get_link()}').text
+    html_text = requests.get(f'https://bwf.tournamentsoftware.com{player_link.get_link()}/tournaments').text
     soup = BeautifulSoup(html_text, 'lxml')
     tournament_tabs_area = soup.find('ul', {'id': 'tabs_tournaments'})
     links = tournament_tabs_area.find_all('a', {'class': 'page-nav__link js-tab'})
@@ -39,7 +46,6 @@ def collect_year_links(player_link):
 
         if (i == len(links) - 1):
             year = 0
-        
         
         year_link = 'https://bwf.tournamentsoftware.com' + links[i]['href']
         
@@ -83,34 +89,3 @@ def collect_matches(year_link):
         match_list.append(new_match)
     
     return match_list
-
-## Testing beautiful soup
-results = search_player("Kento Momota")
-year_links = collect_year_links(results[0])
-# matches = collect_matches(year_links[0].get_link())
-# for match in matches:
-#     print(str(match))
-#     print(str(match.who_won()))
-
-def generate_all_matches(player_link):
-    year_links = collect_year_links(player_link)
-    matches = []
-    for link in year_links:
-        year_matches = collect_matches(link.get_link())
-        matches.extend(year_matches)
-    return matches
-
-matches = generate_all_matches(results[0])
-kento = PlayerInfo("Kento Momota", matches)
-wins = kento.count_wins()
-print(str(wins))
-######### Things I want to add: ##########
-# - total point summation
-# - head-to-head stats
-# - win ratio
-# - longest win streaks
-# - timeline of tournaments
-# - lifetime points won/lost
-# - lifetime games won/lost
-# - yoink an image for bg
-# - top/worst 10 h2hs
