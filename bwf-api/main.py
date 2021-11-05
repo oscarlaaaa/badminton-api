@@ -5,10 +5,10 @@ import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
-from player_link import PlayerLink
-from match import Match
-from match_link import MatchLink
-from player_info import PlayerInfo
+from data_classes.player_link import PlayerLink
+from data_classes.match import Match
+from data_classes.match_link import MatchLink
+from data_classes.player_info import PlayerInfo
 
 ## takes in a tournament id, and converts it into a link with all available draws
 def convert_to_draws_link(tournament_id):
@@ -18,10 +18,10 @@ def convert_to_draws_link(tournament_id):
 def convert_to_matches_link(draw_link):
     return f"https://bwf.tournamentsoftware.com/sport/{draw_link[0:4]}matches{draw_link[4:]}"
 
+## strips name down to just spaces and alphabet characters
 def clean_name_formatting(name):
     name = re.sub('[^a-zA-Z]', ' ', name)
     return name
-
 
 ## finds all draws that correspond to the event parameter, and returns an array of draw links
 def collect_draw_links(html_text, event):
@@ -40,13 +40,14 @@ def collect_draw_links(html_text, event):
 
     return desired_draws
 
+## collects and creates a match object from a given match row and appends to master matches list
 def collect_match_row_data(match_row, matches, tournament_title):
     if match_row.find('span', class_='score') is None:
         return
     
     players = [name.text for name in match_row.find_all('a') if "player" in name['href']]
     # players = [name.text.encode('utf-8') for name in match_row.find_all('a') if "player" in name['href']]
-    if len(players) == 1:
+    if len(players) < 2:
         return
 
     winner = clean_name_formatting(players[0])
@@ -95,18 +96,6 @@ def collect_match_data(tournament_id, event):
 
 
     
-
+## tests for the fn
 xd = collect_match_data("a6128cae-03b8-492c-a398-ad3505e8ec16", "MS")
 print(len(xd))
-
-
-######### Things I want to add: ##########
-# - total point summation
-# - head-to-head stats
-# - win ratio
-# - longest win streaks
-# - timeline of tournaments
-# - lifetime points won/lost
-# - lifetime games won/lost
-# - yoink an image for bg
-# - top/worst 10 h2hs
