@@ -1,14 +1,8 @@
 import requests
-import string
 import re
 
 from bs4 import BeautifulSoup
-from selenium import webdriver
-
-from data_classes.player_link import PlayerLink
 from data_classes.match import Match
-from data_classes.match_link import MatchLink
-from data_classes.player_info import PlayerInfo
 
 ## takes in a tournament id, and converts it into a link with all available draws
 def convert_to_draws_link(tournament_id):
