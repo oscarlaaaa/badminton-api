@@ -5,7 +5,7 @@ A simple web scraper API that scrapes tournament data, compiles the data, and fe
 
 ## Features to Implement
 - [x] Scrape matches from relevant event and return list of Matches
-- [ ] Compile list of BWF Tournaments either manually or through web-scraping
+- [x] Compile list of BWF Tournaments either manually or through web-scraping
 - [ ] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
 - [ ] Either compile/analyze data before storing into MongoDB OR store all data and compile from db when necessary
 - [ ] Establish back-end API using Flask
