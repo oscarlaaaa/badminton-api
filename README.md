@@ -14,13 +14,6 @@ A simple web scraper API that scrapes tournament data, compiles the data, and fe
 - [ ] Build predictive-analytics system by utilizing dataset + various ML models to calculate H2H % of victory
 - [ ] Figure out how to use the above to establish tournament most likely winners
 
-## Features to Implement
-* Webpage using Flask and React
-* Interesting data points (ex. best/worst head-to-heads, total points earned, etc.)
-* Data visualization (to be learned)
-* MongoDB data storage?
-* Predictive analysis of match-ups based on prior victories
-
 ## Technologies Used
 * Python3 and Django/Flask (soon)
 * React.js (soon)
