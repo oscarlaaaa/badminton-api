@@ -1,5 +1,5 @@
 import requests
-from .match import Match
+from match import Match
 from bs4 import BeautifulSoup
 
 class MatchGatherer:
@@ -92,9 +92,11 @@ class MatchGatherer:
         loser = self.clean_name_formatting(players[1])
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
 
-        date_time = match_row.find('td', class_='plannedtime').text
-        date = date_time[4]
-
+        date_time = match_row.find('td', class_='plannedtime')
+        date = ""
+        if date_time is not None:
+            date = date_time.text
+            
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
         matches.append(Match(self.event, winner, loser, points, date, duration, tournament_title, level))
