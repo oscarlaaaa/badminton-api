@@ -65,6 +65,21 @@ class MatchGatherer:
 
         return desired_draws
 
+    ## converts a time string into an integer value minutes
+    def convert_time_string_to_minutes(self, time):
+        output = 0
+        if 'h' in time:
+            try:
+                output = output + (int(time[0]) * 60)
+            except ValueError:
+                print("lel")
+        try:
+            output = output + int(time[-3:-1])
+        except ValueError:
+            print("lel")
+                
+        return output
+
     ## collects and creates a match object from a given match row and appends to master matches list
     def collect_match_row_data(self, match_row, matches, tournament_title):
         if match_row.find('span', class_='score') is None:
@@ -78,10 +93,13 @@ class MatchGatherer:
         winner = self.clean_name_formatting(players[0])
         loser = self.clean_name_formatting(players[1])
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
-        date_time = match_row.find('td', class_='plannedtime').text
-        year = date_time[-4:]
 
-        matches.append(Match(winner, loser, points, year, tournament_title))
+        date_time = match_row.find('td', class_='plannedtime').text
+        date = date_time[4]
+
+        duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
+
+        matches.append(Match(winner, loser, points, date, duration, tournament_title))
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link):
