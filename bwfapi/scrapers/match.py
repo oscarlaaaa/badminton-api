@@ -1,15 +1,16 @@
 class Match:
     
-    def __init__(self,  winner, loser, points, year=0000, tournament='undefined',):
+    def __init__(self,  winner, loser, points, date, duration=0, tournament='undefined',):
         self.winner = winner
         self.loser = loser
         self.points = points
-        self.year = year
+        self.date = date
+        self.duration = duration
         self.tournament = tournament
 
     
     def __str__(self):
-        return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points)
+        return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + self.date
     
     # def who_won(self):
     #     if len(self.points1) == 0 and len(self.points2) == 0:
