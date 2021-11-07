@@ -11,8 +11,21 @@ class Match:
         self.level = level
     
     def __str__(self):
-        return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + self.date
+        return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + str(self.date)
     
+    def get_year(self):
+        calendar_date = self.date.split(' ')[2]
+        return calendar_date[-4:]
+        
+    # def get_month(self):
+    #     calendar_date = self.date.split(' ')[2]
+    #     index = calendar_date.index('/') + 1
+    #     return calendar_date[ + 1:]
+
+    def get_day(self):
+        calendar_date = self.date.split(' ')[2]
+        index = calendar_date.index('/')
+        return calendar_date[:index]
     # def who_won(self):
     #     if len(self.points1) == 0 and len(self.points2) == 0:
     #         return "walkover"
