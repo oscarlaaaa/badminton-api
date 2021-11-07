@@ -2,11 +2,14 @@ from requests_html import HTMLSession
 
 class TournamentGatherer:
 
+    MIN_START_YEAR = 2007
     MAX_END_YEAR = 2022
 
+    tournament_list = []
+
     def __init__(self, end_year=2022):
-        if end_year > self.MAX_END_YEAR:
-            raise ValueError("Year cannot be greater than 2022.")
+        if end_year < self.MIN_START_YEAR or end_year > self.MAX_END_YEAR:
+            raise ValueError("Year is invalid. Please input a year between 2007 and 2022")
 
         self.end_year = end_year
 
@@ -20,13 +23,13 @@ class TournamentGatherer:
         content = response.html.find('#searchResultArea', first=True).links
         links = list(content)
 
-        return links
+        return {'year': year, 'links': links}
 
     ## USE SPARINGLY IT IS FAT
     def grab_all_tournaments(self):
         links = []
         for i in range(2007, self.MAX_END_YEAR):
-            links = links + self.grab_tournament_from_year(i)
+            links.append(self.grab_tournament_from_year(i))
         return links
 
     ## test function - should be 507

@@ -5,29 +5,27 @@ from scrapers.match_gatherer import MatchGatherer
 class testMatchMethods(unittest.TestCase):
     def test_constructor(self):
         self.assertIsInstance(MatchGatherer(), MatchGatherer)
-        self.assertIsInstance(MatchGatherer("MS", 2021), MatchGatherer)
+        self.assertIsInstance(MatchGatherer(event="MS", year=2021), MatchGatherer)
 
         with self.assertRaises(NameError):
-            MatchGatherer("asdfg", 2010)
-        with self.assertRaises(ValueError):
-            MatchGatherer("WS", 2500)
+            MatchGatherer(event="asdfg", year=2010)
 
     def test_event(self):
-        gatherer = MatchGatherer("ms", 2010)
+        gatherer = MatchGatherer(event="ms", year=2010)
         self.assertEqual(gatherer.get_event(), "MS")
         
-        gatherer = MatchGatherer("mS ", 2010)
+        gatherer = MatchGatherer(event="mS ", year=2010)
         self.assertEqual(gatherer.get_event(), "MS")
         
-        gatherer = MatchGatherer("        ws ", 2010)
+        gatherer = MatchGatherer(event="        ws ", year=2010)
         self.assertEqual(gatherer.get_event(), "WS")
 
     def test_year(self):
-        gatherer = MatchGatherer("ms", 2010)
+        gatherer = MatchGatherer(event="ms", year=2010)
         self.assertEqual(gatherer.get_year(), 2010)
 
         gatherer = MatchGatherer()
-        self.assertEqual(gatherer.get_year(), 2022)
+        self.assertEqual(gatherer.get_year(), 0)
     
     def test_draw_link_converter(self):
         gatherer = MatchGatherer()
@@ -68,7 +66,7 @@ class testMatchMethods(unittest.TestCase):
 
 
     def test_collect_draw_links(self):
-        gatherer = MatchGatherer("MS", 2021)
+        gatherer = MatchGatherer(event="MS", year=2021)
         draws_link = gatherer.convert_to_draws_link("4E6160C1-6ABB-43CF-A535-2F0175C84D7D")
         html_text = requests.get(draws_link).text
         relevant_draws = gatherer.collect_draw_links(html_text, gatherer.get_event())
@@ -80,12 +78,12 @@ class testMatchMethods(unittest.TestCase):
         self.assertEqual(len(relevant_draws), 2)
 
     def test_collect_all_matches(self):
-        gatherer = MatchGatherer("MS", 2021)
-        matches = gatherer.collect_all_matches("https://bwf.tournamentsoftware.com/sport/drawmatches.aspx?id=595206F6-CAFD-41FB-BD2A-87F5655C040C&draw=2")
+        gatherer = MatchGatherer(event="MS", year=2021)
+        matches = gatherer.collect_all_matches("https://bwf.tournamentsoftware.com/sport/drawmatches.aspx?id=595206F6-CAFD-41FB-BD2A-87F5655C040C&draw=2", "level 1")
         self.assertEqual(len(matches), 31)
 
     def test_collect_match_data(self):
-        gatherer = MatchGatherer("MS", 2021)
+        gatherer = MatchGatherer(event="MS", year=2021)
         gatherer.collect_match_data("a6128cae-03b8-492c-a398-ad3505e8ec16")
         match_list = gatherer.get_match_list()
         self.assertEqual(len(match_list), 85)

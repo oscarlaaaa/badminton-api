@@ -4,19 +4,17 @@ from bs4 import BeautifulSoup
 
 class MatchGatherer:
 
-    MIN_START_YEAR = 2007
-    MAX_END_YEAR = 2022
     PLAYERS_IN_ROW = 2
 
-    def __init__(self, event="MS", year=2022):
+    def __init__(self, event="MS", tournament='unknown', year=0):
         event = event.upper().strip()
 
         if event != "MS" and event != "WS":
             raise NameError("Not a valid event. Please input either MS or WS")
-        if year < self.MIN_START_YEAR or year > self.MAX_END_YEAR:
-            raise ValueError("Year is invalid. Please input a year between 2007 and 2022")
+
 
         self.event = event
+        self.tournament = tournament
         self.year = year
         self.match_list = []
 
@@ -72,16 +70,16 @@ class MatchGatherer:
             try:
                 output = output + (int(time[0]) * 60)
             except ValueError:
-                print("lel")
+                pass
         try:
             output = output + int(time[-3:-1])
         except ValueError:
-            print("lel")
+            pass
                 
         return output
 
     ## collects and creates a match object from a given match row and appends to master matches list
-    def collect_match_row_data(self, match_row, matches, tournament_title):
+    def collect_match_row_data(self, match_row, matches, tournament_title, level):
         if match_row.find('span', class_='score') is None:
             return
         
@@ -99,10 +97,10 @@ class MatchGatherer:
 
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        matches.append(Match(winner, loser, points, date, duration, tournament_title))
+        matches.append(Match(self.event, winner, loser, points, date, duration, tournament_title, level))
 
     ## scrapes all match links, and returns a list of match objects
-    def collect_all_matches(self, match_link):
+    def collect_all_matches(self, match_link, level):
         html_text = requests.get(match_link).text
         soup = BeautifulSoup(html_text, 'lxml')
 
@@ -114,7 +112,7 @@ class MatchGatherer:
         matches = []
 
         for match_row in match_rows:
-            self.collect_match_row_data(match_row, matches, tournament_title)
+            self.collect_match_row_data(match_row, matches, tournament_title, level)
 
         return matches
 
@@ -127,8 +125,12 @@ class MatchGatherer:
         relevant_draws = self.collect_draw_links(html_text, self.event)
         relevant_match_links = [self.convert_to_matches_link(link) for link in relevant_draws]
 
+        soup = BeautifulSoup(html_text, 'lxml')
+
+        tournament_level = soup.find('span', class_='tag tag--mono').text
+
         for match_link in relevant_match_links:
-            matches = self.collect_all_matches(match_link)
+            matches = self.collect_all_matches(match_link, tournament_level)
             if matches != None:
                 self.match_list = self.match_list + matches
 

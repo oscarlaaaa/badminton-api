@@ -1,13 +1,14 @@
 class Match:
     
-    def __init__(self,  winner, loser, points, date, duration=0, tournament='undefined',):
+    def __init__(self, event, winner, loser, points, date, duration=0, tournament='undefined', level='undefined'):
+        self.event = event
         self.winner = winner
         self.loser = loser
         self.points = points
         self.date = date
         self.duration = duration
         self.tournament = tournament
-
+        self.level = level
     
     def __str__(self):
         return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + self.date
