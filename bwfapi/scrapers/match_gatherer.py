@@ -1,21 +1,23 @@
 import requests
+from progress_bar import ProgressBar
 from match import Match
+from datetime import datetime
 from bs4 import BeautifulSoup
 
 class MatchGatherer:
 
     PLAYERS_IN_ROW = 2
 
-    def __init__(self, event="MS", tournament='unknown', year=0):
+    def __init__(self, year=0, event="MS", tournament_list=[]):
         event = event.upper().strip()
 
         if event != "MS" and event != "WS":
             raise NameError("Not a valid event. Please input either MS or WS")
 
-
-        self.event = event
-        self.tournament = tournament
         self.year = year
+        self.event = event
+
+        self.tournament_list = tournament_list
         self.match_list = []
 
     def get_event(self):
@@ -24,6 +26,7 @@ class MatchGatherer:
     def get_year(self):
         return self.year
 
+    ## main output function
     def get_match_list(self):
         return self.match_list
 
@@ -45,6 +48,15 @@ class MatchGatherer:
         if '[' in name:
             return name[:name.index('[')].strip().upper()
         return name.strip().upper()
+
+    def extract_date(self, date_time):
+        return date_time.split(" ")[1]
+
+    def extract_time(self, date_time):
+        val = date_time.split(" ")
+        if (len(val) < 4):
+            return "N/A"
+        return val[2] + " " + val[3]
 
     ## finds all draws that correspond to the event parameter, and returns an array of draw links
     def collect_draw_links(self, html_text, event):
@@ -78,9 +90,13 @@ class MatchGatherer:
                 
         return output
 
+    def is_invalid_matchrow(self, match_row):
+        if match_row.find('span', class_='score') is None or match_row.find('td', class_='plannedtime') is None or len(match_row.find('span', class_='score').find_all('span')) == 0:
+            return True
+
     ## collects and creates a match object from a given match row and appends to master matches list
     def collect_match_row_data(self, match_row, matches, tournament_title, level):
-        if match_row.find('span', class_='score') is None:
+        if self.is_invalid_matchrow(match_row):
             return
         
         players = [name.text for name in match_row.find_all('a') if "player" in name['href']]
@@ -92,14 +108,13 @@ class MatchGatherer:
         loser = self.clean_name_formatting(players[1])
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
 
-        date_time = match_row.find('td', class_='plannedtime')
-        date = ""
-        if date_time is not None:
-            date = date_time.text
+        date_time = match_row.find('td', class_='plannedtime').text
+        date = self.extract_date(date_time)
+        time = self.extract_time(date_time)
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        matches.append(Match(self.event, winner, loser, points, date, duration, tournament_title, level))
+        matches.append(Match(self.event, winner, loser, points, date, time, duration, tournament_title, level))
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link, level):
@@ -119,7 +134,7 @@ class MatchGatherer:
         return matches
 
 
-    ## outputs a full list of all match data scraped for that tournament and event for storage
+    ## compiles a full list of all match data scraped for that tournament and event for storage
     def collect_match_data(self, tournament_id):
         draws_link = self.convert_to_draws_link(tournament_id)
         html_text = requests.get(draws_link).text
@@ -136,6 +151,17 @@ class MatchGatherer:
             if matches != None:
                 self.match_list = self.match_list + matches
 
+    def sort_match_data(self):
+        self.match_list.sort(key=lambda match: datetime.strptime(match.get_date(), '%m/%d/%Y'))
+
+    ## compiles a list of every match stored within it
+    def collect_all_match_data(self, sort=True):
+        tournament_bar = ProgressBar(total=len(self.tournament_list), prefix = 'Parsing tournament matches', suffix = 'of matches completed')
+        for link in self.tournament_list:
+            self.collect_match_data(link)
+            tournament_bar.printProgressBar()
+        if sort:
+            self.sort_match_data()
 
 
     
