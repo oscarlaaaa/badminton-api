@@ -1,11 +1,12 @@
 class Match:
     
-    def __init__(self, event, winner, loser, points, date, duration=0, tournament='undefined', level='undefined'):
+    def __init__(self, event, winner, loser, points, date, time, duration=0, tournament='undefined', level='undefined'):
         self.event = event
         self.winner = winner
         self.loser = loser
         self.points = points
         self.date = date
+        self.time = time
         self.duration = duration
         self.tournament = tournament
         self.level = level
@@ -13,6 +14,28 @@ class Match:
     def __str__(self):
         return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + str(self.date)
     
+
+    def get_tournament(self):
+        return self.tournament
+    
+    def get_date(self):
+        return self.date
+    
+    def get_time(self):
+        return self.time
+    
+    def get_winner(self):
+        return self.winner
+    
+    def get_loser(self):
+        return self.loser
+
+    def get_points(self):
+        return str(self.points)
+
+    def get_duration(self):
+        return str(self.duration)
+
     def get_year(self):
         calendar_date = self.date.split(' ')[2]
         return calendar_date[-4:]
@@ -39,3 +62,6 @@ class Match:
     #                 p2_wins = p2_wins + 1
 
     #         return self.player1 if p1_wins > p2_wins else self.player2
+
+def header_row():
+    return ["Count", "Tournament", "Date", "Time", "Winner", "Loser", "Points", "Duration"]
