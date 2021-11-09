@@ -1,8 +1,9 @@
 import requests
-from progress_bar import ProgressBar
-from match import Match
 from datetime import datetime
 from bs4 import BeautifulSoup
+
+from .progress_bar import ProgressBar
+from .match import Match
 
 class MatchGatherer:
 

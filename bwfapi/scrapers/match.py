@@ -14,7 +14,6 @@ class Match:
     def __str__(self):
         return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + str(self.date)
     
-
     def get_tournament(self):
         return self.tournament
     
@@ -62,6 +61,3 @@ class Match:
     #                 p2_wins = p2_wins + 1
 
     #         return self.player1 if p1_wins > p2_wins else self.player2
-
-def header_row():
-    return ["Count", "Tournament", "Date", "Time", "Winner", "Loser", "Points", "Duration"]

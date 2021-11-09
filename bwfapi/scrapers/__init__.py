@@ -1,3 +1,4 @@
-class Scrapers:
-    def __init__(self):
-        print('Initializing web scrapers...')
+from .match_gatherer import MatchGatherer
+from .progress_bar import ProgressBar
+from .tournament_gatherer import TournamentGatherer
+from .match import Match

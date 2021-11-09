@@ -1,8 +1,5 @@
 import csv
-from progress_bar import ProgressBar
-from tournament_gatherer import TournamentGatherer
-from match_gatherer import MatchGatherer
-import match
+from scrapers import Match, ProgressBar, TournamentGatherer, MatchGatherer
 
 ####### START OF SCRIPT ########
 
@@ -18,13 +15,13 @@ mg.collect_all_match_data()
 match_list = mg.get_match_list()
 csv_bar = ProgressBar(len(match_list), prefix = 'Writing into .csv', suffix = 'of data written.')
 
-with open('test.csv', 'w', newline='') as file:
+with open('./bwfapi/test.csv', 'w', newline='') as file:
     writer = csv.writer(file)
 
     count = 1
     total = len(match_list)
 
-    writer.writerow(match.header_row())
+    writer.writerow(["Count", "Tournament", "Date", "Time", "Winner", "Loser", "Points", "Duration"])
     for match in match_list:
         writer.writerow([str(count), match.get_tournament(), match.get_date(), match.get_time(), match.get_winner(), match.get_loser(), match.get_points(), match.get_duration()])
         count = count + 1

@@ -3,3 +3,5 @@ requests
 selenium
 lxml
 requests_html
+numpy
+scikit-learn
