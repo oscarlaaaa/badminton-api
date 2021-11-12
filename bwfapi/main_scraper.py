@@ -1,11 +1,14 @@
 import csv
+import requests
 from scrapers import Match, ProgressBar, TournamentGatherer, MatchGatherer
 
 ####### START OF SCRIPT ########
 
 # Gathers tournment links from certain year
+tournament_list = []
 tg = TournamentGatherer()
-tournaments = tg.grab_tournaments_from_year(2010)
+
+tournaments = tg.grab_all_tournaments()
 
 # Gathers matches from a set year of tournaments
 mg = MatchGatherer(year=tournaments['year'], event="MS", tournament_list=tournaments['links'])
