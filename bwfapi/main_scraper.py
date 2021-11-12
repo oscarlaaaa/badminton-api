@@ -8,7 +8,7 @@ from scrapers import Match, ProgressBar, TournamentGatherer, MatchGatherer
 tournament_list = []
 tg = TournamentGatherer()
 
-tournaments = tg.grab_all_tournaments()
+tournaments = tg.grab_all_tournaments() ## need to implement await  here
 
 # Gathers matches from a set year of tournaments
 mg = MatchGatherer(year=tournaments['year'], event="MS", tournament_list=tournaments['links'])
