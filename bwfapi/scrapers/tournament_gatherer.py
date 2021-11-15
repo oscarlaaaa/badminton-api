@@ -34,8 +34,8 @@ class TournamentGatherer:
         
 
 ## test function
-tg = TournamentGatherer()
-zzz = asyncio.run(tg.grab_all_tournaments())
+# tg = TournamentGatherer()
+# zzz = asyncio.run(tg.grab_all_tournaments())
 
-for t in zzz:
-    print(len(t['links']))
+# for t in zzz:
+#     print(len(t['links']))
