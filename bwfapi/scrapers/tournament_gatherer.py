@@ -21,7 +21,7 @@ class TournamentGatherer:
         s = AsyncHTMLSession()
         response = await s.get(link)
 
-        await response.html.arender(timeout=20, sleep=3) 
+        await response.html.arender(timeout=20, sleep=4) 
 
         content = response.html.find('#searchResultArea', first=True).links
         links = list(link[link.index('=') + 1:] for link in list(content))
