@@ -1,21 +1,28 @@
 import csv
-import requests
-from scrapers import Match, ProgressBar, TournamentGatherer, MatchGatherer
+import asyncio
+from scrapers import ProgressBar, TournamentGatherer, MatchGatherer
 
 ####### START OF SCRIPT ########
 
-# Gathers tournment links from certain year
-tournament_list = []
+# Gathers tournment links from all years
 tg = TournamentGatherer()
-
-tournaments = tg.grab_all_tournaments() ## need to implement await  here
+tournament_list = asyncio.run(tg.grab_all_tournaments())
+print("Total tournaments: " + str(len(tournament_list))) # should be 15
+for tournament in tournament_list:
+    print(f"Year: {tournament['year']}\t Count: {str(len(tournament['links']))}")
 
 # Gathers matches from a set year of tournaments
-mg = MatchGatherer(year=tournaments['year'], event="MS", tournament_list=tournaments['links'])
-mg.collect_all_match_data()
+match_list = []
+for tournament in tournament_list:
+    mg = MatchGatherer(event="MS", tournament_list=tournament['links'])
+    mg.collect_all_match_data()
+    tournament_match_list = mg.get_match_list()
+    match_list = match_list + tournament_match_list
+
+# matches = asyncio.run(mg.collect_all_match_data())
     
 # Match list to be mass-processed into csv
-match_list = mg.get_match_list()
+# match_list = mg.get_match_list()
 csv_bar = ProgressBar(len(match_list), prefix = 'Writing into .csv', suffix = 'of data written.')
 
 with open('./bwfapi/test.csv', 'w', newline='') as file:
