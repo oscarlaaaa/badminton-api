@@ -1,0 +1,4 @@
+Functionality,Count,Time in seconds,Async?
+Tournament Scrape,54,9.5497753,Yes
+Match Scrape,2006,112.7954976,No
+Match Scrape,2006,67.4433134,collect_match_data
