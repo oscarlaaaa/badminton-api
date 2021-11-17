@@ -128,12 +128,13 @@ class MatchGatherer:
         soup = BeautifulSoup(html_text, 'lxml')
 
         match_section = soup.find('table', class_='ruler matches').find('tbody', recursive=False)
-        match_rows = match_section.find_all('tr', recursive=False)
+        if match_section is not None:
+            match_rows = match_section.find_all('tr', recursive=False)
 
-        tournament_title = soup.find('h2', class_='media__title media__title--large').text
+            tournament_title = soup.find('h2', class_='media__title media__title--large').text
 
-        matches = [match for match_row in match_rows if (match := self.collect_match_row_data(match_row, tournament_title, level)) is not None]
-        return matches
+            matches = [match for match_row in match_rows if (match := self.collect_match_row_data(match_row, tournament_title, level)) is not None]
+            return matches
 
 
     ## compiles a full list of all match data scraped for that tournament and event for storage
@@ -159,17 +160,14 @@ class MatchGatherer:
         return matches
 
     def sort_match_data(self):
-        for match in self.match_list:
-            print(str(match))
-
         self.match_list.sort(key=lambda match: datetime.strptime(match.get_date(), '%m/%d/%Y'))
 
     ## compiles a list of every match stored within it
     def collect_all_match_data(self, sort=True):
-        tournament_bar = ProgressBar(total=len(self.tournament_list), prefix = 'Parsing tournament matches', suffix = 'of matches completed')
+        # tournament_bar = ProgressBar(total=len(self.tournament_list), prefix = 'Parsing tournament matches', suffix = 'of matches completed')
         for link in self.tournament_list:
             self.match_list = self.match_list + self.collect_match_data(link)
-            tournament_bar.printProgressBar()
+            # tournament_bar.printProgressBar()
         if sort:
             self.sort_match_data()
 
