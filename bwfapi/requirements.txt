@@ -6,3 +6,5 @@ requests_html
 numpy
 scikit-learn
 aiohttp[speedups]
+flask
+flask_restful

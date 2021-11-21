@@ -48,16 +48,10 @@ class Match:
         calendar_date = self.date.split(' ')[2]
         index = calendar_date.index('/')
         return calendar_date[:index]
-    # def who_won(self):
-    #     if len(self.points1) == 0 and len(self.points2) == 0:
-    #         return "walkover"
-    #     else:
-    #         p1_wins = 0
-    #         p2_wins = 0
-    #         for i in range(len(self.points1)):
-    #             if self.points1[i] > self.points2[i]:
-    #                 p1_wins = p1_wins + 1
-    #             else:
-    #                 p2_wins = p2_wins + 1
 
-    #         return self.player1 if p1_wins > p2_wins else self.player2
+    @staticmethod
+    def get_header():
+        return ['Count','Tournament','Date','Time','Winner','Loser','Points','Duration']
+    
+    def get_formatted_data(self, count):
+        return [count, self.tournament, self.date, self.time, self.winner, self.loser, self.points, self.duration]

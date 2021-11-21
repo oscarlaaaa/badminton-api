@@ -1,7 +1,14 @@
 # BWF Web Scraper API
 
 ## Overview
-A simple web scraper API that scrapes tournament data, compiles the data, and feeds the dataset into a ML model to generate predictive analytics about tournament results.
+A simple web scraper API that scrapes tournament data, compiles the data, and feeds the dataset into a ML model to generate predictive analytics about tournament results (that's the plan, at least).
+
+## How to Use
+1. Clone the repository onto a local machine
+2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
+3. Run the main_scraper.py script (change the year on line 15 to your desired year) 
+4. Wait for it to finish (usually takes ~90 seconds per year)
+5. Open the scraped_data.csv for your information! (soon to implement into MySQL DB)
 
 ## Features to Implement
 - [x] Scrape matches from relevant event and return list of Matches

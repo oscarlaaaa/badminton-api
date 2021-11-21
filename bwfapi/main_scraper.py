@@ -1,7 +1,7 @@
 import csv
 import asyncio
 import timeit
-from scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer
+from scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer, Match
 
 ####### START OF SCRIPT ########
 
@@ -41,47 +41,48 @@ def __main__():
 
 
 
-    # Gathers matches from a set year of tournaments
-    print("Started scraping matches...")
-    start_match_scraping = timeit.default_timer()
-    match_list = []
+    # # Gathers matches from a set year of tournaments
+    # print("Started scraping matches...")
+    # start_match_scraping = timeit.default_timer()
+    # match_list = []
 
-    mg = MatchGatherer(event="MS", tournament_list=tournament['links'])
-    mg.collect_all_match_data()
-    tournament_match_list = mg.get_match_list()
-    match_list = match_list + tournament_match_list
+    # mg = MatchGatherer(event="MS", tournament_list=tournament['links'])
+    # mg.collect_all_match_data()
+    # tournament_match_list = mg.get_match_list()
+    # match_list = match_list + tournament_match_list
     
-    end_match_scraping = timeit.default_timer()
+    # end_match_scraping = timeit.default_timer()
 
-    match_time_elapsed = end_match_scraping - start_match_scraping
-    print(f"Finished scraping {len(match_list)} matches in {match_time_elapsed} seconds.")
+    # match_time_elapsed = end_match_scraping - start_match_scraping
+    # print(f"Finished scraping {len(match_list)} matches in {match_time_elapsed} seconds.")
     
-    with open('./bwfapi/benchmarks/scraping.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-
-        writer.writerow(["Functionality", "Count", "Time in seconds", "Async?"])
-        writer.writerow(["Tournament Scrape", total_tournaments, tournament_time_elapsed, "Yes"])
-        writer.writerow(["Match Scrape", len(match_list), match_time_elapsed, "No"])
-        writer.writerow(["Match Scrape", len(Amatch_list), Amatch_time_elapsed, "collect_match_data"])
 
 
-    # # matches = asyncio.run(mg.collect_all_match_data())
-        
-    # # Match list to be mass-processed into csv
-    # # match_list = mg.get_match_list()
-    # csv_bar = ProgressBar(len(match_list), prefix = 'Writing into .csv', suffix = 'of data written.')
-
-    # with open('./bwfapi/scraped_data.csv', 'w', newline='') as file:
+    ############### BENCHMARKING SECTION #################
+    # with open('./bwfapi/benchmarks/scraping.csv', 'w', newline='') as file:
     #     writer = csv.writer(file)
 
-    #     count = 1
-    #     total = len(match_list)
+    #     writer.writerow(["Functionality", "Count", "Time in seconds", "Async?"])
+    #     writer.writerow(["Tournament Scrape", total_tournaments, tournament_time_elapsed, "Yes"])
+    #     writer.writerow(["Match Scrape", len(match_list), match_time_elapsed, "No"])
+    #     writer.writerow(["Match Scrape", len(Amatch_list), Amatch_time_elapsed, "collect_match_data"])
 
-    #     writer.writerow(["Count", "Tournament", "Date", "Time", "Winner", "Loser", "Points", "Duration"])
-    #     for match in match_list:
-    #         writer.writerow([str(count), match.get_tournament(), match.get_date(), match.get_time(), match.get_winner(), match.get_loser(), match.get_points(), match.get_duration()])
-    #         count = count + 1
-    #         csv_bar.printProgressBar()
+
+    # matches = asyncio.run(mg.collect_all_match_data())
+        
+    # Match list to be mass-processed into csv
+    # match_list = mg.get_match_list()
+    csv_bar = ProgressBar(len(Amatch_list), prefix = 'Writing into .csv', suffix = 'of data written.')
+
+    with open('./bwfapi/scraped_data.csv', 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        count = 1
+
+        writer.writerow(Match.get_header())
+        for match in Amatch_list:
+            writer.writerow(match.get_formatted_data(count))
+            count = count + 1
+            csv_bar.printProgressBar()
 
 if __name__ == "__main__":
     __main__()
