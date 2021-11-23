@@ -105,12 +105,15 @@ class AsyncMatchGatherer:
             return
         
         players = [name.text for name in match_row.find_all('a') if "player" in name['href']]
+        countries = [flag.title for flag in match_row.find_all('img', class_='intext flag')]
         # players = [name.text.encode('utf-8') for name in match_row.find_all('a') if "player" in name['href']]
         if len(players) < self.PLAYERS_IN_ROW:
             return
 
         winner = self.clean_name_formatting(players[0])
+        winner_country = countries[0]
         loser = self.clean_name_formatting(players[1])
+        loser_country = countries[1]
         self.player_list.add(winner)
         self.player_list.add(loser)
 
@@ -122,7 +125,7 @@ class AsyncMatchGatherer:
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        return Match(self.event, winner, loser, points, date, time, duration, tournament_title, level)
+        return Match(self.event, winner, winner_country, loser, loser_country, points, date, time, duration, tournament_title, level)
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link, level):

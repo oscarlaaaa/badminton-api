@@ -1,9 +1,11 @@
 class Match:
     
-    def __init__(self, event, winner, loser, points, date, time, duration=0, tournament='undefined', level='undefined'):
+    def __init__(self, event, winner, winner_country, loser, loser_country, points, date, time, duration=0, tournament='undefined', level='undefined'):
         self.event = event
         self.winner = winner
+        self.winner_country = winner_country
         self.loser = loser
+        self.loser_country = loser_country
         self.points = points
         self.date = date
         self.time = time
