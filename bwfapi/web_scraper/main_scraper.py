@@ -60,10 +60,10 @@ class BwfScraper:
             writer = csv.writer(file)
             count = 1
 
-            writer.writerow(["ID", "Player Name"])
+            writer.writerow(["ID", "Player Name", "Nationality"])
 
-            for player in self.player_list:
-                writer.writerow([count, player])
+            for player, country in self.player_list.items():
+                writer.writerow([count, player, country])
                 count = count + 1
 
         csv_bar = ProgressBar(len(self.match_list), prefix = 'Writing into .csv', suffix = 'of data written.')
