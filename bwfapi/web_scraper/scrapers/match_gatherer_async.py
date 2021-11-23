@@ -1,7 +1,6 @@
 import requests
 import aiohttp
 import asyncio
-import numpy as np
 
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -23,9 +22,9 @@ class AsyncMatchGatherer:
             raise NameError("Not a valid event. Please input either MS or WS")
 
         self.event = event
-
         self.tournament_list = tournament_list
-        self.match_list = []
+
+        self.player_list = set()
 
     def get_event(self):
         return self.event
@@ -33,9 +32,8 @@ class AsyncMatchGatherer:
     def get_year(self):
         return self.year
 
-    ## main output function
-    def get_match_list(self):
-        return self.match_list
+    def get_player_list(self):
+        return self.player_list
 
     def is_valid_event(event):
         return event == "MS" or event == "WS"
@@ -113,6 +111,9 @@ class AsyncMatchGatherer:
 
         winner = self.clean_name_formatting(players[0])
         loser = self.clean_name_formatting(players[1])
+        self.player_list.add(winner)
+        self.player_list.add(loser)
+
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
 
         date_time = match_row.find('td', class_='plannedtime').text
@@ -162,7 +163,6 @@ class AsyncMatchGatherer:
             tournament_matches = self.collect_all_matches(match_link, tournament_level)
             if tournament_matches is not None and len(tournament_matches) > 0:
                 matches = matches + tournament_matches
-                print(str(matches))
         # self.sort_match_data2(matches)
         return matches
 

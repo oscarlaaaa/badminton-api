@@ -632,84 +632,84 @@ Count,Tournament,Date,Time,Winner,Loser,Points,Duration
 631,China Masters GPG 2014,4/19/2014,N/A,TIAN HOUWEI,WEI NAN,"[[21, 15], [21, 14]]",47
 632,SkyCity New Zealand Open 2014,4/19/2014,N/A,TZU WEI WANG,HSU JEN HAO,"[[21, 9], [21, 13]]",34
 633,China Masters GPG 2014,4/20/2014,N/A,LIN DAN,TIAN HOUWEI,"[[21, 14], [21, 9]]",49
-634,Badminton Asia Championships 2014,4/23/2014,11:00 AM,WANG TZU WEI,HU YUN,"[[20, 22], [21, 16], [21, 14]]",69
-635,Badminton Asia Championships 2014,4/23/2014,11:40 AM,WEI NAN,PONSANA BOONSAK,"[[19, 21], [21, 12], [21, 10]]",51
-636,Badminton Asia Championships 2014,4/23/2014,12:20 PM,LEE DONG KEUN,LIEW DAREN,"[[24, 22], [21, 13]]",50
-637,Badminton Asia Championships 2014,4/23/2014,12:20 PM,LIN DAN,K SRIKANTH,"[[21, 7], [21, 14]]",32
-638,Badminton Asia Championships 2014,4/23/2014,1:00 PM,PHAM CAO CUONG,CHOU TIEN CHEN,"[[21, 18], [21, 14]]",43
-639,Badminton Asia Championships 2014,4/23/2014,1:00 PM,WONG ZI LIANG DEREK,KAI GUO,"[[21, 19], [14, 21], [22, 20]]",60
-640,Badminton Asia Championships 2014,4/23/2014,1:40 PM,R M V GURUSAIDUTT,PHETPRADAB KHOSIT,"[[22, 20], [23, 21]]",44
-641,Badminton Asia Championships 2014,4/23/2014,2:20 PM,PARUPALLI KASHYAP,GOH SOON HUAT,"[[21, 14], [21, 17]]",35
-642,Badminton Asia Championships 2014,4/23/2014,2:20 PM,HSU JEN HAO,SAENSOMBOONSUK TANONGSAK,"[[22, 24], [21, 17], [21, 17]]",75
-643,Badminton Asia Championships 2014,4/23/2014,3:00 PM,HUANG CHAO,CHAN YAN KIT,"[[21, 18], [15, 21], [24, 22]]",58
-644,Badminton Asia Championships 2014,4/23/2014,3:00 PM,HWANG JONG SOO,NGUYEN TIEN MINH,"[[21, 13], [21, 19]]",60
-645,Badminton Asia Championships 2014,4/23/2014,3:40 PM,SONG XUE,WAN CHIA-HSIN,"[[21, 8], [21, 11]]",33
-646,Badminton Asia Championships 2014,4/23/2014,4:20 PM,PARK SUNG MIN,WONG WING KI,"[[21, 19], [12, 21], [21, 13]]",65
-647,Badminton Asia Championships 2014,4/23/2014,5:00 PM,SASAKI SHO,CHONG YEE HAN,"[[21, 11], [21, 12]]",33
-648,Badminton Asia Championships 2014,4/23/2014,5:40 PM,LIU KAI,MOMOTA KENTO,"[[22, 20], [21, 18]]",34
-649,Badminton Asia Championships 2014,4/23/2014,5:40 PM,SON WAN HO,AVIHINGSANON SUPPANYU,"[[21, 19], [21, 13]]",45
-650,2014 INTERSPORT European Championships,4/23/2014,N/A,MICHAL ROGALSKI,SAMUEL CALI,"[[21, 6], [21, 9]]",16
-651,2014 INTERSPORT European Championships,4/23/2014,N/A,DIETER DOMKE,DANIEL FONT,"[[21, 10], [21, 19]]",25
-652,2014 INTERSPORT European Championships,4/23/2014,N/A,GERGELY KRAUSZ,ANTHONY DUMARTHERAY,"[[21, 16], [21, 14]]",28
-653,2014 INTERSPORT European Championships,4/23/2014,N/A,KESTUTIS NAVICKAS,RAUL MUST,"[[21, 7], [21, 18]]",29
-654,2014 INTERSPORT European Championships,4/23/2014,N/A,SCOTT EVANS,ILIJA PAVLOVIC,"[[21, 6], [21, 9]]",19
-655,2014 INTERSPORT European Championships,4/23/2014,N/A,YUHAN TAN,HENRI HURSKAINEN,"[[21, 14], [18, 21], [21, 9]]",44
-656,2014 INTERSPORT European Championships,4/23/2014,N/A,VLADIMIR MALKOV,DAVID OBERNOSTERER,"[[21, 19], [18, 21], [21, 7]]",55
-657,2014 INTERSPORT European Championships,4/23/2014,N/A,TOBY PENTY,GEORGIOS CHARALAMBIDIS,"[[21, 7], [21, 17]]",28
-658,2014 INTERSPORT European Championships,4/23/2014,N/A,DMYTRO ZAVADSKY,GABRIEL ULLDAHL,"[[21, 17], [21, 18]]",38
-659,2014 INTERSPORT European Championships,4/23/2014,N/A,ANTON IVANOV,EETU HEINO,"[[7, 21], [21, 16], [26, 24]]",57
-660,2014 INTERSPORT European Championships,4/23/2014,N/A,MICHAEL LAHNSTEINER,IZTOK UTROSA,"[[21, 19], [13, 21], [21, 14]]",64
-661,2014 INTERSPORT European Championships,4/23/2014,N/A,MISHA ZILBERMAN,ZVONIMIR DURKINJAK,"[[21, 19], [21, 13]]",30
-662,2014 INTERSPORT European Championships,4/23/2014,N/A,PABLO ABIAN,MARIUS MYHRE,"[[21, 9], [21, 5]]",21
-663,2014 INTERSPORT European Championships,4/23/2014,N/A,GIOVANNI GRECO,NUNO SANTOS,"[[21, 17], [21, 16]]",30
-664,2014 INTERSPORT European Championships,4/23/2014,N/A,MAXIME MOREELS,THOMAS ROUXEL,"[[21, 18], [21, 15]]",30
-665,2014 INTERSPORT European Championships,4/23/2014,N/A,VLADIMIR IVANOV,JAN FROHLICH,"[[21, 12], [21, 17]]",29
-666,Badminton Asia Championships 2014,4/24/2014,11:45 AM,WEI NAN,LEE DONG KEUN,"[[21, 8], [21, 17]]",45
-667,Badminton Asia Championships 2014,4/24/2014,12:30 PM,LIN DAN,PHAM CAO CUONG,"[[21, 13], [21, 4]]",30
-668,Badminton Asia Championships 2014,4/24/2014,1:15 PM,LIU KAI,WONG ZI LIANG DEREK,"[[21, 14], [16, 21], [21, 14]]",60
-669,Badminton Asia Championships 2014,4/24/2014,2:00 PM,R M V GURUSAIDUTT,WANG TZU WEI,"[[17, 21], [21, 13], [21, 19]]",60
-670,Badminton Asia Championships 2014,4/24/2014,2:45 PM,HSU JEN HAO,PARUPALLI KASHYAP,"[[25, 23], [21, 17]]",60
-671,Badminton Asia Championships 2014,4/24/2014,2:45 PM,HWANG JONG SOO,HUANG CHAO,"[[21, 19], [21, 4]]",39
-672,Badminton Asia Championships 2014,4/24/2014,3:30 PM,SONG XUE,PARK SUNG MIN,"[[21, 8], [21, 15]]",45
-673,Badminton Asia Championships 2014,4/24/2014,4:15 PM,SASAKI SHO,SON WAN HO,"[[21, 18], [21, 13]]",57
-674,2014 INTERSPORT European Championships,4/24/2014,N/A,JAN O JORGENSEN,DIETER DOMKE,"[[12, 21], [21, 14], [23, 21]]",48
-675,2014 INTERSPORT European Championships,4/24/2014,N/A,BRICE LEVERDEZ,KESTUTIS NAVICKAS,"[[21, 12], [21, 23], [16, 11]]",50
-676,2014 INTERSPORT European Championships,4/24/2014,N/A,VIKTOR AXELSEN,YUHAN TAN,"[[21, 17], [21, 16]]",32
-677,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR MALKOV,PETR KOUKAL,"[[21, 13], [21, 17]]",38
-678,2014 INTERSPORT European Championships,4/24/2014,N/A,RAJIV OUSEPH,DMYTRO ZAVADSKY,"[[21, 17], [21, 16]]",40
-679,2014 INTERSPORT European Championships,4/24/2014,N/A,HANS-KRISTIAN VITTINGHUS,LUCAS CORVEE,"[[21, 17], [21, 15]]",33
-680,2014 INTERSPORT European Championships,4/24/2014,N/A,ERIC PANG,PABLO ABIAN,"[[16, 21], [21, 13], [21, 14]]",48
-681,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR IVANOV,MAXIME MOREELS,"[[21, 9], [21, 8]]",25
-682,2014 INTERSPORT European Championships,4/24/2014,N/A,JAN O JORGENSEN,MICHAL ROGALSKI,"[[21, 19], [21, 10]]",30
-683,2014 INTERSPORT European Championships,4/24/2014,N/A,DIETER DOMKE,VLADZISLAV KUSHNIR,"[[21, 10], [21, 8]]",18
-684,2014 INTERSPORT European Championships,4/24/2014,N/A,BRICE LEVERDEZ,GERGELY KRAUSZ,"[[21, 9], [21, 16]]",26
-685,2014 INTERSPORT European Championships,4/24/2014,N/A,KESTUTIS NAVICKAS,ERIK MEIJS,"[[13, 21], [21, 16], [21, 19]]",47
-686,2014 INTERSPORT European Championships,4/24/2014,N/A,VIKTOR AXELSEN,SCOTT EVANS,"[[21, 13], [20, 22], [21, 11]]",52
-687,2014 INTERSPORT European Championships,4/24/2014,N/A,YUHAN TAN,VALERIY ATRASHCHENKOV,"[[21, 17], [8, 21], [21, 13]]",39
-688,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR MALKOV,VILLE LANG,"[[21, 12], [21, 19]]",34
-689,2014 INTERSPORT European Championships,4/24/2014,N/A,PETR KOUKAL,TOBY PENTY,"[[21, 11], [14, 21], [21, 13]]",50
-690,2014 INTERSPORT European Championships,4/24/2014,N/A,DMYTRO ZAVADSKY,KANAN RZAYEV,"[[21, 3], [21, 5]]",19
-691,2014 INTERSPORT European Championships,4/24/2014,N/A,RAJIV OUSEPH,ANTON IVANOV,"[[21, 6], [21, 14]]",25
-692,2014 INTERSPORT European Championships,4/24/2014,N/A,LUCAS CORVEE,MICHAEL LAHNSTEINER,"[[26, 24], [20, 22], [21, 14]]",62
-693,2014 INTERSPORT European Championships,4/24/2014,N/A,HANS-KRISTIAN VITTINGHUS,MISHA ZILBERMAN,"[[21, 13], [21, 13]]",35
-694,2014 INTERSPORT European Championships,4/24/2014,N/A,PABLO ABIAN,BLAGOVEST KISYOV,"[[21, 14], [21, 18]]",30
-695,2014 INTERSPORT European Championships,4/24/2014,N/A,ERIC PANG,GIOVANNI GRECO,"[[21, 11], [13, 21], [21, 9]]",39
-696,2014 INTERSPORT European Championships,4/24/2014,N/A,MAXIME MOREELS,JAROLIM VICEN,"[[23, 21], [21, 19]]",39
-697,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR IVANOV,MARC ZWIEBLER,"[[21, 14], [24, 22]]",37
-698,Badminton Asia Championships 2014,4/25/2014,N/A,LIN DAN,WEI NAN,"[[21, 10], [21, 7]]",34
-699,Badminton Asia Championships 2014,4/25/2014,1:00 PM,LIU KAI,R M V GURUSAIDUTT,"[[22, 24], [21, 9], [21, 13]]",60
-700,Badminton Asia Championships 2014,4/25/2014,3:30 PM,HWANG JONG SOO,HSU JEN HAO,"[[21, 14], [21, 19]]",54
-701,Badminton Asia Championships 2014,4/25/2014,5:10 PM,SASAKI SHO,SONG XUE,"[[16, 21], [21, 11], [21, 19]]",70
-702,2014 INTERSPORT European Championships,4/25/2014,N/A,JAN O JORGENSEN,BRICE LEVERDEZ,"[[21, 14], [19, 21], [21, 12]]",52
-703,2014 INTERSPORT European Championships,4/25/2014,N/A,VIKTOR AXELSEN,VLADIMIR MALKOV,"[[21, 9], [21, 18]]",33
-704,2014 INTERSPORT European Championships,4/25/2014,N/A,RAJIV OUSEPH,HANS-KRISTIAN VITTINGHUS,"[[15, 21], [21, 15], [21, 11]]",46
-705,2014 INTERSPORT European Championships,4/25/2014,N/A,VLADIMIR IVANOV,ERIC PANG,"[[21, 15], [21, 9]]",30
-706,Badminton Asia Championships 2014,4/26/2014,N/A,LIN DAN,LIU KAI,"[[21, 14], [21, 13]]",27
-707,Badminton Asia Championships 2014,4/26/2014,N/A,SASAKI SHO,HWANG JONG SOO,"[[21, 13], [21, 15]]",55
-708,2014 INTERSPORT European Championships,4/26/2014,N/A,JAN O JORGENSEN,VIKTOR AXELSEN,"[[21, 11], [21, 13]]",29
-709,2014 INTERSPORT European Championships,4/26/2014,N/A,RAJIV OUSEPH,VLADIMIR IVANOV,"[[25, 23], [13, 21], [21, 8]]",45
-710,Badminton Asia Championships 2014,4/27/2014,N/A,LIN DAN,SASAKI SHO,"[[14, 21], [21, 9], [21, 15]]",66
-711,2014 INTERSPORT European Championships,4/27/2014,N/A,JAN O JORGENSEN,RAJIV OUSEPH,"[[21, 18], [21, 10]]",33
+634,2014 INTERSPORT European Championships,4/23/2014,N/A,MICHAL ROGALSKI,SAMUEL CALI,"[[21, 6], [21, 9]]",16
+635,2014 INTERSPORT European Championships,4/23/2014,N/A,DIETER DOMKE,DANIEL FONT,"[[21, 10], [21, 19]]",25
+636,2014 INTERSPORT European Championships,4/23/2014,N/A,GERGELY KRAUSZ,ANTHONY DUMARTHERAY,"[[21, 16], [21, 14]]",28
+637,2014 INTERSPORT European Championships,4/23/2014,N/A,KESTUTIS NAVICKAS,RAUL MUST,"[[21, 7], [21, 18]]",29
+638,2014 INTERSPORT European Championships,4/23/2014,N/A,SCOTT EVANS,ILIJA PAVLOVIC,"[[21, 6], [21, 9]]",19
+639,2014 INTERSPORT European Championships,4/23/2014,N/A,YUHAN TAN,HENRI HURSKAINEN,"[[21, 14], [18, 21], [21, 9]]",44
+640,2014 INTERSPORT European Championships,4/23/2014,N/A,VLADIMIR MALKOV,DAVID OBERNOSTERER,"[[21, 19], [18, 21], [21, 7]]",55
+641,2014 INTERSPORT European Championships,4/23/2014,N/A,TOBY PENTY,GEORGIOS CHARALAMBIDIS,"[[21, 7], [21, 17]]",28
+642,2014 INTERSPORT European Championships,4/23/2014,N/A,DMYTRO ZAVADSKY,GABRIEL ULLDAHL,"[[21, 17], [21, 18]]",38
+643,2014 INTERSPORT European Championships,4/23/2014,N/A,ANTON IVANOV,EETU HEINO,"[[7, 21], [21, 16], [26, 24]]",57
+644,2014 INTERSPORT European Championships,4/23/2014,N/A,MICHAEL LAHNSTEINER,IZTOK UTROSA,"[[21, 19], [13, 21], [21, 14]]",64
+645,2014 INTERSPORT European Championships,4/23/2014,N/A,MISHA ZILBERMAN,ZVONIMIR DURKINJAK,"[[21, 19], [21, 13]]",30
+646,2014 INTERSPORT European Championships,4/23/2014,N/A,PABLO ABIAN,MARIUS MYHRE,"[[21, 9], [21, 5]]",21
+647,2014 INTERSPORT European Championships,4/23/2014,N/A,GIOVANNI GRECO,NUNO SANTOS,"[[21, 17], [21, 16]]",30
+648,2014 INTERSPORT European Championships,4/23/2014,N/A,MAXIME MOREELS,THOMAS ROUXEL,"[[21, 18], [21, 15]]",30
+649,2014 INTERSPORT European Championships,4/23/2014,N/A,VLADIMIR IVANOV,JAN FROHLICH,"[[21, 12], [21, 17]]",29
+650,Badminton Asia Championships 2014,4/23/2014,11:00 AM,WANG TZU WEI,HU YUN,"[[20, 22], [21, 16], [21, 14]]",69
+651,Badminton Asia Championships 2014,4/23/2014,11:40 AM,WEI NAN,PONSANA BOONSAK,"[[19, 21], [21, 12], [21, 10]]",51
+652,Badminton Asia Championships 2014,4/23/2014,12:20 PM,LEE DONG KEUN,LIEW DAREN,"[[24, 22], [21, 13]]",50
+653,Badminton Asia Championships 2014,4/23/2014,12:20 PM,LIN DAN,K SRIKANTH,"[[21, 7], [21, 14]]",32
+654,Badminton Asia Championships 2014,4/23/2014,1:00 PM,PHAM CAO CUONG,CHOU TIEN CHEN,"[[21, 18], [21, 14]]",43
+655,Badminton Asia Championships 2014,4/23/2014,1:00 PM,WONG ZI LIANG DEREK,KAI GUO,"[[21, 19], [14, 21], [22, 20]]",60
+656,Badminton Asia Championships 2014,4/23/2014,1:40 PM,R M V GURUSAIDUTT,PHETPRADAB KHOSIT,"[[22, 20], [23, 21]]",44
+657,Badminton Asia Championships 2014,4/23/2014,2:20 PM,PARUPALLI KASHYAP,GOH SOON HUAT,"[[21, 14], [21, 17]]",35
+658,Badminton Asia Championships 2014,4/23/2014,2:20 PM,HSU JEN HAO,SAENSOMBOONSUK TANONGSAK,"[[22, 24], [21, 17], [21, 17]]",75
+659,Badminton Asia Championships 2014,4/23/2014,3:00 PM,HUANG CHAO,CHAN YAN KIT,"[[21, 18], [15, 21], [24, 22]]",58
+660,Badminton Asia Championships 2014,4/23/2014,3:00 PM,HWANG JONG SOO,NGUYEN TIEN MINH,"[[21, 13], [21, 19]]",60
+661,Badminton Asia Championships 2014,4/23/2014,3:40 PM,SONG XUE,WAN CHIA-HSIN,"[[21, 8], [21, 11]]",33
+662,Badminton Asia Championships 2014,4/23/2014,4:20 PM,PARK SUNG MIN,WONG WING KI,"[[21, 19], [12, 21], [21, 13]]",65
+663,Badminton Asia Championships 2014,4/23/2014,5:00 PM,SASAKI SHO,CHONG YEE HAN,"[[21, 11], [21, 12]]",33
+664,Badminton Asia Championships 2014,4/23/2014,5:40 PM,LIU KAI,MOMOTA KENTO,"[[22, 20], [21, 18]]",34
+665,Badminton Asia Championships 2014,4/23/2014,5:40 PM,SON WAN HO,AVIHINGSANON SUPPANYU,"[[21, 19], [21, 13]]",45
+666,2014 INTERSPORT European Championships,4/24/2014,N/A,JAN O JORGENSEN,DIETER DOMKE,"[[12, 21], [21, 14], [23, 21]]",48
+667,2014 INTERSPORT European Championships,4/24/2014,N/A,BRICE LEVERDEZ,KESTUTIS NAVICKAS,"[[21, 12], [21, 23], [16, 11]]",50
+668,2014 INTERSPORT European Championships,4/24/2014,N/A,VIKTOR AXELSEN,YUHAN TAN,"[[21, 17], [21, 16]]",32
+669,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR MALKOV,PETR KOUKAL,"[[21, 13], [21, 17]]",38
+670,2014 INTERSPORT European Championships,4/24/2014,N/A,RAJIV OUSEPH,DMYTRO ZAVADSKY,"[[21, 17], [21, 16]]",40
+671,2014 INTERSPORT European Championships,4/24/2014,N/A,HANS-KRISTIAN VITTINGHUS,LUCAS CORVEE,"[[21, 17], [21, 15]]",33
+672,2014 INTERSPORT European Championships,4/24/2014,N/A,ERIC PANG,PABLO ABIAN,"[[16, 21], [21, 13], [21, 14]]",48
+673,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR IVANOV,MAXIME MOREELS,"[[21, 9], [21, 8]]",25
+674,2014 INTERSPORT European Championships,4/24/2014,N/A,JAN O JORGENSEN,MICHAL ROGALSKI,"[[21, 19], [21, 10]]",30
+675,2014 INTERSPORT European Championships,4/24/2014,N/A,DIETER DOMKE,VLADZISLAV KUSHNIR,"[[21, 10], [21, 8]]",18
+676,2014 INTERSPORT European Championships,4/24/2014,N/A,BRICE LEVERDEZ,GERGELY KRAUSZ,"[[21, 9], [21, 16]]",26
+677,2014 INTERSPORT European Championships,4/24/2014,N/A,KESTUTIS NAVICKAS,ERIK MEIJS,"[[13, 21], [21, 16], [21, 19]]",47
+678,2014 INTERSPORT European Championships,4/24/2014,N/A,VIKTOR AXELSEN,SCOTT EVANS,"[[21, 13], [20, 22], [21, 11]]",52
+679,2014 INTERSPORT European Championships,4/24/2014,N/A,YUHAN TAN,VALERIY ATRASHCHENKOV,"[[21, 17], [8, 21], [21, 13]]",39
+680,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR MALKOV,VILLE LANG,"[[21, 12], [21, 19]]",34
+681,2014 INTERSPORT European Championships,4/24/2014,N/A,PETR KOUKAL,TOBY PENTY,"[[21, 11], [14, 21], [21, 13]]",50
+682,2014 INTERSPORT European Championships,4/24/2014,N/A,DMYTRO ZAVADSKY,KANAN RZAYEV,"[[21, 3], [21, 5]]",19
+683,2014 INTERSPORT European Championships,4/24/2014,N/A,RAJIV OUSEPH,ANTON IVANOV,"[[21, 6], [21, 14]]",25
+684,2014 INTERSPORT European Championships,4/24/2014,N/A,LUCAS CORVEE,MICHAEL LAHNSTEINER,"[[26, 24], [20, 22], [21, 14]]",62
+685,2014 INTERSPORT European Championships,4/24/2014,N/A,HANS-KRISTIAN VITTINGHUS,MISHA ZILBERMAN,"[[21, 13], [21, 13]]",35
+686,2014 INTERSPORT European Championships,4/24/2014,N/A,PABLO ABIAN,BLAGOVEST KISYOV,"[[21, 14], [21, 18]]",30
+687,2014 INTERSPORT European Championships,4/24/2014,N/A,ERIC PANG,GIOVANNI GRECO,"[[21, 11], [13, 21], [21, 9]]",39
+688,2014 INTERSPORT European Championships,4/24/2014,N/A,MAXIME MOREELS,JAROLIM VICEN,"[[23, 21], [21, 19]]",39
+689,2014 INTERSPORT European Championships,4/24/2014,N/A,VLADIMIR IVANOV,MARC ZWIEBLER,"[[21, 14], [24, 22]]",37
+690,Badminton Asia Championships 2014,4/24/2014,11:45 AM,WEI NAN,LEE DONG KEUN,"[[21, 8], [21, 17]]",45
+691,Badminton Asia Championships 2014,4/24/2014,12:30 PM,LIN DAN,PHAM CAO CUONG,"[[21, 13], [21, 4]]",30
+692,Badminton Asia Championships 2014,4/24/2014,1:15 PM,LIU KAI,WONG ZI LIANG DEREK,"[[21, 14], [16, 21], [21, 14]]",60
+693,Badminton Asia Championships 2014,4/24/2014,2:00 PM,R M V GURUSAIDUTT,WANG TZU WEI,"[[17, 21], [21, 13], [21, 19]]",60
+694,Badminton Asia Championships 2014,4/24/2014,2:45 PM,HSU JEN HAO,PARUPALLI KASHYAP,"[[25, 23], [21, 17]]",60
+695,Badminton Asia Championships 2014,4/24/2014,2:45 PM,HWANG JONG SOO,HUANG CHAO,"[[21, 19], [21, 4]]",39
+696,Badminton Asia Championships 2014,4/24/2014,3:30 PM,SONG XUE,PARK SUNG MIN,"[[21, 8], [21, 15]]",45
+697,Badminton Asia Championships 2014,4/24/2014,4:15 PM,SASAKI SHO,SON WAN HO,"[[21, 18], [21, 13]]",57
+698,2014 INTERSPORT European Championships,4/25/2014,N/A,JAN O JORGENSEN,BRICE LEVERDEZ,"[[21, 14], [19, 21], [21, 12]]",52
+699,2014 INTERSPORT European Championships,4/25/2014,N/A,VIKTOR AXELSEN,VLADIMIR MALKOV,"[[21, 9], [21, 18]]",33
+700,2014 INTERSPORT European Championships,4/25/2014,N/A,RAJIV OUSEPH,HANS-KRISTIAN VITTINGHUS,"[[15, 21], [21, 15], [21, 11]]",46
+701,2014 INTERSPORT European Championships,4/25/2014,N/A,VLADIMIR IVANOV,ERIC PANG,"[[21, 15], [21, 9]]",30
+702,Badminton Asia Championships 2014,4/25/2014,N/A,LIN DAN,WEI NAN,"[[21, 10], [21, 7]]",34
+703,Badminton Asia Championships 2014,4/25/2014,1:00 PM,LIU KAI,R M V GURUSAIDUTT,"[[22, 24], [21, 9], [21, 13]]",60
+704,Badminton Asia Championships 2014,4/25/2014,3:30 PM,HWANG JONG SOO,HSU JEN HAO,"[[21, 14], [21, 19]]",54
+705,Badminton Asia Championships 2014,4/25/2014,5:10 PM,SASAKI SHO,SONG XUE,"[[16, 21], [21, 11], [21, 19]]",70
+706,2014 INTERSPORT European Championships,4/26/2014,N/A,JAN O JORGENSEN,VIKTOR AXELSEN,"[[21, 11], [21, 13]]",29
+707,2014 INTERSPORT European Championships,4/26/2014,N/A,RAJIV OUSEPH,VLADIMIR IVANOV,"[[25, 23], [13, 21], [21, 8]]",45
+708,Badminton Asia Championships 2014,4/26/2014,N/A,LIN DAN,LIU KAI,"[[21, 14], [21, 13]]",27
+709,Badminton Asia Championships 2014,4/26/2014,N/A,SASAKI SHO,HWANG JONG SOO,"[[21, 13], [21, 15]]",55
+710,2014 INTERSPORT European Championships,4/27/2014,N/A,JAN O JORGENSEN,RAJIV OUSEPH,"[[21, 18], [21, 10]]",33
+711,Badminton Asia Championships 2014,4/27/2014,N/A,LIN DAN,SASAKI SHO,"[[14, 21], [21, 9], [21, 15]]",66
 712,Yonex Japan Open,6/10/2014,10:35 AM,AKIRA KOGA,LIN YU HSIEN,"[[21, 15], [25, 23]]",39
 713,Yonex Japan Open,6/10/2014,11:10 AM,LIN DAN,KAZUMASA SAKAI,"[[12, 21], [21, 19], [21, 7]]",62
 714,Yonex Japan Open,6/10/2014,11:10 AM,KENTA NISHIMOTO,VLADIMIR MALKOV,"[[21, 15], [21, 12]]",40
@@ -1093,30 +1093,30 @@ Count,Tournament,Date,Time,Winner,Loser,Points,Duration
 1092,Russian Open Grand Prix 2014,7/25/2014,1:15 PM,VLADIMIR MALKOV,B. SAI PRANEETH,"[[23, 21], [21, 17]]",42
 1093,Russian Open Grand Prix 2014,7/26/2014,N/A,VLADIMIR IVANOV,KAZUMASA SAKAI,"[[21, 11], [22, 20]]",31
 1094,Russian Open Grand Prix 2014,7/26/2014,N/A,RIICHI TAKESHITA,VLADIMIR MALKOV,"[[21, 16], [21, 19]]",38
-1095,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,MAXIME TETREAULT,CHETAN POTU,"[[21, 19], [20, 22], [22, 20]]",57
-1096,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,CHEN YANG,PHILIPPE GAUMOND,"[[21, 13], [21, 18]]",20
-1097,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,LUIS DOS SANTOS,RUPINDER SINGH,"[[15, 21], [21, 18], [21, 11]]",35
-1098,13th  World University Badminton Championship-Individual Event,7/27/2014,10:05 AM,HONGJE LEE,GORDEI KOSENKO,"[[17, 21], [21, 11], [21, 11]]",33
-1099,13th  World University Badminton Championship-Individual Event,7/27/2014,10:05 AM,KENTO HORIUCHI,KASUN GAYANTHA LOKUGAMAGE,"[[21, 5], [21, 12]]",13
-1100,13th  World University Badminton Championship-Individual Event,7/27/2014,10:30 AM,FELIX DEBLOIS-BEAUCAGE,ASANKA GAYAN BANDARA,"[[21, 6], [21, 10]]",15
-1101,13th  World University Badminton Championship-Individual Event,7/27/2014,11:30 AM,SOLGYU CHOI,ANDREY DOLOTOV,"[[18, 21], [22, 20], [21, 14]]",59
-1102,13th  World University Badminton Championship-Individual Event,7/27/2014,11:35 AM,ERIC VUONG,SAHADEN KHADKA,"[[21, 11], [12, 4]]",30
-1103,13th  World University Badminton Championship-Individual Event,7/27/2014,1:35 PM,JEN-HAO HSU,KAWALDEEP SINGH,"[[21, 16], [21, 6]]",30
-1104,13th  World University Badminton Championship-Individual Event,7/27/2014,1:35 PM,MAXIME TETREAULT,JEAN CHRISTOPHER PAUL,"[[21, 17], [15, 21], [21, 13]]",44
-1105,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,KENTA NISHIMOTO,MUDIYANSELAGE CHAMIL GYAN WIJERATHNA,"[[21, 9], [21, 8]]",20
-1106,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,MICHAŁ ROGALSKI,CHRISTIAN KIRCHMAYR,"[[15, 21], [21, 12], [21, 9]]",40
-1107,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,CHEN YANG,JAEUK JEONG,"[[15, 21], [21, 17], [21, 14]]",38
-1108,13th  World University Badminton Championship-Individual Event,7/27/2014,2:05 PM,KAI SCHAEFER,LUIS DOS SANTOS,"[[21, 8], [21, 10]]",35
-1109,13th  World University Badminton Championship-Individual Event,7/27/2014,2:05 PM,KENTO HORIUCHI,FLORIAN SCHMID,"[[21, 13], [21, 10]]",19
-1110,13th  World University Badminton Championship-Individual Event,7/27/2014,2:30 PM,HONGJE LEE,SITTHIKOM THAMMASIN,"[[22, 20], [21, 17]]",41
-1111,13th  World University Badminton Championship-Individual Event,7/27/2014,2:30 PM,MOHAMAD ARIF AB LATIF,YU-HSIEN LIN,"[[21, 12], [21, 14]]",23
-1112,13th  World University Badminton Championship-Individual Event,7/27/2014,2:35 PM,VICTOR VEJO,ERIC VUONG,"[[21, 16], [21, 15]]",23
-1113,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,SOLGYU CHOI,LEONARDO ALKIMIN,"[[21, 6], [21, 6]]",12
-1114,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,KETAN CHAHAL,FELIX DEBLOIS-BEAUCAGE,"[[21, 11], [21, 11]]",22
-1115,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,ADRIAN DZIÓŁKO,ARSENIY FISTIN,"[[21, 9], [21, 8]]",15
-1116,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,CHRISTOPH HEINIGER,ADRIAN CORRALES,"[[21, 16], [21, 16]]",29
-1117,13th  World University Badminton Championship-Individual Event,7/27/2014,3:05 PM,HUAN GAO,AKIRA KOGA,"[[21, 11], [21, 12]]",28
-1118,Russian Open Grand Prix 2014,7/27/2014,N/A,VLADIMIR IVANOV,RIICHI TAKESHITA,"[[18, 21], [21, 5], [21, 17]]",51
+1095,Russian Open Grand Prix 2014,7/27/2014,N/A,VLADIMIR IVANOV,RIICHI TAKESHITA,"[[18, 21], [21, 5], [21, 17]]",51
+1096,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,MAXIME TETREAULT,CHETAN POTU,"[[21, 19], [20, 22], [22, 20]]",57
+1097,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,CHEN YANG,PHILIPPE GAUMOND,"[[21, 13], [21, 18]]",20
+1098,13th  World University Badminton Championship-Individual Event,7/27/2014,10:00 AM,LUIS DOS SANTOS,RUPINDER SINGH,"[[15, 21], [21, 18], [21, 11]]",35
+1099,13th  World University Badminton Championship-Individual Event,7/27/2014,10:05 AM,HONGJE LEE,GORDEI KOSENKO,"[[17, 21], [21, 11], [21, 11]]",33
+1100,13th  World University Badminton Championship-Individual Event,7/27/2014,10:05 AM,KENTO HORIUCHI,KASUN GAYANTHA LOKUGAMAGE,"[[21, 5], [21, 12]]",13
+1101,13th  World University Badminton Championship-Individual Event,7/27/2014,10:30 AM,FELIX DEBLOIS-BEAUCAGE,ASANKA GAYAN BANDARA,"[[21, 6], [21, 10]]",15
+1102,13th  World University Badminton Championship-Individual Event,7/27/2014,11:30 AM,SOLGYU CHOI,ANDREY DOLOTOV,"[[18, 21], [22, 20], [21, 14]]",59
+1103,13th  World University Badminton Championship-Individual Event,7/27/2014,11:35 AM,ERIC VUONG,SAHADEN KHADKA,"[[21, 11], [12, 4]]",30
+1104,13th  World University Badminton Championship-Individual Event,7/27/2014,1:35 PM,JEN-HAO HSU,KAWALDEEP SINGH,"[[21, 16], [21, 6]]",30
+1105,13th  World University Badminton Championship-Individual Event,7/27/2014,1:35 PM,MAXIME TETREAULT,JEAN CHRISTOPHER PAUL,"[[21, 17], [15, 21], [21, 13]]",44
+1106,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,KENTA NISHIMOTO,MUDIYANSELAGE CHAMIL GYAN WIJERATHNA,"[[21, 9], [21, 8]]",20
+1107,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,MICHAŁ ROGALSKI,CHRISTIAN KIRCHMAYR,"[[15, 21], [21, 12], [21, 9]]",40
+1108,13th  World University Badminton Championship-Individual Event,7/27/2014,2:00 PM,CHEN YANG,JAEUK JEONG,"[[15, 21], [21, 17], [21, 14]]",38
+1109,13th  World University Badminton Championship-Individual Event,7/27/2014,2:05 PM,KAI SCHAEFER,LUIS DOS SANTOS,"[[21, 8], [21, 10]]",35
+1110,13th  World University Badminton Championship-Individual Event,7/27/2014,2:05 PM,KENTO HORIUCHI,FLORIAN SCHMID,"[[21, 13], [21, 10]]",19
+1111,13th  World University Badminton Championship-Individual Event,7/27/2014,2:30 PM,HONGJE LEE,SITTHIKOM THAMMASIN,"[[22, 20], [21, 17]]",41
+1112,13th  World University Badminton Championship-Individual Event,7/27/2014,2:30 PM,MOHAMAD ARIF AB LATIF,YU-HSIEN LIN,"[[21, 12], [21, 14]]",23
+1113,13th  World University Badminton Championship-Individual Event,7/27/2014,2:35 PM,VICTOR VEJO,ERIC VUONG,"[[21, 16], [21, 15]]",23
+1114,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,SOLGYU CHOI,LEONARDO ALKIMIN,"[[21, 6], [21, 6]]",12
+1115,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,KETAN CHAHAL,FELIX DEBLOIS-BEAUCAGE,"[[21, 11], [21, 11]]",22
+1116,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,ADRIAN DZIÓŁKO,ARSENIY FISTIN,"[[21, 9], [21, 8]]",15
+1117,13th  World University Badminton Championship-Individual Event,7/27/2014,3:00 PM,CHRISTOPH HEINIGER,ADRIAN CORRALES,"[[21, 16], [21, 16]]",29
+1118,13th  World University Badminton Championship-Individual Event,7/27/2014,3:05 PM,HUAN GAO,AKIRA KOGA,"[[21, 11], [21, 12]]",28
 1119,13th  World University Badminton Championship-Individual Event,7/28/2014,N/A,JEN-HAO HSU,SOLGYU CHOI,"[[21, 18], [21, 16]]",33
 1120,13th  World University Badminton Championship-Individual Event,7/28/2014,N/A,ISKANDAR ZULKARNAIN ZAINUDDIN,MICHAŁ ROGALSKI,"[[21, 8], [21, 6]]",20
 1121,13th  World University Badminton Championship-Individual Event,7/28/2014,N/A,MOHAMAD ARIF AB LATIF,HONGJE LEE,"[[21, 17], [21, 12]]",27
@@ -1464,53 +1464,53 @@ Count,Tournament,Date,Time,Winner,Loser,Points,Duration
 1463,Yonex Denmark Open,10/15/2014,7:30 PM,JAN O JORGENSEN,MARC ZWIEBLER,"[[21, 11], [21, 16]]",34
 1464,Yonex Denmark Open,10/15/2014,8:15 PM,BRICE LEVERDEZ,HANS-KRISTIAN VITTINGHUS,"[[24, 22], [16, 21], [21, 18]]",69
 1465,Yonex Denmark Open,10/15/2014,9:00 PM,LIN DAN,CHOU TIEN CHEN,"[[22, 20], [10, 21], [21, 18]]",70
-1466,Yonex Denmark Open,10/16/2014,N/A,K. SRIKANTH,HSU JEN HAO,"[[21, 15], [21, 12]]",44
-1467,Yonex Denmark Open,10/16/2014,N/A,SON WAN HO,KENTO MOMOTA,"[[22, 20], [12, 21], [21, 16]]",75
-1468,Yonex Denmark Open,10/16/2014,N/A,BOONSAK PONSANA,LEE DONG KEUN,"[[21, 17], [21, 12]]",48
-1469,Yonex Denmark Open,10/16/2014,N/A,TIAN HOUWEI,TIEN MINH NGUYEN,"[[21, 16], [21, 13]]",41
-1470,Yonex Denmark Open,10/16/2014,N/A,PARUPALLI KASHYAP,DIONYSIUS HAYOM RUMBAKA,"[[21, 17], [17, 21], [22, 20]]",70
-1471,Yonex Denmark Open,10/16/2014,N/A,BRICE LEVERDEZ,YUEKUN CHEN,"[[21, 19], [21, 16]]",43
-1472,Yonex Denmark Open,10/16/2014,N/A,CHEN LONG,TANONGSAK SAENSOMBOONSUK,"[[16, 21], [21, 19], [21, 19]]",68
-1473,XIX Pan American Badminton Championships 2014,10/16/2014,10:00 AM,ALBERTO RAPOSO,IGOR IBRAHIM,"[[21, 13], [21, 18]]",30
-1474,XIX Pan American Badminton Championships 2014,10/16/2014,10:00 AM,ANDRES CORPANCHO,LUKE COUTURE,"[[21, 17], [21, 3]]",27
-1475,XIX Pan American Badminton Championships 2014,10/16/2014,10:15 AM,JOB CASTILLO,CHARLES PYNE,"[[21, 16], [21, 11]]",35
-1476,XIX Pan American Badminton Championships 2014,10/16/2014,11:45 AM,HOWARD SHU,HUMBLERS HEYMARD,"[[21, 14], [21, 18]]",39
-1477,XIX Pan American Badminton Championships 2014,10/16/2014,6:00 PM,MARIO CUBA,FEDERICO DIAZ,"[[21, 10], [21, 13]]",25
-1478,XIX Pan American Badminton Championships 2014,10/16/2014,6:00 PM,MARTIN GIUFFRE,ALBERTO RAPOSO,"[[21, 8], [21, 16]]",23
-1479,XIX Pan American Badminton Championships 2014,10/16/2014,6:15 PM,DANIEL PAIOLA,NICHOLAS BONKOWSKY,"[[21, 7], [21, 11]]",20
-1480,XIX Pan American Badminton Championships 2014,10/16/2014,6:15 PM,SERGIY SHATENKO,PABLO MACAGNO,"[[21, 8], [21, 11]]",21
-1481,XIX Pan American Badminton Championships 2014,10/16/2014,6:45 PM,OSLENI GUERRERO,MATTHEW LEE,"[[21, 8], [21, 6]]",20
-1482,XIX Pan American Badminton Championships 2014,10/16/2014,7:00 PM,KEVIN CORDON,ANTONIO OCEGUEDA,"[[21, 15], [21, 9]]",25
-1483,XIX Pan American Badminton Championships 2014,10/16/2014,7:15 PM,JOSEPH ROGERS,RUBEN CASTELLANOS,"[[21, 14], [21, 18]]",31
-1484,XIX Pan American Badminton Championships 2014,10/16/2014,7:45 PM,ALEX YUWAN TJONG,GABRIEL GANDARA,"[[21, 9], [21, 7]]",19
-1485,XIX Pan American Badminton Championships 2014,10/16/2014,7:45 PM,JOB CASTILLO,GARETH HENRY,"[[21, 19], [20, 22], [21, 9]]",58
-1486,XIX Pan American Badminton Championships 2014,10/16/2014,8:00 PM,ANDRES CORPANCHO,DIEGO TERAN,"[[21, 8], [21, 11]]",17
-1487,XIX Pan American Badminton Championships 2014,10/16/2014,8:00 PM,RODOLFO RAMIREZ,MATHEW FOGARTY,"[[21, 9], [21, 6]]",21
-1488,XIX Pan American Badminton Championships 2014,10/16/2014,8:30 PM,BJORN SEGUIN,STEFAN WOJCIKIEWICZ,"[[15, 21], [21, 19], [21, 15]]",64
-1489,XIX Pan American Badminton Championships 2014,10/16/2014,8:45 PM,ANDREW D'SOUZA,LINO MUNOZ,"[[13, 21], [21, 13], [21, 12]]",47
-1490,XIX Pan American Badminton Championships 2014,10/16/2014,8:45 PM,SATTAWAT PONGNAIRAT,SEBASTIAN MACIAS,"[[21, 9], [21, 4]]",21
-1491,Yonex Denmark Open,10/17/2014,N/A,SON WAN HO,K. SRIKANTH,"[[23, 21], [21, 17]]",45
-1492,Yonex Denmark Open,10/17/2014,N/A,TIAN HOUWEI,BOONSAK PONSANA,"[[21, 12], [21, 19]]",40
-1493,Yonex Denmark Open,10/17/2014,N/A,PARUPALLI KASHYAP,JAN O JORGENSEN,"[[21, 19], [21, 15]]",42
-1494,Yonex Denmark Open,10/17/2014,N/A,CHEN LONG,BRICE LEVERDEZ,"[[21, 9], [21, 7]]",37
-1495,XIX Pan American Badminton Championships 2014,10/17/2014,6:00 PM,HOWARD SHU,JOSEPH ROGERS,"[[21, 15], [21, 9]]",30
-1496,XIX Pan American Badminton Championships 2014,10/17/2014,6:15 PM,JOB CASTILLO,ALEX YUWAN TJONG,"[[21, 16], [21, 13]]",40
-1497,XIX Pan American Badminton Championships 2014,10/17/2014,6:45 PM,RODOLFO RAMIREZ,ANDRES CORPANCHO,"[[17, 21], [21, 16], [21, 5]]",40
-1498,XIX Pan American Badminton Championships 2014,10/17/2014,7:00 PM,OSLENI GUERRERO,MARIO CUBA,"[[21, 10], [21, 13]]",30
-1499,XIX Pan American Badminton Championships 2014,10/17/2014,7:00 PM,ANDREW D'SOUZA,SATTAWAT PONGNAIRAT,"[[21, 19], [21, 16]]",35
-1500,XIX Pan American Badminton Championships 2014,10/17/2014,7:15 PM,DANIEL PAIOLA,NELSON JAVIER,"[[21, 17], [21, 11]]",35
-1501,XIX Pan American Badminton Championships 2014,10/17/2014,7:30 PM,KEVIN CORDON,MARTIN GIUFFRE,"[[21, 17], [21, 9]]",33
-1502,XIX Pan American Badminton Championships 2014,10/17/2014,7:45 PM,BJORN SEGUIN,SERGIY SHATENKO,"[[14, 21], [21, 15], [21, 16]]",54
-1503,Yonex Denmark Open,10/18/2014,N/A,SON WAN HO,TIAN HOUWEI,"[[21, 17], [21, 9]]",40
-1504,Yonex Denmark Open,10/18/2014,N/A,CHEN LONG,PARUPALLI KASHYAP,"[[21, 16], [21, 15]]",45
-1505,XIX Pan American Badminton Championships 2014,10/18/2014,N/A,OSLENI GUERRERO,HOWARD SHU,"[[21, 14], [21, 14]]",37
-1506,XIX Pan American Badminton Championships 2014,10/18/2014,N/A,BJORN SEGUIN,DANIEL PAIOLA,"[[23, 21], [21, 15]]",44
-1507,XIX Pan American Badminton Championships 2014,10/18/2014,10:00 AM,DANIEL PAIOLA,RODOLFO RAMIREZ,"[[17, 21], [21, 12], [21, 13]]",54
-1508,XIX Pan American Badminton Championships 2014,10/18/2014,10:00 AM,BJORN SEGUIN,ANDREW D'SOUZA,"[[21, 19], [18, 21], [21, 13]]",51
-1509,XIX Pan American Badminton Championships 2014,10/18/2014,10:35 AM,OSLENI GUERRERO,KEVIN CORDON,"[[21, 13], [25, 23]]",38
-1510,XIX Pan American Badminton Championships 2014,10/18/2014,10:35 AM,HOWARD SHU,JOB CASTILLO,"[[15, 21], [21, 8], [22, 20]]",59
-1511,Yonex Denmark Open,10/19/2014,N/A,CHEN LONG,SON WAN HO,"[[21, 19], [24, 22]]",66
-1512,XIX Pan American Badminton Championships 2014,10/19/2014,N/A,OSLENI GUERRERO,BJORN SEGUIN,"[[19, 21], [21, 14], [21, 13]]",58
+1466,XIX Pan American Badminton Championships 2014,10/16/2014,10:00 AM,ALBERTO RAPOSO,IGOR IBRAHIM,"[[21, 13], [21, 18]]",30
+1467,XIX Pan American Badminton Championships 2014,10/16/2014,10:00 AM,ANDRES CORPANCHO,LUKE COUTURE,"[[21, 17], [21, 3]]",27
+1468,XIX Pan American Badminton Championships 2014,10/16/2014,10:15 AM,JOB CASTILLO,CHARLES PYNE,"[[21, 16], [21, 11]]",35
+1469,XIX Pan American Badminton Championships 2014,10/16/2014,11:45 AM,HOWARD SHU,HUMBLERS HEYMARD,"[[21, 14], [21, 18]]",39
+1470,XIX Pan American Badminton Championships 2014,10/16/2014,6:00 PM,MARIO CUBA,FEDERICO DIAZ,"[[21, 10], [21, 13]]",25
+1471,XIX Pan American Badminton Championships 2014,10/16/2014,6:00 PM,MARTIN GIUFFRE,ALBERTO RAPOSO,"[[21, 8], [21, 16]]",23
+1472,XIX Pan American Badminton Championships 2014,10/16/2014,6:15 PM,DANIEL PAIOLA,NICHOLAS BONKOWSKY,"[[21, 7], [21, 11]]",20
+1473,XIX Pan American Badminton Championships 2014,10/16/2014,6:15 PM,SERGIY SHATENKO,PABLO MACAGNO,"[[21, 8], [21, 11]]",21
+1474,XIX Pan American Badminton Championships 2014,10/16/2014,6:45 PM,OSLENI GUERRERO,MATTHEW LEE,"[[21, 8], [21, 6]]",20
+1475,XIX Pan American Badminton Championships 2014,10/16/2014,7:00 PM,KEVIN CORDON,ANTONIO OCEGUEDA,"[[21, 15], [21, 9]]",25
+1476,XIX Pan American Badminton Championships 2014,10/16/2014,7:15 PM,JOSEPH ROGERS,RUBEN CASTELLANOS,"[[21, 14], [21, 18]]",31
+1477,XIX Pan American Badminton Championships 2014,10/16/2014,7:45 PM,ALEX YUWAN TJONG,GABRIEL GANDARA,"[[21, 9], [21, 7]]",19
+1478,XIX Pan American Badminton Championships 2014,10/16/2014,7:45 PM,JOB CASTILLO,GARETH HENRY,"[[21, 19], [20, 22], [21, 9]]",58
+1479,XIX Pan American Badminton Championships 2014,10/16/2014,8:00 PM,ANDRES CORPANCHO,DIEGO TERAN,"[[21, 8], [21, 11]]",17
+1480,XIX Pan American Badminton Championships 2014,10/16/2014,8:00 PM,RODOLFO RAMIREZ,MATHEW FOGARTY,"[[21, 9], [21, 6]]",21
+1481,XIX Pan American Badminton Championships 2014,10/16/2014,8:30 PM,BJORN SEGUIN,STEFAN WOJCIKIEWICZ,"[[15, 21], [21, 19], [21, 15]]",64
+1482,XIX Pan American Badminton Championships 2014,10/16/2014,8:45 PM,ANDREW D'SOUZA,LINO MUNOZ,"[[13, 21], [21, 13], [21, 12]]",47
+1483,XIX Pan American Badminton Championships 2014,10/16/2014,8:45 PM,SATTAWAT PONGNAIRAT,SEBASTIAN MACIAS,"[[21, 9], [21, 4]]",21
+1484,Yonex Denmark Open,10/16/2014,N/A,K. SRIKANTH,HSU JEN HAO,"[[21, 15], [21, 12]]",44
+1485,Yonex Denmark Open,10/16/2014,N/A,SON WAN HO,KENTO MOMOTA,"[[22, 20], [12, 21], [21, 16]]",75
+1486,Yonex Denmark Open,10/16/2014,N/A,BOONSAK PONSANA,LEE DONG KEUN,"[[21, 17], [21, 12]]",48
+1487,Yonex Denmark Open,10/16/2014,N/A,TIAN HOUWEI,TIEN MINH NGUYEN,"[[21, 16], [21, 13]]",41
+1488,Yonex Denmark Open,10/16/2014,N/A,PARUPALLI KASHYAP,DIONYSIUS HAYOM RUMBAKA,"[[21, 17], [17, 21], [22, 20]]",70
+1489,Yonex Denmark Open,10/16/2014,N/A,BRICE LEVERDEZ,YUEKUN CHEN,"[[21, 19], [21, 16]]",43
+1490,Yonex Denmark Open,10/16/2014,N/A,CHEN LONG,TANONGSAK SAENSOMBOONSUK,"[[16, 21], [21, 19], [21, 19]]",68
+1491,XIX Pan American Badminton Championships 2014,10/17/2014,6:00 PM,HOWARD SHU,JOSEPH ROGERS,"[[21, 15], [21, 9]]",30
+1492,XIX Pan American Badminton Championships 2014,10/17/2014,6:15 PM,JOB CASTILLO,ALEX YUWAN TJONG,"[[21, 16], [21, 13]]",40
+1493,XIX Pan American Badminton Championships 2014,10/17/2014,6:45 PM,RODOLFO RAMIREZ,ANDRES CORPANCHO,"[[17, 21], [21, 16], [21, 5]]",40
+1494,XIX Pan American Badminton Championships 2014,10/17/2014,7:00 PM,OSLENI GUERRERO,MARIO CUBA,"[[21, 10], [21, 13]]",30
+1495,XIX Pan American Badminton Championships 2014,10/17/2014,7:00 PM,ANDREW D'SOUZA,SATTAWAT PONGNAIRAT,"[[21, 19], [21, 16]]",35
+1496,XIX Pan American Badminton Championships 2014,10/17/2014,7:15 PM,DANIEL PAIOLA,NELSON JAVIER,"[[21, 17], [21, 11]]",35
+1497,XIX Pan American Badminton Championships 2014,10/17/2014,7:30 PM,KEVIN CORDON,MARTIN GIUFFRE,"[[21, 17], [21, 9]]",33
+1498,XIX Pan American Badminton Championships 2014,10/17/2014,7:45 PM,BJORN SEGUIN,SERGIY SHATENKO,"[[14, 21], [21, 15], [21, 16]]",54
+1499,Yonex Denmark Open,10/17/2014,N/A,SON WAN HO,K. SRIKANTH,"[[23, 21], [21, 17]]",45
+1500,Yonex Denmark Open,10/17/2014,N/A,TIAN HOUWEI,BOONSAK PONSANA,"[[21, 12], [21, 19]]",40
+1501,Yonex Denmark Open,10/17/2014,N/A,PARUPALLI KASHYAP,JAN O JORGENSEN,"[[21, 19], [21, 15]]",42
+1502,Yonex Denmark Open,10/17/2014,N/A,CHEN LONG,BRICE LEVERDEZ,"[[21, 9], [21, 7]]",37
+1503,XIX Pan American Badminton Championships 2014,10/18/2014,N/A,OSLENI GUERRERO,HOWARD SHU,"[[21, 14], [21, 14]]",37
+1504,XIX Pan American Badminton Championships 2014,10/18/2014,N/A,BJORN SEGUIN,DANIEL PAIOLA,"[[23, 21], [21, 15]]",44
+1505,XIX Pan American Badminton Championships 2014,10/18/2014,10:00 AM,DANIEL PAIOLA,RODOLFO RAMIREZ,"[[17, 21], [21, 12], [21, 13]]",54
+1506,XIX Pan American Badminton Championships 2014,10/18/2014,10:00 AM,BJORN SEGUIN,ANDREW D'SOUZA,"[[21, 19], [18, 21], [21, 13]]",51
+1507,XIX Pan American Badminton Championships 2014,10/18/2014,10:35 AM,OSLENI GUERRERO,KEVIN CORDON,"[[21, 13], [25, 23]]",38
+1508,XIX Pan American Badminton Championships 2014,10/18/2014,10:35 AM,HOWARD SHU,JOB CASTILLO,"[[15, 21], [21, 8], [22, 20]]",59
+1509,Yonex Denmark Open,10/18/2014,N/A,SON WAN HO,TIAN HOUWEI,"[[21, 17], [21, 9]]",40
+1510,Yonex Denmark Open,10/18/2014,N/A,CHEN LONG,PARUPALLI KASHYAP,"[[21, 16], [21, 15]]",45
+1511,XIX Pan American Badminton Championships 2014,10/19/2014,N/A,OSLENI GUERRERO,BJORN SEGUIN,"[[19, 21], [21, 14], [21, 13]]",58
+1512,Yonex Denmark Open,10/19/2014,N/A,CHEN LONG,SON WAN HO,"[[21, 19], [24, 22]]",66
 1513,Yonex French Open,10/21/2014,10:20 AM,RAUL MUST,LUCAS CORVEE,"[[21, 19], [21, 17]]",43
 1514,Yonex French Open,10/21/2014,10:20 AM,DMYTRO ZAVADSKY,ANDRE KURNIAWAN TEDJONO,"[[17, 21], [23, 21], [21, 10]]",67
 1515,Yonex French Open,10/21/2014,11:00 AM,CHEN YUEKUN,VILLE LANG,"[[19, 21], [21, 13], [21, 14]]",44
