@@ -2,7 +2,7 @@ import csv
 import asyncio
 from re import match
 import timeit
-from scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer, Match
+from .scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer, Match
 
 ####### START OF SCRIPT ########
 
@@ -14,6 +14,15 @@ class BwfScraper:
         self.tournament_list = {}
         self.match_list = []
         self.player_list = []
+
+    def get_tournament_list(self):
+        return self.tournament_list
+
+    def get_match_list(self):
+        return self.match_list
+
+    def get_player_list(self):
+        return self.player_list
 
     def scrape_tournaments(self):
         print("Started scraping tournaments...")
