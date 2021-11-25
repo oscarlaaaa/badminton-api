@@ -1,5 +1,7 @@
 ## Code taken from: https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
 
+import os
+
 class ProgressBar:
 
     def __init__(self, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '@', printEnd = "\r"):
@@ -25,6 +27,8 @@ class ProgressBar:
             fill        - Optional  : bar fill character (Str)
             printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
         """
+        os.system('cls')
+
         percent = ("{0:." + str(self.decimals) + "f}").format(100 * (self.count / float(self.total)))
         filledLength = int(self.length * self.count // self.total)
         bar = self.fill * filledLength + '-' * (self.length - filledLength)
