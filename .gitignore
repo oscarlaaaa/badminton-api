@@ -133,6 +133,5 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
 
-
-.scraped_matches.csv
-.scraped_players.csv
+*.csv
+!scraping.csv
