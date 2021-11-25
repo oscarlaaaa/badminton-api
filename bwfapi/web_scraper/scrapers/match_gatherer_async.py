@@ -24,7 +24,8 @@ class AsyncMatchGatherer:
         self.event = event
         self.tournament_list = tournament_list
 
-        self.player_list = set()
+        self.player_list = []
+        self.seen_players = set()
 
     def get_event(self):
         return self.event
@@ -111,8 +112,18 @@ class AsyncMatchGatherer:
 
         winner = self.clean_name_formatting(players[0])
         loser = self.clean_name_formatting(players[1])
-        self.player_list.add(winner)
-        self.player_list.add(loser)
+
+        flags = [flag['title'] for flag in match_row.find_all('img', class_="intext flag")]
+
+        if winner not in self.seen_players and len(flags) == 2:
+            self.seen_players.add(winner)
+            self.player_list.append({"name": winner, "country": flags[0]})
+
+        if loser not in self.seen_players and len(flags) == 2:
+            self.seen_players.add(loser)
+            self.player_list.append({"name": loser, "country": flags[1]})
+        
+        
 
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
 
