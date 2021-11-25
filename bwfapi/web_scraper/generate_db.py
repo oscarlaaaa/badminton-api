@@ -1,9 +1,10 @@
 from flask_mysqldb import MySQL
+from decouple import config
 
 def set_db_login_credentials(app):
-    app.config['MYSQL_HOST'] = 'localhost'
-    app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_DB'] = 'bwf_api'
+    app.config['MYSQL_HOST'] = config('MYSQL_HOST')
+    app.config['MYSQL_USER'] = config('MYSQL_USER')
+    app.config['MYSQL_DB'] = config('MYSQL_DB')
     return MySQL(app)
 
 def initialize_db(mysql):
