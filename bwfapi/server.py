@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from web_scraper import set_db_login_credentials, initialize_db, BwfScraper
+import asyncio
 
 
 app = Flask(__name__)
@@ -20,14 +21,13 @@ class Multi(Resource):
 
 class InitializeDB(Resource):
     def get(self):
-        initialize_db(mysql)
-        return {"about": "Hello World!"}
+        try:
+            initialize_db(mysql)
+            return {"database": "success"}
+        except:
+            return {"database": "ERROR!"}
 
-class Scrape(Resource):
-    def get(self, year, event):
-        scraper = BwfScraper(year, event)
-        t_time = scraper.scrape_tournaments()
-        m_time = scraper.scrape_matches()
+
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(Multi, '/multi/<int:num>')
