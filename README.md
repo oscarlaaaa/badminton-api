@@ -4,6 +4,8 @@
 A simple API that has scraped match data from tournamentsoftware.com stored in an SQL database, and can return the match history of a player from between
 2007 and present day as well as simple stats.
 
+Note: This project is not affiliated with BWF or Tournamentsoftware in any way, shape, or form and does not profit from the data gathered.
+
 ## How to Use
 1. Clone the repository onto a local machine
 2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
