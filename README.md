@@ -1,4 +1,4 @@
-# BWF Match-set API
+# BWF Match/Player API
 
 ## Overview
 A simple API that has scraped match data from tournamentsoftware.com stored in an SQL database, and can return the match history of a player from between
