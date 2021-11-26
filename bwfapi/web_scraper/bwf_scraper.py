@@ -1,8 +1,8 @@
 import csv
 import asyncio
-from re import match
+import enum
 import timeit
-from scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer, Match
+from scrapers import ProgressBar, TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
 
 class BwfScraper:
 
@@ -11,7 +11,7 @@ class BwfScraper:
         self.event = event
         self.tournament_list = {}
         self.match_list = []
-        self.player_list = []
+        self.player_links = []
 
     def get_tournament_list(self):
         return self.tournament_list
@@ -42,7 +42,7 @@ class BwfScraper:
 
     def scrape_matches(self):
         # Gathers matches from a set year of tournaments (async)
-        print("Started scraping matches async...")
+        print("Started scraping matches...")
         start_Amatch_scraping = timeit.default_timer()
 
         match_list = []
@@ -58,63 +58,28 @@ class BwfScraper:
         Amatch_time_elapsed = end_Amatch_scraping - start_Amatch_scraping
         print(f"Finished scraping {len(match_list)} matches async in {Amatch_time_elapsed} seconds.")
 
-        self.player_list = mg.get_player_list()
+        self.player_links = mg.get_player_links()
         self.match_list = match_list
 
         return {"count": len(match_list), "time": Amatch_time_elapsed}
 
-    def write_csv_headers(self, event, year):
-        with open(f'./bwfapi/web_scraper/db/players/{event}/{year}_scraped_players.csv', 'w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(["ID", "Player Name", "Country"])
+    def scrape_players(self):
+        print("Started scraping players...")
+        start_player_scraping = timeit.default_timer()
 
-        with open(f'./bwfapi/web_scraper/db/matches/{event}/{year}_scraped_matches.csv', 'w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(Match.get_header())
+        pg = PlayerGatherer(self.player_links)
+        asyncio.run(pg.grab_all_players())
 
-        with open(f'./bwfapi/web_scraper/db/tournaments/{year}_scraped_tournaments.csv', 'w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(["Year", "Tournament Name"])
+        end_player_scraping = timeit.default_timer()
+        player_list = pg.get_player_list()
 
-    def write_into_csv(self):
-        start_csv_writing = timeit.default_timer()
-        self.write_csv_headers(self.event, self.year)
-        csv_bar = ProgressBar(len(self.get_player_list()), prefix = 'Writing players into .csv', suffix = 'of data written.')
-        with open(f'./bwfapi/web_scraper/db/players/{self.event}/{self.year}_scraped_players.csv', 'a+', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            count = 1
+        player_time_elapsed = end_player_scraping - start_player_scraping
 
-            for player in self.get_player_list():
-                writer.writerow([count, player['name'], player['country']])
-                count = count + 1
-                csv_bar.printProgressBar()
+        self.player_list = player_list
 
-        csv_bar = ProgressBar(len(self.get_match_list()), prefix = 'Writing matches into .csv', suffix = 'of data written.')
-        with open(f'./bwfapi/web_scraper/db/matches/{self.event}/{self.year}_scraped_matches.csv', 'a+', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            count = 1
+        print(f"Finished scraping {len(self.player_list)} players async in {player_time_elapsed} seconds.")
+        return {"count": len(player_list), "time": player_time_elapsed}
 
-            for match in self.get_match_list():
-                writer.writerow(match.get_formatted_data(count))
-                count = count + 1
-                csv_bar.printProgressBar()
-        
-        csv_bar = ProgressBar(len(self.get_tournament_list()['links']), prefix = 'Writing tournament ids into .csv', suffix = 'of data written.')
-        with open(f'./bwfapi/web_scraper/db/tournaments/{self.year}_scraped_tournaments.csv', 'a+', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            count = 1
-
-            for tournament in self.get_tournament_list()['links']:
-                writer.writerow([count, self.get_tournament_list()['year'], tournament])
-                count = count + 1
-                csv_bar.printProgressBar()
-        
-        end_csv_writing = timeit.default_timer()
-        total_time = end_csv_writing - start_csv_writing
-
-        total_csv_lines = len(self.get_match_list()) + len(self.get_player_list()) + len(self.get_tournament_list())
-
-        return {"count": total_csv_lines, "time": total_time}
 
 def write_benchmark_headers():
      with open('./bwfapi/benchmarks/scraping.csv', 'w', newline='') as file:
@@ -125,17 +90,21 @@ def write_benchmark_headers():
 if __name__ == "__main__":
     write_benchmark_headers()
 
-    for i in range(2008, 2022):
+    for i in range(2008, 2009):
         scrape = BwfScraper(i, "MS")
         tournament_bm = scrape.scrape_tournaments()
         match_bm = scrape.scrape_matches()
-        time_bm = scrape.write_into_csv()
+        player_bm = scrape.scrape_players()
+
+        for k, v in scrape.player_list.items():
+            print(f"id: {v}")
+            print(f"name: {k}\n")
 
         with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([i, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
             writer.writerow([i, "Match Scrape", match_bm['count'], match_bm['time']])
-            writer.writerow([i, "CSV Write", time_bm['count'], time_bm['time']])
+            writer.writerow([i, "Player Scrape", player_bm['count'], player_bm['time']])
 
         
 

@@ -24,7 +24,7 @@ class AsyncMatchGatherer:
         self.event = event
         self.tournament_list = tournament_list
 
-        self.player_list = []
+        self.player_links = []
         self.seen_players = set()
 
     def get_event(self):
@@ -33,10 +33,10 @@ class AsyncMatchGatherer:
     def get_year(self):
         return self.year
 
-    def get_player_list(self):
-        return self.player_list
+    def get_player_links(self):
+        return self.player_links
 
-    def is_valid_event(event):
+    def is_valid_event(self, event):
         return event == "MS" or event == "WS"
 
     ## takes in a tournament id, and converts it into a link with all available draws
@@ -119,19 +119,23 @@ class AsyncMatchGatherer:
         if len(players) < self.PLAYERS_IN_ROW:
             return
 
+        # for player in match_row.find_all('a'):
+        #     if "player" in player['href']:
+        #         self.player_links.add(player['href'])
+
         winner = self.clean_name_formatting(players[0])
         loser = self.clean_name_formatting(players[1])
 
-        flags = [flag['title'] for flag in match_row.find_all('img', class_="intext flag")]
+        # flags = [flag['title'] for flag in match_row.find_all('img', class_="intext flag")]
 
-        if winner not in self.seen_players and len(flags) == 2:
+        links = [name['href'] for name in match_row.find_all('a') if "player" in name['href']]
+        if winner not in self.seen_players and len(links) == 2:
             self.seen_players.add(winner)
-            self.player_list.append({"name": winner, "country": flags[0]})
+            self.player_links.append(links[0])
 
-        if loser not in self.seen_players and len(flags) == 2:
+        if loser not in self.seen_players and len(links) == 2:
             self.seen_players.add(loser)
-            self.player_list.append({"name": loser, "country": flags[1]})
-        
+            self.player_links.append(links[1])
         
 
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
