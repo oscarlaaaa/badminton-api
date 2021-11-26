@@ -4,8 +4,6 @@ from re import match
 import timeit
 from scrapers import ProgressBar, TournamentGatherer, MatchGatherer, AsyncMatchGatherer, Match
 
-####### START OF SCRIPT ########
-
 class BwfScraper:
 
     def __init__(self, year, event):
@@ -126,7 +124,6 @@ def write_benchmark_headers():
 ############### BENCHMARKING SECTION #################
 if __name__ == "__main__":
     write_benchmark_headers()
-
 
     for i in range(2008, 2022):
         scrape = BwfScraper(i, "MS")

@@ -1,8 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from web_scraper import set_db_login_credentials, initialize_db, BwfScraper
-import asyncio
-
 
 app = Flask(__name__)
 api = Api(app)
@@ -26,8 +24,6 @@ class InitializeDB(Resource):
             return {"database": "success"}
         except:
             return {"database": "ERROR!"}
-
-
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(Multi, '/multi/<int:num>')
