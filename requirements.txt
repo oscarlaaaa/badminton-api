@@ -24,7 +24,8 @@ Jinja2
 lxml              
 MarkupSafe        
 multidict         
-mysqlclient       
+mysqlclient  
+mysql-connector-python     
 nest-asyncio      
 parse              
 pip                
