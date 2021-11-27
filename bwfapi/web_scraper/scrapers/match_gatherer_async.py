@@ -119,14 +119,8 @@ class AsyncMatchGatherer:
         if len(players) < self.PLAYERS_IN_ROW:
             return
 
-        # for player in match_row.find_all('a'):
-        #     if "player" in player['href']:
-        #         self.player_links.add(player['href'])
-
         winner = self.clean_name_formatting(players[0])
         loser = self.clean_name_formatting(players[1])
-
-        # flags = [flag['title'] for flag in match_row.find_all('img', class_="intext flag")]
 
         links = [name['href'] for name in match_row.find_all('a') if "player" in name['href']]
         if winner not in self.seen_players and len(links) == 2:
@@ -137,7 +131,6 @@ class AsyncMatchGatherer:
             self.seen_players.add(loser)
             self.player_links.append(links[1])
         
-
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
 
         date_time = match_row.find('td', class_='plannedtime').text

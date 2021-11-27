@@ -10,7 +10,7 @@ Note: This project is not affiliated with BWF or Tournamentsoftware in any way, 
 1. Clone the repository onto a local machine
 2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
 3. Run the main_scraper.py script from the root folder 
-4. Wait for it to finish (usually takes ~300 seconds per year)
+4. Wait for the script to finish running
 5. Open the benchmarks/scraping.csv for benchmarks
 
 ## Features to Implement
@@ -19,12 +19,16 @@ Note: This project is not affiliated with BWF or Tournamentsoftware in any way, 
 - [x] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
 - [x] Concurrent scraping for tournament gatherer
 - [x] Concurrent scraping for match gatherer
-- [ ] Concurrent scraping for player gatherer
-- [x] Establish benchmarking to determine best async implementation (or if it's even needed)
+- [x] Concurrent scraping for player gatherer
+- [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process
+- [ ] Build foundation for MySQL-scraper interface to insert scraped data
 - [ ] Load all scraped data onto hosted AWS MySQL server
 - [ ] Establish back-end API foundation using Flask 
+- [ ] Establish formatted JSON return data
+- [ ] Establish API endpoints to facilitate simple JSON transfer
 
 ## Technologies Used
 * Python3
 * Flask
 * MySQL 
+* AWS (soon)
