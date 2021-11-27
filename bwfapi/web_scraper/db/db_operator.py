@@ -1,9 +1,9 @@
 from decouple import config
 import mysql.connector
 from mysql.connector import errorcode
-from queries.tables import get_tables
+from queries.tables import get_tables, get_resets
 from queries.database import drop_database, create_database
-from queries.insert import get_insert_queries
+from queries.insert import get_insert_queries, get_default_queries
 
 class DBOperator:
     def __init__(self):
@@ -20,7 +20,9 @@ class DBOperator:
                 print(err)
         
         self.INSERTS = get_insert_queries()
+        self.DEFAULTS = get_default_queries()
         self.TABLES = get_tables()
+        self.RESETS = get_resets()
 
     def close(self):
         self.connection.commit()
@@ -28,68 +30,91 @@ class DBOperator:
 
     def drop_database(self):
         cursor = self.connection.cursor()
-        cursor.execute(drop_database())
+        query = drop_database()
+        try:
+            cursor.execute(query)
+            print("Database dropped!")
+        except mysql.connector.Error as err:
+            print("Failed dropping database: {}".format(err))
+            exit(1)
         cursor.close()
 
     def drop_tables(self):
         cursor = self.connection.cursor()
-        
-        cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
-        cursor.execute("drop table if exists Player;")
-        cursor.execute("drop table if exists Level;")
-        cursor.execute("drop table if exists Event;")
-        cursor.execute("drop table if exists Tournament;")
-        cursor.execute("drop table if exists `Match`;")
-        cursor.execute("drop table if exists `Set`;")
-        cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
+        queries = self.RESETS['tables']
 
+        cursor.execute(f"USE {config('MYSQL_DB')}")
+        for query in queries:
+            try:
+                cursor.execute(query)
+                print("Tables dropped!")
+            except mysql.connector.Error as err:
+                print("Failed dropping tables: {}".format(err))
+                exit(1)
         cursor.close()
 
     def create_database(self):
-        cursor = self.connection.cursor()
-        cursor.execute(create_database())
+        cursor = self.connection.cursor()    
+        query = create_database()    
+        try:
+            cursor.execute(query)
+            print("Database created!")
+        except mysql.connector.Error as err:
+            print("Failed creating database: {}".format(err))
+            exit(1)
         cursor.close()
 
     def create_tables(self):
         cursor = self.connection.cursor()
-
-        try:
-            for table_name in self.TABLES:
-                table_description = self.TABLES[table_name]
-                cursor.execute(table_description)
-            print("All tables completed!")
-
-        except mysql.connector.Error as err:
-            print("Failed creating table: {}".format(err))
-            exit(1)
-
+        for table_name, query in self.TABLES.items():
+            try:
+                cursor.execute(query)
+                print(f"Table {table_name} completed!")
+                
+            except mysql.connector.Error as err:
+                print("Failed creating table: {}".format(err))
+                exit(1)
+        print("All tables created!")
         cursor.close()
     
     def insert_players(self, player_list):
         cursor = self.connection.cursor()
         query = self.INSERTS['player']
 
-        try:
-            for player in player_list:
-                player_data = (player['name'], player['country'])
+        for name, idnum in player_list.items():
+            try:
+                player_data = (idnum, name)
                 cursor.execute(query, player_data)
-        except mysql.connector.Error as err:
-            print("Error inserting player: {}".format(err))
-            exit(1)
+                print(f"{name} inserted with id {idnum}!")
+            except mysql.connector.Error as err:
+                print("Error inserting player: {}".format(err))
+                
 
         print("All players inserted!")
         cursor.close()
    
+    def insert_events(self):
+        cursor = self.connection.cursor()
+        queries = self.DEFAULTS['event']
+        for q in queries:
+            try:
+                cursor.execute(q)
+                print("All events inserted!")
+            except mysql.connector.Error as err:
+                print("Error inserting events: {}".format(err))
+                exit(1)
+        
+        cursor.close()
+
 if __name__ == "__main__":
 
-    player_list = [{'name': 'oscar', 'country': 'canada'},
-        {'name': 'raymond', 'country': 'hong kong'}
-    ]
+    player_list = {'oscar': 'asdf', 'ray': 'asdf'}
+    
 
     operator = DBOperator()
-    # operator.drop_database()
-    # operator.create_database()
-    # operator.drop_tables()
-    # operator.create_tables()
+    operator.drop_database()
+    operator.create_database()
+    operator.drop_tables()
+    operator.create_tables()
     operator.insert_players(player_list)
     operator.close()

@@ -16,19 +16,18 @@ TABLES['event'] = (
 
 TABLES['tournament'] = (
     'CREATE TABLE IF NOT EXISTS `Tournament` ('
-    ' ID int NOT NULL AUTO_INCREMENT,'
+    ' ID VARCHAR(50) NOT NULL,'
     ' `Date` Date,'
     ' Name VARCHAR(10) NOT NULL,'
-    ' PRIMARY KEY (ID),'
-    ' FOREIGN KEY (LevelID) REFERENCES Level(ID)'
+    ' PRIMARY KEY (ID)'
     ');')
 
 TABLES['match'] = (
     'CREATE TABLE IF NOT EXISTS `Match` ('
     ' ID int NOT NULL AUTO_INCREMENT,'
-    ' WinnerID int NOT NULL,'
-    ' LoserID int NOT NULL,'
-    ' TournamentID int NOT NULL,'
+    ' WinnerID VARCHAR(50) NOT NULL,'
+    ' LoserID VARCHAR(50) NOT NULL,'
+    ' TournamentID VARCHAR(50) NOT NULL,'
     ' EventID int NOT NULL,'
     ' Time VARCHAR(50) NOT NULL,'
     ' Duration int NOT NULL,'
@@ -51,7 +50,22 @@ TABLES['set'] = (
     ' FOREIGN KEY (MatchID) REFERENCES `Match`(ID)'
     ');')
 
+
 def get_tables():
     return TABLES
 
 
+RESETS = {}
+RESETS['tables'] = [
+    "SET FOREIGN_KEY_CHECKS = 0;",
+    "drop table if exists Player;",
+    "drop table if exists Level;",
+    "drop table if exists Event;",
+    "drop table if exists Tournament;",
+    "drop table if exists `Match`;",
+    "drop table if exists `Set`;",
+    "SET FOREIGN_KEY_CHECKS = 1;",
+]
+
+def get_resets():
+    return RESETS

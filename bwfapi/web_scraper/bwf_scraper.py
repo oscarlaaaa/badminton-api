@@ -2,6 +2,7 @@ import csv
 import asyncio
 import enum
 import timeit
+from db import DBOperator
 from scrapers import ProgressBar, TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
 
 class BwfScraper:
@@ -96,9 +97,9 @@ if __name__ == "__main__":
         match_bm = scrape.scrape_matches()
         player_bm = scrape.scrape_players()
 
-        for k, v in scrape.player_list.items():
-            print(f"id: {v}")
-            print(f"name: {k}\n")
+        dboperator = DBOperator()
+        
+
 
         with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
             writer = csv.writer(file)
