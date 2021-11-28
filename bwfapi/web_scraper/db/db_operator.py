@@ -89,7 +89,6 @@ class DBOperator:
             except mysql.connector.Error as err:
                 print("Error inserting player: {}".format(err))
                 
-
         print("All players inserted!")
         cursor.close()
    
@@ -99,7 +98,7 @@ class DBOperator:
         for q in queries:
             try:
                 cursor.execute(q)
-                print("All events inserted!")
+                print("Event inserted!")
             except mysql.connector.Error as err:
                 print("Error inserting events: {}".format(err))
                 exit(1)
@@ -115,6 +114,7 @@ if __name__ == "__main__":
     operator.drop_database()
     operator.create_database()
     operator.drop_tables()
-    operator.create_tables()
-    operator.insert_players(player_list)
+    # operator.create_tables() #works
+    # operator.insert_players(player_list) #works
+    operator.insert_events()
     operator.close()
