@@ -17,7 +17,8 @@ TABLES['event'] = (
 TABLES['tournament'] = (
     'CREATE TABLE IF NOT EXISTS `Tournament` ('
     ' ID VARCHAR(50) NOT NULL,'
-    ' `Date` Date,'
+    ' `Start_Date` Date,'
+    ' `End_Date` Date,'
     ' Name VARCHAR(10) NOT NULL,'
     ' PRIMARY KEY (ID)'
     ');')
