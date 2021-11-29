@@ -26,6 +26,7 @@ Note: This project is not affiliated with BWF or Tournamentsoftware in any way, 
 - [ ] Establish back-end API foundation using Flask 
 - [ ] Establish formatted JSON return data
 - [ ] Establish API endpoints to facilitate simple JSON transfer
+- [ ] Build simple static landing page to show people how to use the API
 
 ## Technologies Used
 * Python3
