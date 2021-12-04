@@ -15,7 +15,7 @@ class PlayerGatherer:
         return self.player_list
 
     async def grab_player(self, link, session):
-        print(f"collecting data for player {link}")
+        # print(f"collecting data for player {link}")
         html_text = ""
 
         async with session.get(self.format_link(link)) as resp:
@@ -27,12 +27,12 @@ class PlayerGatherer:
         link = soup.find('div', class_='subtitle').find('a')
         
         if link:
-            name = player_name[:player_name.index("Profile")]
+            name = player_name[:player_name.index("Profile")].upper()
             player_id = link['href'][len('/player-profile/'):]
             self.player_list[name] = player_id
     
     async def grab_all_players(self):
         async with aiohttp.ClientSession() as session:
             loop = asyncio.get_event_loop()
-            tasks = [self.grab_player(player_link, session) for player_link in self.player_links]
-            loop.run_until_complete(asyncio.wait(tasks))
+            tasks = asyncio.gather(*[self.grab_player(player_link, session) for player_link in self.player_links], return_exceptions=True)
+            loop.run_until_complete(tasks)
