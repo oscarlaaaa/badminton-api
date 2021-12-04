@@ -17,8 +17,8 @@ INSERTS['event'] = (
     
 INSERTS['tournament'] = (
     'INSERT INTO Tournament '
-    ' (`Date`, name)'
-    ' VALUES (%s, %s)'
+    ' (ID,`StartDate`, `EndDate`, name)'
+    ' VALUES (%s, %s, %s, %s)'
     ';'
     )
 

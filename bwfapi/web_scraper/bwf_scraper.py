@@ -2,7 +2,7 @@ import csv
 import asyncio
 import enum
 import timeit
-from db import DBOperator
+# from db import DBOperator
 from scrapers import ProgressBar, TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
 
 class BwfScraper:
@@ -28,16 +28,14 @@ class BwfScraper:
         tg = TournamentGatherer()
 
         start_tournament_scraping = timeit.default_timer()
-        tournament = asyncio.run(tg.grab_tournaments_from_year(self.year))
+        tournaments = asyncio.run(tg.grab_tournaments_from_year(self.year))
         end_tournament_scraping = timeit.default_timer()
-
-        total_tournaments = 0
-        print(f"Year: {tournament['year']}\t Count: {str(len(tournament['links']))}")
-        total_tournaments = total_tournaments + len(tournament['links'])
+        print(f"Year: {self.year}\t Count: {str(len(tournaments))}")
+        total_tournaments = len(tournaments)
 
         tournament_time_elapsed = end_tournament_scraping - start_tournament_scraping
         print(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.") # should be 546
-        self.tournament_list = tournament
+        self.tournament_list = tournaments
         return {"count": total_tournaments, "time": tournament_time_elapsed}
 
 
@@ -47,7 +45,8 @@ class BwfScraper:
         start_Amatch_scraping = timeit.default_timer()
 
         match_list = []
-        mg = AsyncMatchGatherer(event=self.event, tournament_list=self.tournament_list['links'])
+        tournament_links = [tournament['link'] for tournament in self.tournament_list]
+        mg = AsyncMatchGatherer(event=self.event, tournament_list=tournament_links)
         tournament_match_list = asyncio.run(mg.collect_all_match_data())
 
         match_list = match_list + tournament_match_list
@@ -97,16 +96,20 @@ if __name__ == "__main__":
         match_bm = scrape.scrape_matches()
         player_bm = scrape.scrape_players()
 
-        dboperator = DBOperator()
+        # dboperator = DBOperator()
         
+        for tournament in scrape.get_tournament_list():
+            print(str(tournament))
 
+        for match in scrape.get_match_list():
+            print(str(match))
+
+        for player in scrape.get_player_list():
+            print(str(player))
 
         with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([i, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
             writer.writerow([i, "Match Scrape", match_bm['count'], match_bm['time']])
             writer.writerow([i, "Player Scrape", player_bm['count'], player_bm['time']])
-
-        
-
     
