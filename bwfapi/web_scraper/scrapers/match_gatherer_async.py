@@ -161,7 +161,7 @@ class AsyncMatchGatherer:
     ## compiles a full list of all match data scraped for that tournament and event for storage
     async def collect_match_data(self, tournament_id, session):
         
-        print(f"collecting data for {tournament_id}")
+        # print(f"collecting data for {tournament_id}")
 
         draws_link = self.convert_to_draws_link(tournament_id)
 
