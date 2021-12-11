@@ -22,12 +22,12 @@ class PlayerGatherer:
             html_text = await resp.text()
 
         soup = BeautifulSoup(html_text, 'lxml')
-        player_name = soup.find('div', class_='subtitle').find('h2').text.strip()
+        player_name = soup.find('div', class_='subtitle').find('h2').text
 
         link = soup.find('div', class_='subtitle').find('a')
         
         if link:
-            name = player_name[:player_name.index("Profile")].upper()
+            name = player_name[:player_name.index("Profile")].upper().strip()
             player_id = link['href'][len('/player-profile/'):]
             self.player_list[name] = player_id
     
