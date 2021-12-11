@@ -104,8 +104,8 @@ if __name__ == "__main__":
         for match in scrape.get_match_list():
             print(str(match))
 
-        for player in scrape.get_player_list():
-            print(str(player))
+        for name, code in scrape.get_player_list().items():
+            print(f'"{name}":"{code}"')
 
         with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
             writer = csv.writer(file)
