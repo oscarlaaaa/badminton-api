@@ -21,7 +21,7 @@ Note: This project is not affiliated with BWF or Tournamentsoftware in any way, 
 - [x] Concurrent scraping for match gatherer
 - [x] Concurrent scraping for player gatherer
 - [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process
-- [ ] Build foundation for MySQL-scraper interface to insert scraped data
+- [x] Build foundation for MySQL-scraper interface to insert scraped data
 - [ ] Load all scraped data onto hosted AWS MySQL server
 - [ ] Establish back-end API foundation using Flask 
 - [ ] Establish formatted JSON return data

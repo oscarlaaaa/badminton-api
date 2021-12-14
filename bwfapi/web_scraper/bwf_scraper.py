@@ -2,7 +2,7 @@ import csv
 import asyncio
 import enum
 import timeit
-# from db import DBOperator
+from db import DBOperator
 from scrapers import ProgressBar, TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
 
 class BwfScraper:
@@ -76,9 +76,34 @@ class BwfScraper:
         player_time_elapsed = end_player_scraping - start_player_scraping
 
         self.player_list = player_list
+        print("Started scraping player info...")
+        asyncio.run(pg.grab_all_player_info())
 
         print(f"Finished scraping {len(self.player_list)} players async in {player_time_elapsed} seconds.")
         return {"count": len(player_list), "time": player_time_elapsed}
+    
+    def scrape(self):
+        tournament_bm = self.scrape_tournaments()
+        match_bm = self.scrape_matches()
+        player_bm = self.scrape_players()
+
+        with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([i, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
+            writer.writerow([i, "Match Scrape", match_bm['count'], match_bm['time']])
+            writer.writerow([i, "Player Scrape", player_bm['count'], player_bm['time']])
+    
+    def change_names_to_ids(self):
+        for match in self.match_list:
+            if match.get_winner().strip() in self.player_list:
+                match.set_winner(self.player_list[match.get_winner().strip()]['id'])
+            else:
+                print(f"Couldn't find {match.get_winner()}")
+
+            if match.get_loser().strip() in self.player_list:
+                match.set_loser(self.player_list[match.get_loser().strip()]['id'])
+            else:
+                print(f"Couldn't find {match.get_loser()}")
 
 
 def write_benchmark_headers():
@@ -91,25 +116,33 @@ if __name__ == "__main__":
     write_benchmark_headers()
 
     for i in range(2008, 2009):
-        scrape = BwfScraper(i, "MS")
-        tournament_bm = scrape.scrape_tournaments()
-        match_bm = scrape.scrape_matches()
-        player_bm = scrape.scrape_players()
+        scraper = BwfScraper(i, "MS")
+        scraper.scrape()
+        for player, items in scraper.get_player_list().items():
+            print(f"Player {player} - {items}")
+        scraper.change_names_to_ids()
 
-        # dboperator = DBOperator()
+        dboperator = DBOperator()
+        dboperator.drop_database()  # works
+        dboperator.create_database()  # works
+        dboperator.drop_tables()  # works
+        dboperator.create_tables()  # works
+        dboperator.insert_tournaments(scraper.get_tournament_list()) #works
+        dboperator.close()
         
-        for tournament in scrape.get_tournament_list():
-            print(str(tournament))
+        dboperator = DBOperator()
+        dboperator.insert_players(scraper.get_player_list())  # works
+        dboperator.insert_match_and_sets(scraper.get_match_list()) #works
+        dboperator.close()
 
-        for match in scrape.get_match_list():
-            print(str(match))
+        # for tournament in scrape.get_tournament_list():
+        #     print(str(tournament))
 
-        for name, code in scrape.get_player_list().items():
-            print(f'"{name}":"{code}"')
+        # for match in scrape.get_match_list():
+        #     print(str(match))
 
-        with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow([i, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
-            writer.writerow([i, "Match Scrape", match_bm['count'], match_bm['time']])
-            writer.writerow([i, "Player Scrape", player_bm['count'], player_bm['time']])
+        # for name, code in scrape.get_player_list().items():
+        #     print(f'"{name}":"{code}"')
+
+
     
