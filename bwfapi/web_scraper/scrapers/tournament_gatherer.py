@@ -22,7 +22,6 @@ class TournamentGatherer:
         vals = date.split('/')
         return f"{vals[2]}-{vals[0]}-{vals[1]}"
         
-
     async def grab_tournaments_from_year(self, year):
         link = self.format_year_into_link(year)
         # print(f"scanning from year {year}")
