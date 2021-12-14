@@ -110,12 +110,11 @@ class AsyncMatchGatherer:
             self.player_list[loser] = loser_country
 
     ## collects and creates a match object from a given match row and appends to master matches list
-    def collect_match_row_data(self, match_row, tournament_title, level):
+    def collect_match_row_data(self, match_row, tournament_id, level):
         if self.is_invalid_matchrow(match_row):
             return
         
         players = [name.text for name in match_row.find_all('a') if "player" in name['href']]
-        # players = [name.text.encode('utf-8') for name in match_row.find_all('a') if "player" in name['href']]
         if len(players) < self.PLAYERS_IN_ROW:
             return
 
@@ -123,11 +122,12 @@ class AsyncMatchGatherer:
         loser = self.clean_name_formatting(players[1])
 
         links = [name['href'] for name in match_row.find_all('a') if "player" in name['href']]
-        if winner not in self.seen_players and len(links) == 2:
+        
+        if len(links) == 2 and winner not in self.seen_players:
             self.seen_players.add(winner)
             self.player_links.append(links[0])
 
-        if loser not in self.seen_players and len(links) == 2:
+        if len(links) == 2 and loser not in self.seen_players: 
             self.seen_players.add(loser)
             self.player_links.append(links[1])
         
@@ -139,10 +139,10 @@ class AsyncMatchGatherer:
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        return Match(self.event, winner, loser, points, date, time, duration, tournament_title, level)
+        return Match(self.event, winner, loser, points, date, time, duration, tournament_id, level)
 
     ## scrapes all match links, and returns a list of match objects
-    def collect_all_matches(self, match_link, level):
+    def collect_all_matches(self, match_link, tournament_id, level):
 
         html_text = requests.get(match_link).text
 
@@ -152,9 +152,8 @@ class AsyncMatchGatherer:
 
         if match_section is not None:
             match_rows = match_section.find_all('tr', recursive=False)
-            tournament_title = soup.find('h2', class_='media__title media__title--large').text
 
-            matches = [match for match_row in match_rows if (match := self.collect_match_row_data(match_row, tournament_title, level)) is not None]
+            matches = [match for match_row in match_rows if (match := self.collect_match_row_data(match_row, tournament_id, level)) is not None]
             return matches
 
 
@@ -177,7 +176,7 @@ class AsyncMatchGatherer:
         tournament_level = soup.find('span', class_='tag tag--mono').text
         matches = []
         for match_link in relevant_match_links:
-            tournament_matches = self.collect_all_matches(match_link, tournament_level)
+            tournament_matches = self.collect_all_matches(match_link, tournament_id, tournament_level)
             if tournament_matches is not None and len(tournament_matches) > 0:
                 matches = matches + tournament_matches
         # self.sort_match_data2(matches)
