@@ -1,10 +1,10 @@
 from decouple import config
 import mysql.connector
 from mysql.connector import errorcode
-from queries.tables import get_tables, get_resets
-from queries.database import drop_database, create_database
-from queries.insert import get_insert_queries, get_default_queries
-from queries.select import query_player_id_by_name
+from .queries.tables import get_tables, get_resets
+from .queries.database import drop_database, create_database
+from .queries.insert import get_insert_queries
+from .queries.select import query_player_id_by_name
 
 class DBOperator:
     def __init__(self):
@@ -21,7 +21,6 @@ class DBOperator:
                 print(err)
 
         self.INSERTS = get_insert_queries()
-        self.DEFAULTS = get_default_queries()
         self.TABLES = get_tables()
         self.RESETS = get_resets()
 
@@ -39,6 +38,7 @@ class DBOperator:
             exit(1)
 
         print("Database dropped!")
+        self.connection.commit()
         cursor.close()
 
     def drop_tables(self):
@@ -54,6 +54,7 @@ class DBOperator:
                 exit(1)
 
         print("Tables dropped!")
+        self.connection.commit()
         cursor.close()
 
     def create_database(self):
@@ -66,6 +67,7 @@ class DBOperator:
             exit(1)
 
         print("Database created!")
+        self.connection.commit()
         cursor.close()
 
     def create_tables(self):
@@ -79,33 +81,23 @@ class DBOperator:
                 print(f"Failed creating table: {err}")
                 exit(1)
         print("All tables created!")
+        self.connection.commit()
         cursor.close()
 
     def insert_players(self, player_list):
         cursor = self.connection.cursor()
         query = self.INSERTS['player']
 
-        for name, idnum in player_list.items():
+        for name in player_list:
+            details = player_list[name]
             try:
-                player_data = (idnum, name)
+                player_data = (details['id'], name, details['country'], details['date of birth'])
                 cursor.execute(query, player_data)
-                # print(f"{name} inserted with id {idnum}!")
+                # print(f"Player {name} inserted!")
             except mysql.connector.Error as err:
                 print(f"Error inserting player: {err}")
 
-        cursor.close()
-
-    def insert_events(self):
-        cursor = self.connection.cursor()
-        queries = self.DEFAULTS['event']
-        for q in queries:
-            try:
-                cursor.execute(q)
-                print("Event inserted!")
-            except mysql.connector.Error as err:
-                print(f"Error inserting events: {err}")
-                exit(1)
-
+        self.connection.commit()
         cursor.close()
 
     def insert_tournaments(self, tournament_list):
@@ -117,12 +109,13 @@ class DBOperator:
                 tournament_data = (
                     tournament['link'], tournament['start'], tournament['end'], tournament['name'])
                 cursor.execute(query, tournament_data)
-                print(f"Tournament {tournament['name']} inserted!")
+                # print(f"Tournament {tournament['name']} inserted!")
             except mysql.connector.Error as err:
                 print(f"Error inserting tournament: {err}")
                 exit(1)
 
         print("Finished inserting tournaments!")
+        self.connection.commit()
         cursor.close()
 
     def search_player_by_name(self, player_name):
@@ -139,6 +132,28 @@ class DBOperator:
 
         cursor.close()
         return player_id
+
+    def insert_match_and_sets(self, match_list):
+        cursor = self.connection.cursor()
+        for match in match_list:
+            sets = match.get_sets()
+            match_query = self.INSERTS['match']
+            set_query = self.INSERTS['set']
+
+            try:
+                cursor.execute(match_query, match.get_formatted_data())
+                match_id = cursor.lastrowid
+
+                for match_set in sets:
+                    cursor.execute(set_query, match_set.get_formatted_data(match_id))
+                
+            except mysql.connector.Error as err:
+                hello = 1
+                # print(f"Error inserting match: {err}")
+        
+        self.connection.commit()
+        cursor.close()
+
 
 
 # Tests for DB Operations
@@ -866,11 +881,8 @@ if __name__ == "__main__":
     operator.create_database()  # works
     operator.drop_tables()  # works
     operator.create_tables()  # works
-
     operator.insert_events()  # works
-
     operator.insert_players(player_list)  # works
-
     operator.insert_tournaments(tournament_list) #works
 
     xd = operator.search_player_by_name("IO CHONG CHAN") #works

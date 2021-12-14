@@ -4,13 +4,7 @@ TABLES['player'] = (
     ' ID VARCHAR(50) NOT NULL UNIQUE,'
     ' Name VARCHAR(150) NOT NULL,'
     ' Country VARCHAR(50),'
-    ' PRIMARY KEY (ID)'
-    ');')
-
-TABLES['event'] = (
-    'CREATE TABLE IF NOT EXISTS `Event` ('
-    ' ID int NOT NULL AUTO_INCREMENT,'
-    ' Name VARCHAR(10) NOT NULL,'
+    ' BirthDate Date,'
     ' PRIMARY KEY (ID)'
     ');')
 
@@ -26,18 +20,16 @@ TABLES['tournament'] = (
 TABLES['match'] = (
     'CREATE TABLE IF NOT EXISTS `Match` ('
     ' ID int NOT NULL AUTO_INCREMENT,'
-    ' WinnerID VARCHAR(50) NOT NULL,'
-    ' LoserID VARCHAR(50) NOT NULL,'
-    ' TournamentID VARCHAR(50) NOT NULL,'
-    ' EventID int NOT NULL,'
-    ' Time VARCHAR(50) NOT NULL,'
-    ' Duration int NOT NULL,'
-    ' Score VARCHAR(100) NOT NULL,'
+    ' WinnerID VARCHAR(100) NOT NULL,'
+    ' LoserID VARCHAR(100) NOT NULL,'
+    ' TournamentID VARCHAR(100) NOT NULL,'
+    ' `Event` VARCHAR(5) NOT NULL,'
+    ' `Time` VARCHAR(50) NOT NULL,'
+    ' `Duration` int NOT NULL,'
     ' PRIMARY KEY (ID),'
     ' FOREIGN KEY (WinnerID) REFERENCES Player(ID),'
     ' FOREIGN KEY (LoserID) REFERENCES Player(ID),'
-    ' FOREIGN KEY (TournamentID) REFERENCES Tournament(ID),'
-    ' FOREIGN KEY (EventID) REFERENCES Event(ID)'
+    ' FOREIGN KEY (TournamentID) REFERENCES Tournament(ID)'
     ');')
 
 TABLES['set'] = (
@@ -61,7 +53,6 @@ RESETS['tables'] = [
     "SET FOREIGN_KEY_CHECKS = 0;",
     "drop table if exists Player;",
     "drop table if exists Level;",
-    "drop table if exists Event;",
     "drop table if exists Tournament;",
     "drop table if exists `Match`;",
     "drop table if exists `Set`;",
