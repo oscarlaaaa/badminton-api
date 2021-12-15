@@ -5,6 +5,7 @@ TABLES['player'] = (
     ' Name VARCHAR(150) NOT NULL,'
     ' Country VARCHAR(50),'
     ' BirthDate Date,'
+    ' PlayHand VARCHAR(20),'
     ' PRIMARY KEY (ID)'
     ');')
 

@@ -102,7 +102,7 @@ class DBOperator:
             details = player_list[name]
             try:
                 player_data = (
-                    details['id'], name, details['country'], details['date of birth'])
+                    details['id'], name, details['country'], details['date of birth'], details['play r or l'])
                 cursor.execute(query, player_data)
             except mysql.connector.Error as err:
                 print(f"Error inserting player: {err}")

@@ -32,6 +32,7 @@ class PlayerGatherer:
             details = dict()
             details['country'] = None
             details['date of birth'] = None
+            details['play r or l'] = None
 
             name = player_name[:player_name.index("Profile")].upper().strip()
             player_id = info_link[1:]

@@ -23,9 +23,8 @@ Note: This project is not affiliated with BWF or Tournamentsoftware in any way, 
 - [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process
 - [x] Build foundation for MySQL-scraper interface to insert scraped data
 - [ ] Load all scraped data onto hosted AWS MySQL server
-- [ ] Refactor and clean-up scraper code
-- [ ] Establish back-end API foundation using Flask 
-- [ ] Establish formatted JSON return data
+- [x] Refactor and clean-up scraper code
+- [ ] Establish back-end API foundation for db updates using Flask 
 - [ ] Establish API endpoints to facilitate simple JSON transfer
 - [ ] Refactor and clean-up API code
 - [ ] Build simple static landing page to show people how to use the API

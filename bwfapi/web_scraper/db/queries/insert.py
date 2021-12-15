@@ -3,8 +3,8 @@ INSERTS = {}
 
 INSERTS['player'] = (
     'INSERT INTO Player '
-    ' (ID, Name, Country, BirthDate)'
-    ' VALUES (%s, %s, %s, %s)'
+    ' (ID, Name, Country, BirthDate, PlayHand)'
+    ' VALUES (%s, %s, %s, %s, %s)'
     ';'
     )
 
