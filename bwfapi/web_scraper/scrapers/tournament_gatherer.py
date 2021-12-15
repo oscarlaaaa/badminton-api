@@ -1,11 +1,9 @@
 from requests_html import AsyncHTMLSession
 import asyncio
-
 import nest_asyncio
 nest_asyncio.apply()
 
 class TournamentGatherer:
-
     MIN_START_YEAR = 2007
     MAX_END_YEAR = 2022
 
@@ -22,42 +20,32 @@ class TournamentGatherer:
         vals = date.split('/')
         return f"{vals[2]}-{vals[0]}-{vals[1]}"
         
+    def parse_tournament(self, tournament):
+        title = list(tournament.find('.media__title'))[0]
+        name = title.text.upper()
+
+        dates = tournament.find('time')
+        start_date = dates[0].text
+        end_date = dates[1].text
+
+        link = list(title.links)[0]
+        link = link[(link.index('=') + 1):]
+
+        return {'name': name, 'start': self.format_date(start_date), 'end': self.format_date(end_date), 'link': link}
+
     async def grab_tournaments_from_year(self, year):
         link = self.format_year_into_link(year)
-        # print(f"scanning from year {year}")
+
         s = AsyncHTMLSession()
         response = await s.get(link)
-
         await response.html.arender(timeout=30, sleep=4) 
 
         content = response.html.find('#searchResultArea', first=True)
-
         tournaments = content.find('.media')
 
-        output = []
-
-        for t in tournaments:
-            title = list(t.find('.media__title'))[0]
-
-            name = title.text.upper()
-
-            dates = t.find('time')
-            start_date = dates[0].text
-            end_date = dates[1].text
-
-            link = list(title.links)[0]
-            link = link[(link.index('=') + 1):]
-
-            output.append({'name': name, 'start': self.format_date(start_date), 'end': self.format_date(end_date), 'link': link})
-        
+        output = [self.parse_tournament(tournament) for tournament in tournaments]
         return output
 
     async def grab_all_tournaments(self):
         return await asyncio.gather(*[self.grab_tournaments_from_year(i) for i in range(self.MIN_START_YEAR, self.MAX_END_YEAR)])
         
-
-# test function
-# tg = TournamentGatherer()
-# zzz = asyncio.run(tg.grab_tournaments_from_year(2008))
-# for t in zzz:
-#     print(str(t))

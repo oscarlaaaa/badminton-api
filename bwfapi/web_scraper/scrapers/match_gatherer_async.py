@@ -1,18 +1,13 @@
 import requests
 import aiohttp
 import asyncio
-
-from datetime import datetime
-from bs4 import BeautifulSoup
-
-from .progress_bar import ProgressBar
-from .match import Match
-
 import nest_asyncio
 nest_asyncio.apply()
+from datetime import datetime
+from bs4 import BeautifulSoup
+from .match import Match
 
 class AsyncMatchGatherer:
-
     PLAYERS_IN_ROW = 2
 
     def __init__(self, event="MS", tournament_list=[]):
@@ -102,6 +97,7 @@ class AsyncMatchGatherer:
 
     def collect_players(self, winner, loser, match_row):
         countries = [flag['title'] for flag in match_row.find_all('img', class_='intext flag')]
+
         if len(countries) > 0:
             winner_country = countries[0]
             self.player_list[winner] = winner_country
@@ -122,11 +118,9 @@ class AsyncMatchGatherer:
         loser = self.clean_name_formatting(players[1])
 
         links = [name['href'] for name in match_row.find_all('a') if "player" in name['href']]
-        
         if len(links) == 2 and winner not in self.seen_players:
             self.seen_players.add(winner)
             self.player_links.append(links[0])
-
         if len(links) == 2 and loser not in self.seen_players: 
             self.seen_players.add(loser)
             self.player_links.append(links[1])
@@ -139,48 +133,39 @@ class AsyncMatchGatherer:
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        return Match(self.event, winner, loser, points, date, time, duration, tournament_id, level)
+        return Match(event=self.event, winner=winner, loser=loser, points=points, date=date, time=time, duration=duration, tournament_id=tournament_id)
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link, tournament_id, level):
-
         html_text = requests.get(match_link).text
-
         soup = BeautifulSoup(html_text, 'lxml')
 
         match_section = soup.find('table', class_='ruler matches').find('tbody', recursive=False)
-
         if match_section is not None:
             match_rows = match_section.find_all('tr', recursive=False)
-
             matches = [match for match_row in match_rows if (match := self.collect_match_row_data(match_row, tournament_id, level)) is not None]
             return matches
 
 
     ## compiles a full list of all match data scraped for that tournament and event for storage
     async def collect_match_data(self, tournament_id, session):
-        
-        # print(f"collecting data for {tournament_id}")
-
         draws_link = self.convert_to_draws_link(tournament_id)
 
-        html_text = ""
         async with session.get(draws_link) as resp:
             html_text = await resp.text()
         
-        relevant_draws = self.collect_draw_links(html_text, self.event)
-        relevant_match_links = [self.convert_to_matches_link(link) for link in relevant_draws]
+            relevant_draws = self.collect_draw_links(html_text, self.event)
+            relevant_match_links = [self.convert_to_matches_link(link) for link in relevant_draws]
 
-        soup = BeautifulSoup(html_text, 'lxml')
+            soup = BeautifulSoup(html_text, 'lxml')
+            tournament_level = soup.find('span', class_='tag tag--mono').text
 
-        tournament_level = soup.find('span', class_='tag tag--mono').text
-        matches = []
-        for match_link in relevant_match_links:
-            tournament_matches = self.collect_all_matches(match_link, tournament_id, tournament_level)
-            if tournament_matches is not None and len(tournament_matches) > 0:
-                matches = matches + tournament_matches
-        # self.sort_match_data2(matches)
-        return matches
+            matches = []
+            for match_link in relevant_match_links:
+                tournament_matches = self.collect_all_matches(match_link, tournament_id, tournament_level)
+                if tournament_matches is not None and len(tournament_matches) > 0:
+                    matches = matches + tournament_matches
+            return matches
 
     def sort_match_data2(self, match_list):
         match_list.sort(key=lambda match: datetime.strptime(match.get_date(), '%m/%d/%Y'))
@@ -194,13 +179,3 @@ class AsyncMatchGatherer:
         async with aiohttp.ClientSession() as session:
             output = await asyncio.gather(*[self.collect_match_data(link, session) for link in self.tournament_list])
             return [item for sublist in output for item in sublist]
-            
-
-
-# def __main__():
-#     xd = MatchGatherer(tournament_list=["a6128cae-03b8-492c-a398-ad3505e8ec16"])
-#     zz = asyncio.run(xd.collect_all_match_data())
-#     print(len(zz))
-   
-## tests for the fn
-

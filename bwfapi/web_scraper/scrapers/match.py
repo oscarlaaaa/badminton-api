@@ -8,8 +8,7 @@ class Set:
         return (match_id, self.winner_score, self.loser_score, self.round)
 
 class Match:
-    
-    def __init__(self, event, winner, loser, points, date, time, duration=0, tournament_id='undefined', level='undefined'):
+    def __init__(self, event, winner, loser, points, date, time, duration=0, tournament_id='undefined'):
         self.event = event
         self.winner = winner
         self.loser = loser
@@ -18,7 +17,6 @@ class Match:
         self.time = time
         self.duration = duration
         self.tournament_id = tournament_id
-        self.level = level
     
     def __str__(self):
         return str(self.winner) + " | " + str(self.loser) + "\t" + str(self.points) + "\t" + str(self.date)

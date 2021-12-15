@@ -3,7 +3,6 @@ import asyncio
 from bs4 import BeautifulSoup
 
 class PlayerGatherer:
-
     def __init__(self, player_links):
         self.player_links = player_links
         self.player_list = {}
@@ -22,60 +21,48 @@ class PlayerGatherer:
         return f"{vals[2]}-{vals[0]}-{vals[1]}"
 
     async def grab_player(self, link, session):
-        # print(f"collecting data for player {link}")
-        html_text = ""
-
         async with session.get(self.format_link(link)) as resp:
             html_text = await resp.text()
 
-        soup = BeautifulSoup(html_text, 'lxml')
-        player_name = soup.find('div', class_='subtitle').find('h2').text
+            soup = BeautifulSoup(html_text, 'lxml')
+            player_name = soup.find('div', class_='subtitle').find('h2').text
 
-        info_link = soup.find('div', class_='subtitle').find('a')['href']
+            info_link = soup.find('div', class_='subtitle').find('a')['href']
 
-        details = dict()
-        details['country'] = None
-        details['date of birth'] = None
+            details = dict()
+            details['country'] = None
+            details['date of birth'] = None
 
-        name = player_name[:player_name.index("Profile")].upper().strip()
-        player_id = info_link[1:]
-        
-        index = player_id.index('/')+1
-        player_id = player_id[index:]
+            name = player_name[:player_name.index("Profile")].upper().strip()
+            player_id = info_link[1:]
+            
+            index = player_id.index('/')+1
+            player_id = player_id[index:]
 
-        details['id'] = player_id
-        self.player_list[name] = details
+            details['id'] = player_id
+            self.player_list[name] = details
     
     async def grab_player_info(self, details, session):
-        print("AAAA")
         async with session.get(self.format_player_link(details['id'])) as resp:
             html_text = await resp.text()
-        print("BBBB")
-        soup = BeautifulSoup(html_text, 'lxml')
-        detail_section = soup.find('dl', class_='list list--flex list--bordered').findAll('div', class_='list__item')
-        
-        country = soup.find('div', class_='media__content-subinfo')
-        if country:
-            country.find('span', class_='nav-link__value').text
-            country = country.upper().strip()
-            details['country'] = country
-        
-        for detail in detail_section:
-            section = detail.find('dt', class_='list__label').text.lower().strip()
-            value = detail.find('span', class_='nav-link__value').text.strip()
+            soup = BeautifulSoup(html_text, 'lxml')
+            detail_section = soup.find('dl', class_='list list--flex list--bordered').findAll('div', class_='list__item')
+            
+            country = soup.find('div', class_='media__content-subinfo')
+            if country:
+                country.find('span', class_='nav-link__value').text
+                country = country.upper().strip()
+                details['country'] = country
+            
+            for detail in detail_section:
+                section = detail.find('dt', class_='list__label').text.lower().strip()
+                value = detail.find('span', class_='nav-link__value').text.strip()
 
-            if section == 'date of birth':
-                value = self.format_date(value)
+                if section == 'date of birth':
+                    value = self.format_date(value)
 
-            details[section] = value
+                details[section] = value
 
-        # if link:
-        #     name = player_name[:player_name.index("Profile")].upper().strip()
-        #     player_id = link['href'][1:]
-        #     index = player_id.index('/')+1
-        #     player_id = player_id[index:]
-        #     self.player_list[name] = {"id": player_id}
-    
     async def grab_all_players(self):
         async with aiohttp.ClientSession() as session:
             loop = asyncio.get_event_loop()
@@ -87,8 +74,3 @@ class PlayerGatherer:
             loop = asyncio.get_event_loop()
             tasks = asyncio.gather(*[self.grab_player_info(details=details, session=session) for details in self.player_list.values()], return_exceptions=True)
             loop.run_until_complete(tasks)
-
-# if __name__ == "__main__":
-#     pg = PlayerGatherer(['player.aspx?id=94646034-3486-42AD-8D5B-5CE3FB08D3D2&player=40'])
-#     loop = asyncio.get_event_loop()
-#     loop.run_until_complete(pg.grab_player('player.aspx?id=94646034-3486-42AD-8D5B-5CE3FB08D3D2&player=40',aiohttp.ClientSession()))
