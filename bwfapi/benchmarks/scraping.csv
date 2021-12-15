@@ -1,4 +1,9 @@
-Year,Functionality,Count,Time in seconds
-2008,Tournament Scrape,35,9.031925600000001
-2008,Match Scrape,1307,50.7909954
-2008,Player Scrape,649,24.027150999999996
+Year,Event,Functionality,Count,Time in seconds
+2008,MS,Tournament Scrape,35,9.1249269
+2008,MS,Match Scrape,1307,47.6817782
+2008,MS,Player Scrape,649,19.634963599999992
+2008,MS,Player Info Scrape,649,25.148753600000006
+2008,WS,Tournament Scrape,35,11.418048200000001
+2008,WS,Match Scrape,981,52.1248245
+2008,WS,Player Scrape,402,13.438805399999978
+2008,WS,Player Info Scrape,402,22.356167099999993
