@@ -141,7 +141,7 @@ if __name__ == "__main__":
     dboperator.reset_database()
     dboperator.close()
 
-    for year in range(2008, 2009):
+    for year in range(2008, 2022):
         scrape_matches("MS", year)
         time.sleep(5)
         scrape_matches("WS", year)
