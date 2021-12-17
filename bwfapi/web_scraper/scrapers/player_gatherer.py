@@ -30,9 +30,6 @@ class PlayerGatherer:
             info_link = soup.find('div', class_='subtitle').find('a')['href']
 
             details = dict()
-            details['country'] = None
-            details['date of birth'] = None
-            details['play r or l'] = None
 
             name = player_name[:player_name.index("Profile")].upper().strip()
             player_id = info_link[1:]
@@ -49,20 +46,33 @@ class PlayerGatherer:
             soup = BeautifulSoup(html_text, 'lxml')
             detail_section = soup.find('dl', class_='list list--flex list--bordered').findAll('div', class_='list__item')
             
+            details['country'] = None
             country = soup.find('div', class_='media__content-subinfo')
             if country:
-                country.find('span', class_='nav-link__value').text
+                country = country.find('span', class_='nav-link__value').text
                 country = country.upper().strip()
                 details['country'] = country
-            
+
+            details['date of birth'] = None
+            details['play r or l'] = None
+            details['height'] = None
             for detail in detail_section:
                 section = detail.find('dt', class_='list__label').text.lower().strip()
                 value = detail.find('span', class_='nav-link__value').text.strip()
 
                 if section == 'date of birth':
                     value = self.format_date(value)
+                elif section == 'play r or l':
+                    value = 'R' if value == 'Right handed' else 'L'
+                elif section == 'height':
+                    splitter = value.split(' ')
+                    value = splitter[0]
+                else:
+                    continue
 
                 details[section] = value
+        
+            print(str(details))
 
     async def grab_all_players(self):
         async with aiohttp.ClientSession() as session:

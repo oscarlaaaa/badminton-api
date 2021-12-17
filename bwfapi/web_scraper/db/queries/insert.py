@@ -2,30 +2,30 @@
 INSERTS = {}
 
 INSERTS['player'] = (
-    'INSERT INTO Player '
-    ' (ID, Name, Country, BirthDate, PlayHand)'
-    ' VALUES (%s, %s, %s, %s, %s)'
+    'INSERT IGNORE INTO Player '
+    ' (ID, Name, Country, BirthDate, PlayHand, Height)'
+    ' VALUES (%s, %s, %s, %s, %s, %s)'
     ';'
     )
 
 INSERTS['tournament'] = (
-    'INSERT INTO Tournament '
+    'INSERT IGNORE INTO Tournament '
     ' (ID,`StartDate`, `EndDate`, name)'
     ' VALUES (%s, %s, %s, %s)'
     ';'
     )
 
 INSERTS['match'] = (
-    'INSERT INTO `Match` '
-    ' (WinnerID, LoserID, TournamentID, `Event`, `Time`, `Duration`)'
-    ' VALUES (%s, %s, %s, %s, %s, %s)'
+    'INSERT IGNORE INTO `Match` '
+    ' (WinnerID, LoserID, TournamentID, `Event`, `Duration`)'
+    ' VALUES (%s, %s, %s, %s, %s)'
     ';'
     )
 
 INSERTS['set'] = (
-    'INSERT INTO `Set` '
-    ' (MatchID, WinnerScore, LoserScore, Round)'
-    ' VALUES (%s, %s, %s, %s)'
+    'INSERT IGNORE INTO `Set` '
+    ' (Round, WinnerID, LoserID, TournamentID, WinnerScore, LoserScore)'
+    ' VALUES (%s, %s, %s, %s, %s, %s)'
     ';'
     )
 def get_insert_queries():
