@@ -1,35 +1,36 @@
-# BWF Web Scraper API
+# BWF Match/Player API
 
 ## Overview
-A simple web scraper API that scrapes tournament data, compiles the data, and feeds the dataset into a ML model to generate predictive analytics about tournament results (that's the plan, at least).
+A simple API that has scraped match data from tournamentsoftware.com stored in an SQL database, and can return the match, tournament, and opponent history of a player from between 2007 and present day. The database is automatically updated periodically every week.
+
+Note: This project is not affiliated with BWF or TournamentSoftware in any way, shape, or form and does not profit from the data gathered.
 
 ## How to Use
 1. Clone the repository onto a local machine
 2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
-3. Run the main_scraper.py script (change the year on line 84 to your desired year) 
-4. Wait for it to finish (usually takes ~90 seconds per year)
-5. Open the .csv files in bwfapi/web_scraper/db for your information!
+3. Open a terminal and navigate into the /bwfapi folder
+4. Run the following command:
 
-## Features to Implement
+    ```uvicorn server:app --reload```
+
+## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches
 - [x] Compile list of BWF Tournaments either manually or through web-scraping
 - [x] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
 - [x] Concurrent scraping for tournament gatherer
 - [x] Concurrent scraping for match gatherer
-- [x] Establish benchmarking to determine best async implementation (or if it's even needed)
-- [x] Design simple SQL DB for information to store
-- [ ] Establish storing match, player, tournament, and event information into MySQL
-- [ ] Establish back-end API using Flask
-- [ ] Establish front-end webpage; maybe React
-- [ ] Attempt to implement various ML algorithms - maybe start with Linear Regression? time to study more
-- [ ] Build predictive-analytics system by utilizing dataset + various ML models to calculate H2H % of victory
-
-## Features in Consideration
-- [ ] Make scraper compatible with doubles events?
-- [ ] Figure out how to use the above to establish tournament most likely winners
-- [ ] User-friendly 'update' function that scrapes the most recent year and updates database
+- [x] Concurrent scraping for player gatherer
+- [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process
+- [x] Build foundation for MySQL-scraper interface to insert scraped data
+- [x] Refactor and clean-up scraper code
+- [X] Establish back-end API foundation for periodic DB updates using FastAPI 
+- [ ] Establish API endpoints to facilitate simple JSON get requests
+- [ ] Refactor and clean-up API code
+- [ ] Load all scraped data onto hosted AWS MySQL server
+- [ ] Build simple static landing page to show people how to use the API
 
 ## Technologies Used
-* Python3 and Django/Flask (soon)
-* React.js (soon)
-* MongoDB
+* Python3
+* FastAPI
+* MySQL 
+* AWS (soon)
