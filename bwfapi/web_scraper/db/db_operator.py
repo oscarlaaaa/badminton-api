@@ -102,11 +102,12 @@ class DBOperator:
             details = player_list[name]
             try:
                 player_data = (
-                    details['id'], name, details['country'], details['date of birth'], details['play r or l'])
+                    details['id'], name, details['country'], details['date of birth'], details['play r or l'], details['height'])
                 cursor.execute(query, player_data)
             except mysql.connector.Error as err:
                 print(f"Error inserting player: {err}")
 
+        print("Finished inserting players!")
         self.connection.commit()
         cursor.close()
 
@@ -150,11 +151,9 @@ class DBOperator:
 
             try:
                 cursor.execute(match_query, match.get_formatted_data())
-                match_id = cursor.lastrowid
-
                 for match_set in sets:
                     cursor.execute(
-                        set_query, match_set.get_formatted_data(match_id))
+                        set_query, match_set.get_formatted_data())
 
             except mysql.connector.Error as err:
                 print(f"Error inserting match: {err}")

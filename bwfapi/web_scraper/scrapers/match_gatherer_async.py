@@ -53,12 +53,6 @@ class AsyncMatchGatherer:
     def extract_date(self, date_time):
         return date_time.split(" ")[1]
 
-    def extract_time(self, date_time):
-        val = date_time.split(" ")
-        if (len(val) < 4):
-            return "N/A"
-        return val[2] + " " + val[3]
-
     ## finds all draws that correspond to the event parameter, and returns an array of draw links
     def collect_draw_links(self, html_text, event):
         soup = BeautifulSoup(html_text, 'lxml')
@@ -129,11 +123,10 @@ class AsyncMatchGatherer:
 
         date_time = match_row.find('td', class_='plannedtime').text
         date = self.extract_date(date_time)
-        time = self.extract_time(date_time)
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        return Match(event=self.event, winner=winner, loser=loser, points=points, date=date, time=time, duration=duration, tournament_id=tournament_id)
+        return Match(event=self.event, winner=winner, loser=loser, points=points, date=date, duration=duration, tournament_id=tournament_id)
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link, tournament_id, level):
@@ -167,7 +160,7 @@ class AsyncMatchGatherer:
                     matches = matches + tournament_matches
             return matches
 
-    def sort_match_data2(self, match_list):
+    def sort_match_data2(match_list):
         match_list.sort(key=lambda match: datetime.strptime(match.get_date(), '%m/%d/%Y'))
         return match_list
 

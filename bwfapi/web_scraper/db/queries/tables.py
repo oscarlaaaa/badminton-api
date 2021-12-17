@@ -6,6 +6,7 @@ TABLES['player'] = (
     ' Country VARCHAR(50),'
     ' BirthDate Date,'
     ' PlayHand VARCHAR(20),'
+    ' Height int,'
     ' PRIMARY KEY (ID)'
     ');')
 
@@ -20,14 +21,12 @@ TABLES['tournament'] = (
 
 TABLES['match'] = (
     'CREATE TABLE IF NOT EXISTS `Match` ('
-    ' ID int NOT NULL AUTO_INCREMENT,'
     ' WinnerID VARCHAR(100) NOT NULL,'
     ' LoserID VARCHAR(100) NOT NULL,'
     ' TournamentID VARCHAR(100) NOT NULL,'
     ' `Event` VARCHAR(5) NOT NULL,'
-    ' `Time` VARCHAR(50) NOT NULL,'
     ' `Duration` int NOT NULL,'
-    ' PRIMARY KEY (ID),'
+    ' PRIMARY KEY (WinnerID, LoserID, TournamentID),'
     ' FOREIGN KEY (WinnerID) REFERENCES Player(ID),'
     ' FOREIGN KEY (LoserID) REFERENCES Player(ID),'
     ' FOREIGN KEY (TournamentID) REFERENCES Tournament(ID)'
@@ -35,13 +34,16 @@ TABLES['match'] = (
 
 TABLES['set'] = (
     'CREATE TABLE IF NOT EXISTS `Set` ('
-    ' ID int NOT NULL AUTO_INCREMENT,'
-    ' MatchID int NOT NULL,'
+    ' Round int NOT NULL,'
+    ' WinnerID VARCHAR(100) NOT NULL,'
+    ' LoserID VARCHAR(100) NOT NULL,'
+    ' TournamentID VARCHAR(100) NOT NULL,'
     ' WinnerScore int NOT NULL,'
     ' LoserScore int NOT NULL,'
-    ' Round int NOT NULL,'
-    ' PRIMARY KEY (ID),'
-    ' FOREIGN KEY (MatchID) REFERENCES `Match`(ID)'
+    ' PRIMARY KEY (Round, WinnerID, LoserID, TournamentID),'
+    ' FOREIGN KEY (WinnerID) REFERENCES `Match`(WinnerID),'
+    ' FOREIGN KEY (LoserID) REFERENCES `Match`(LoserID),'
+    ' FOREIGN KEY (TournamentID) REFERENCES `Match`(TournamentID)'
     ');')
 
 
