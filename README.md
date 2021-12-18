@@ -9,9 +9,8 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 1. Clone the repository onto a local machine
 2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
 3. Open a terminal and navigate into the /bwfapi folder
-4. Run the following command:
-
-    ```uvicorn server:app --reload```
+4. Run the following command:  ```uvicorn server:app --reload```
+5. Open a web browser and navigate to ```localhost:8000```
 
 ## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches

@@ -1,12 +1,12 @@
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi_utils.tasks import repeat_every
-from sqlalchemy.orm import Session
-
 import time
 import asyncio
 import nest_asyncio
+
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi_utils.tasks import repeat_every
+from sqlalchemy.orm import Session
 from enum import Enum
-from web_scraper import scrape_current_month_matches, lol
+from web_scraper import scrape_current_month_matches
 from web_scraper.db import DBOperator
 from datetime import date
 
