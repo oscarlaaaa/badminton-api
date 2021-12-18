@@ -1,8 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 from .database import Base
 
-class Player(Base):
+class Player(Base, SerializerMixin):
     __tablename__ = "player"
 
     id = Column(String, primary_key=True)
@@ -13,7 +14,7 @@ class Player(Base):
     playHand = Column(String)
     height = Column(Integer)
 
-class Tournament(Base):
+class Tournament(Base, SerializerMixin):
     __tablename__ = "tournament"
 
     id = Column(String, primary_key=True)
@@ -21,7 +22,7 @@ class Tournament(Base):
     endDate = Column(Date)
     name = Column(String)
 
-class Match(Base):
+class Match(Base, SerializerMixin):
     __tablename__ = "match"
 
     winnerId = Column(String, ForeignKey("player.id"), primary_key=True)
@@ -33,7 +34,7 @@ class Match(Base):
     loser = relationship("Player", foreign_keys="Match.loserId")
     tournament = relationship("Tournament", foreign_keys="Match.tournamentId")
 
-class Set(Base):
+class Set(Base, SerializerMixin):
     __tablename__ = "set"
 
     round = Column(Integer, primary_key=True)
