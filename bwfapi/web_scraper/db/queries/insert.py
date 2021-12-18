@@ -3,8 +3,8 @@ INSERTS = {}
 
 INSERTS['player'] = (
     'INSERT IGNORE INTO Player '
-    ' (ID, Name, Country, BirthDate, PlayHand, Height)'
-    ' VALUES (%s, %s, %s, %s, %s, %s)'
+    ' (ID, Name, `Event`, Country, BirthDate, PlayHand, Height)'
+    ' VALUES (%s, %s, %s, %s, %s, %s, %s)'
     ';'
     )
 
@@ -17,8 +17,8 @@ INSERTS['tournament'] = (
 
 INSERTS['match'] = (
     'INSERT IGNORE INTO `Match` '
-    ' (WinnerID, LoserID, TournamentID, `Event`, `Duration`)'
-    ' VALUES (%s, %s, %s, %s, %s)'
+    ' (WinnerID, LoserID, TournamentID,  `Duration`)'
+    ' VALUES (%s, %s, %s, %s)'
     ';'
     )
 
