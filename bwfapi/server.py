@@ -1,5 +1,7 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi_utils.tasks import repeat_every
+from sqlalchemy.orm import Session
+
 import time
 import asyncio
 import nest_asyncio
@@ -11,20 +13,34 @@ from datetime import date
 import logging
 from fastapi import FastAPI
 from web_scraper.services import EchoService
+from api import crud, models
+from api import SessionLocal, engine
 
 nest_asyncio.apply()
 
-# setup loggers
+## Snippet taken from: https://philstories.medium.com/fastapi-logging-f6237b84ea64
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
-
-# get root logger
-logger = logging.getLogger(__name__)  # the __name__ resolve to "main" since we are at the root of the project. 
-                                      # This will get the root logger since no logger in the configuration has this name.
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.get("/players/{name}")
+async def get_player(name: str, db: Session=Depends(get_db)):
+    player = crud.get_player(db, player_name=name)
+    if player is None:
+        raise HTTPException(status_code=404, detail="Player could not found")
+    return player
+
 @app.on_event("startup")
-@repeat_every(seconds=60, raise_exceptions=True)  # 1 week
+@repeat_every(seconds=999999, raise_exceptions=True, wait_first=True)  # 1 week
 async def update_database():
     logger.info("Updating database")
     EchoService.echo("Running scraping script")
@@ -45,18 +61,6 @@ async def reset_db():
     db.reset_database()
     return {"message" : "Database cleared!"}
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int):
-    return {"item_id": item_id}
-
-@app.get("/users/me")
-async def read_user_me():
-    return {"user_id": "the current user"}
-
-@app.get("/users/{user_id}")
-async def read_user(user_id: str):
-    return {"user_id": user_id}
-
 class ModelName(str, Enum):
     alexnet = "alexnet"
     resnet = "resnet"
@@ -71,4 +75,3 @@ async def get_model(model_name: ModelName):
         return {"model_name": model_name, "message": "LeCNN all the images"}
 
     return {"model_name": model_name, "message": "Have some residuals"}
-

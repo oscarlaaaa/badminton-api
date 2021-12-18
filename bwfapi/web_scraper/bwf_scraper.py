@@ -2,9 +2,9 @@ import csv
 import asyncio
 import timeit
 import time
-from db import DBOperator
-from scrapers import TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
-from services import EchoService
+from .db import DBOperator
+from .scrapers import TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
+from .services import EchoService
 
 class BwfScraper:
     def __init__(self, year=0, event="MS"):
@@ -172,7 +172,6 @@ def scrape_year_matches(event, year):
     dboperator.close()
 
 async def scrape_current_month_matches():
-
     scraper = BwfScraper()
     try:
         await scraper.scrape_current_month()
