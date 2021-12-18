@@ -6,6 +6,7 @@ from enum import Enum
 from web_scraper import scrape_current_month_matches
 from web_scraper.db import DBOperator
 from datetime import date
+from starlette.responses import RedirectResponse
 
 import logging
 from fastapi import FastAPI
@@ -18,7 +19,7 @@ logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/index", StaticFiles(directory="static", html=True), name="static")
 
 # Dependency
 def get_db():
@@ -41,10 +42,9 @@ async def update_database() -> dict:
     }
 
 @app.get("/")
-async def root() -> dict:
-    logger.info("logging from the root logger")
-    EchoService.echo("hi")
-    return {"message": "Hello World"}
+async def root():
+    response = RedirectResponse(url="/index")
+    return response
 
 @app.get("/clear")
 async def reset_db() -> dict:
