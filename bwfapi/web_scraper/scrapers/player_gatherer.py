@@ -3,9 +3,10 @@ import asyncio
 from bs4 import BeautifulSoup
 
 class PlayerGatherer:
-    def __init__(self, player_links):
+    def __init__(self, player_links, event):
         self.player_links = player_links
         self.player_list = {}
+        self.event = event
     
     def format_link(self, link):
         return f'https://bwf.tournamentsoftware.com/sport/{link}'
@@ -40,11 +41,12 @@ class PlayerGatherer:
             details['id'] = player_id
             self.player_list[name] = details
     
-    async def grab_player_info(self, details, session):
+    async def grab_player_info(self, name, details, session):
         async with session.get(self.format_player_link(details['id'])) as resp:
             html_text = await resp.text()
             soup = BeautifulSoup(html_text, 'lxml')
             detail_section = soup.find('dl', class_='list list--flex list--bordered').findAll('div', class_='list__item')
+            details['event'] = self.event
             
             details['country'] = None
             country = soup.find('div', class_='media__content-subinfo')
@@ -72,7 +74,7 @@ class PlayerGatherer:
 
                 details[section] = value
         
-            print(str(details))
+            print(f"{str(name)} : {str(details)}")
 
     async def grab_all_players(self):
         async with aiohttp.ClientSession() as session:
@@ -83,5 +85,5 @@ class PlayerGatherer:
     async def grab_all_player_info(self):
         async with aiohttp.ClientSession() as session:
             loop = asyncio.get_event_loop()
-            tasks = asyncio.gather(*[self.grab_player_info(details=details, session=session) for details in self.player_list.values()], return_exceptions=True)
+            tasks = asyncio.gather(*[self.grab_player_info(name=name, details=details, session=session) for name, details in self.player_list.items()], return_exceptions=True)
             loop.run_until_complete(tasks)

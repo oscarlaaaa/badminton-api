@@ -11,8 +11,7 @@ class Set:
         return (self.round, self.winner, self.loser, self.tournament_id, self.winner_score, self.loser_score)
 
 class Match:
-    def __init__(self, event, winner, loser, points, date, duration=0, tournament_id='undefined'):
-        self.event = event
+    def __init__(self, winner, loser, points, date, duration=0, tournament_id='undefined'):
         self.winner = winner
         self.loser = loser
         self.points = points
@@ -60,7 +59,7 @@ class Match:
         return calendar_date[:index]
     
     def get_formatted_data(self):
-        return (self.winner, self.loser, self.tournament_id, self.event, self.duration)
+        return (self.winner, self.loser, self.tournament_id, self.duration)
 
     def get_sets(self):
         return [Set(i, self.winner, self.loser, self.tournament_id, game[0], game[1]) for i, game in enumerate(self.points, 1)]

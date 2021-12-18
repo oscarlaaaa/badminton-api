@@ -12,9 +12,11 @@ class BwfScraper:
         self.event = event
         self.tournament_list = {}
         self.match_list = []
-        self.player_links = []
+        self.men_players = {}
+        self.women_players = {}
         self.player_list = {}
-        self.pg = None
+        self.men_pg = None
+        self.women_pg = None
 
     def get_tournament_list(self):
         return self.tournament_list
@@ -32,36 +34,33 @@ class BwfScraper:
         start_tournament_scraping = timeit.default_timer()
         tournaments = asyncio.run(tg.grab_tournaments_from_year(self.year))
         end_tournament_scraping = timeit.default_timer()
-        # print(f"Year: {self.year}\t Count: {str(len(tournaments))}")
         total_tournaments = len(tournaments)
 
         tournament_time_elapsed = end_tournament_scraping - start_tournament_scraping
-        print(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.") # should be 546
         self.tournament_list = tournaments
+
+        print(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.") 
         return {"count": total_tournaments, "time": tournament_time_elapsed}
 
     async def scrape_current_month_tournaments(self):
         EchoService.echo(f"Started scraping tournaments from current month")
-        # print("Started scraping tournaments...")
-        tg = TournamentGatherer()
-
         start_tournament_scraping = timeit.default_timer()
-        EchoService.echo(f"aaaa")
+
+        tg = TournamentGatherer()
         tournaments = await tg.grab_tournaments_from_current_month()
-        EchoService.echo(f"aaaa")
+
         end_tournament_scraping = timeit.default_timer()
         print(f"Year: {self.year}\t Count: {str(len(tournaments))}")
         total_tournaments = len(tournaments)
 
         tournament_time_elapsed = end_tournament_scraping - start_tournament_scraping
-        EchoService.echo(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.")
-        # print(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.") # should be 546
         self.tournament_list = tournaments
+
+        EchoService.echo(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.")
         return {"count": total_tournaments, "time": tournament_time_elapsed}
 
     async def scrape_matches(self):
         EchoService.echo(f"Started scraping matches...")
-        # print("Started scraping matches...")
         start_Amatch_scraping = timeit.default_timer()
 
         tournament_links = [tournament['link'] for tournament in self.tournament_list]
@@ -75,43 +74,44 @@ class BwfScraper:
 
         end_Amatch_scraping = timeit.default_timer()
         Amatch_time_elapsed = end_Amatch_scraping - start_Amatch_scraping
-        EchoService.echo(f"Finished scraping {len(tournament_match_list)} matches in {Amatch_time_elapsed} seconds.")
-        # print(f"Finished scraping {len(tournament_match_list)} matches in {Amatch_time_elapsed} seconds.")
 
-        self.player_links = mg_mens.get_player_links() + mg_womens.get_player_links()
+        self.men_players = mg_mens.get_player_links() 
+        self.women_players = mg_womens.get_player_links()
         self.match_list = tournament_match_list
 
+        EchoService.echo(f"Finished scraping {len(tournament_match_list)} matches in {Amatch_time_elapsed} seconds.")
         return {"count": len(tournament_match_list), "time": Amatch_time_elapsed}
 
     async def scrape_players(self):
         EchoService.echo(f"Started scraping players...")
-        # print("Started scraping players...")
         start_player_scraping = timeit.default_timer()
 
-        self.pg = PlayerGatherer(self.player_links)
-        await self.pg.grab_all_players()
+        self.men_pg = PlayerGatherer(self.men_players, "MS")
+        await self.men_pg.grab_all_players()
+
+        self.women_pg = PlayerGatherer(self.women_players, "WS")
+        await self.women_pg.grab_all_players()
+
         end_player_scraping = timeit.default_timer()
         player_time_elapsed = end_player_scraping - start_player_scraping
 
-        EchoService.echo(f"Finished scraping {len(self.pg.get_player_list())} players in {player_time_elapsed} seconds.")
-        # print(f"Finished scraping {len(self.pg.get_player_list())} players in {player_time_elapsed} seconds.")
-
-        return {"count": len(self.pg.get_player_list()), "time": player_time_elapsed}
+        EchoService.echo(f"Finished scraping {len(self.men_pg.get_player_list()) + len(self.women_pg.get_player_list())} players in {player_time_elapsed} seconds.")
+        return {"count": len(self.men_pg.get_player_list()) + len(self.women_pg.get_player_list()), "time": player_time_elapsed}
     
     async def scrape_players_info(self):
         EchoService.echo(f"Started scraping player info...")
-        # print("Started scraping player info...")
         start_info_scraping = timeit.default_timer()
         
-        await self.pg.grab_all_player_info()
+        await self.men_pg.grab_all_player_info()
+        await self.women_pg.grab_all_player_info()
         
         end_info_scraping = timeit.default_timer()
         info_time_elapsed = end_info_scraping - start_info_scraping
 
-        self.player_list = self.pg.get_player_list()
-        EchoService.echo(f"Finished scraping {len(self.player_list)} player infos in {info_time_elapsed} seconds.")
-        # print(f"Finished scraping {len(self.player_list)} player infos in {info_time_elapsed} seconds.")
+        self.player_list.update(self.women_pg.get_player_list())
+        self.player_list.update(self.men_pg.get_player_list())
 
+        EchoService.echo(f"Finished scraping {len(self.player_list)} player infos in {info_time_elapsed} seconds.")
         return {"count": len(self.player_list), "time": info_time_elapsed}
     
     def change_names_to_ids(self):
@@ -135,14 +135,11 @@ class BwfScraper:
             writer.writerow([self.year, self.event, "Player Info Scrape", player_info_bm['count'], player_info_bm['time']])
 
     async def scrape_current_month(self):
-        try:
-            await self.scrape_current_month_tournaments()
-            await self.scrape_matches()
-            await self.scrape_players()
-            await self.scrape_players_info()
-            self.change_names_to_ids()
-        except:
-            print("sad")
+        await self.scrape_current_month_tournaments()
+        await self.scrape_matches()
+        await self.scrape_players()
+        await self.scrape_players_info()
+        self.change_names_to_ids()
         # self.record_scraping_benchmarks(tournament_bm, match_bm, player_bm, player_info_bm)
 
     def scrape_year(self):
@@ -176,20 +173,27 @@ def scrape_year_matches(event, year):
 
 async def scrape_current_month_matches():
     scraper = BwfScraper()
-    await scraper.scrape_current_month()
-    dboperator = DBOperator()
+    try:
+        await scraper.scrape_current_month()
+        EchoService.echo("Opening DB connection")
+        dboperator = DBOperator()
+        EchoService.echo("Inserting Tournaments into DB")
+        dboperator.insert_tournaments(scraper.get_tournament_list()) #works
+        dboperator.commit()
+        
+        EchoService.echo("Inserting Players into DB")
+        dboperator.insert_players(scraper.get_player_list())  # works
+        dboperator.commit()
 
-    dboperator.insert_tournaments(scraper.get_tournament_list()) #works
-    dboperator.commit()
-    
-    dboperator.insert_players(scraper.get_player_list())  # works
-    dboperator.commit()
+        EchoService.echo("Inserting Matches and Sets into DB")
+        dboperator.insert_match_and_sets(scraper.get_match_list()) #works
+        dboperator.commit()
 
-    dboperator.insert_match_and_sets(scraper.get_match_list()) #works
-    dboperator.commit()
-
-    dboperator.close()
-    return {"message": "success"}
+        EchoService.echo("Closing DB connection")
+        dboperator.close()
+        return {"STATUS": "SUCCESS"}
+    except:
+        return {"STATUS": "ERROR"}
 
 def lol(event, year):
     print(f"{event} {year}")

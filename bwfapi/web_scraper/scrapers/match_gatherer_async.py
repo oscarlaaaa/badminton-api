@@ -126,7 +126,7 @@ class AsyncMatchGatherer:
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
-        return Match(event=self.event, winner=winner, loser=loser, points=points, date=date, duration=duration, tournament_id=tournament_id)
+        return Match(winner=winner, loser=loser, points=points, date=date, duration=duration, tournament_id=tournament_id)
 
     ## scrapes all match links, and returns a list of match objects
     def collect_all_matches(self, match_link, tournament_id, level):
