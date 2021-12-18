@@ -15,15 +15,16 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 
 ## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches
-- [x] Compile list of BWF Tournaments either manually or through web-scraping
+- [x] Compile list of BWF Tournaments either manually or through web-scrapinging
 - [x] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
 - [x] Concurrent scraping for tournament gatherer
 - [x] Concurrent scraping for match gatherer
 - [x] Concurrent scraping for player gatherer
-- [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process
+- [x] Establish benchmarking to determine bottlenecks within scraping/data insertion process insertion process
 - [x] Build foundation for MySQL-scraper interface to insert scraped data
-- [x] Refactor and clean-up scraper code
-- [X] Establish back-end API foundation for periodic DB updates using FastAPI 
+- [X] Refactor and clean-up scraper code
+- [x] Establish back-end API foundation for periodic DB updates using FastAPI
+- [X] Set-up SQLAlchemy models and DB connection
 - [ ] Establish API endpoints to facilitate simple JSON get requests
 - [ ] Refactor and clean-up API code
 - [ ] Load all scraped data onto hosted AWS MySQL server
