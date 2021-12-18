@@ -1,0 +1,16 @@
+div {
+    align-items: center;
+    text-align: center;
+}
+h1 {
+    text-align: center;
+    margin: 4%;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 3.5rem;
+}
+#logo {
+    width: auto;
+    margin-right: 2%;
+    height: 5rem;
+}
