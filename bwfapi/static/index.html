@@ -17,20 +17,199 @@
         <header>
             <h1 class="my-4"><img id="logo" src="2012_BWF_logo.svg" alt="BWF Logo">BWF Player and Match API</h1>
         </header>
-        <div>
-            <h5>An API that returns data scraped from tournamentsoftware.com formatted in JSON for easy consumption.</h5>
-            <p><small>Disclaimer: This is a personal project, and is not affiliated with BWF and/or TournamentSoftware in any way, shape, or form.</small></p>
+        <div class="mb-5 text-center">
+            <h5>An API that returns data scraped from tournamentsoftware.com formatted in JSON.
+            </h5>
+            <p><small>Disclaimer: This is a personal project, and is not affiliated with BWF and/or TournamentSoftware
+                    in any way, shape, or form.</small></p>
         </div>
-        <div>
-            <h3></h3>
-            <p></p>
+        <div class="my-5 text-start">
+            <h2>Data Collection</h2>
+            <p>All data was scraped from various Men's and Women's Singles matches throughout TournamentSoftware as well
+                as the respective players' profiles from from 2008 - 2021.
+                Due to the design of the web-scraper as well as to eliminate any outliers or strange data, some matches
+                have not been added into the database.
+            </p>
+            <p>Data was populated with an initial scrape up to the time of deployment, and is automatically updated
+                every
+                week with newer matches up to the current day. All data is stored in a private MySQL database.
+            </p>
         </div>
-        <div>
-            <h3>Usage</h3>
-            <p></p>
+        <div class="my-5 text-start">
+            <h2>API Endpoints</h2>
+            <div class="my-4 text-start">
+                <h4>Player Search by Name</h4>
+                <p>Search for players by name returns a JSON response with
+                    either a list of players that match the search criteria, or an error if no one is found. If no
+                    search text is provided, then will return random players.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">search_text</td>
+                            <td>The name (or part of name) of the player you'd like to search. Defaults to an
+                                empty
+                                string. <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to limit your search by. Defaults to 20. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">https://baddy-api.com/search?name=lee&limit=2</p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request players with 'lee' in their name; limit of '2'","status":"success","status_code":200,"data":[{"id":"04D8494F-9735-46D4-9AB4-693FAAA7EE13","country":null,"playHand":null,"birthDate":null,"name":"ESMYLEE LOPEZ","event":"MS","height":null},{"id":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440","country":"KOREA","playHand":"L","birthDate":"1980-04-17","name":"HYUN IL LEE","event":"MS","height":176}]}</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="my-4 text-start px-4">
+                <h4>Player Get by ID</h4>
+                <p>Gets a player by their ID (obtainable through the search-by-name API) returns a
+                    JSON response with
+                    the corresponding player, or an error if no one is found.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">player_id</td>
+                            <td>The id of the player you'd like to search. <b>(Required)</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">
+                                https://baddy-api.com/player?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440</p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre class="text-primary json"><code>
+                                {"request":"GET request for single player '0800FC8B-CBAB-4AC1-B6C7-F3D419906440'","status":"success","status_code":200,"data":{"id":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440","country":"KOREA","playHand":"L","birthDate":"1980-04-17","name":"HYUN IL LEE","event":"MS","height":176}}    </code></pre>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="my-4 text-start px-4">
+                <h4>Matches by Player (and Opponent) IDs</h4>
+                <p>Searches matches containing a player id and an opponent_id (optional) and returns a
+                    JSON response of the matches involving the player (and opponent if included), or an error if no one
+                    is found.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">player_id</td>
+                            <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">opponent_id</td>
+                            <td>The id of the opponent you'd like to search. <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">start_year</td>
+                            <td>The start year of the period you'd like to search. Defaults to 2008. <i>(optional)</i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">end_year</td>
+                            <td>The end year of the period you'd like to search. Defaults to next year.
+                                <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to return. Defaults to 50. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">
+                                http://localhost:8000/matches?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request matches between '00127A4D-2889-44A8-921B-7AFFBBC1DE1D' and '4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E'; start of '2008'; end of '2022'; limit of '50'","status":"success","status_code":200,"data":[{"loserId":"4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E","tournamentId":"8385F683-15A3-4E8B-8FBF-EF71992BF553","duration":29,"winnerId":"00127A4D-2889-44A8-921B-7AFFBBC1DE1D"}]}    </code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
     </div>
-    
+    <footer>
+        <div class="container my-4 text-center">
+            <hr />
+            <p><a href="https://github.com/oscarlaaaa/badminton-scraper">Source Code</a>&emsp;<a
+                    href="https://github.com/oscarlaaaa/">My Github</a></p>
+        </div>
+    </footer>
+    <script>
+        let elements = document.getElementsByClassName("json")
+        for (let i = 0; i < elements.length; i++) {
+            let data = JSON.parse(elements[i].innerText);
+            elements[i].innerHTML = JSON.stringify(data, undefined, 2);
+        }
+    </script>
 </body>
 
 </html>
