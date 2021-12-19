@@ -96,7 +96,6 @@ class DBOperator:
     def insert_players(self, player_list):
         cursor = self.connection.cursor()
         query = self.INSERTS['player']
-
         for name in player_list:
             details = player_list[name]
             try:

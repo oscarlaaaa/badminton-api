@@ -7,9 +7,8 @@ from .scrapers import TournamentGatherer, AsyncMatchGatherer, Match, PlayerGathe
 from .services import EchoService
 
 class BwfScraper:
-    def __init__(self, year=0, event="MS"):
+    def __init__(self, year=0):
         self.year = year
-        self.event = event
         self.tournament_list = {}
         self.match_list = []
         self.men_players = {}
@@ -27,12 +26,12 @@ class BwfScraper:
     def get_player_list(self):
         return self.player_list
 
-    def scrape_year_tournaments(self):
+    async def scrape_year_tournaments(self):
         print("Started scraping tournaments...")
         tg = TournamentGatherer()
 
         start_tournament_scraping = timeit.default_timer()
-        tournaments = asyncio.run(tg.grab_tournaments_from_year(self.year))
+        tournaments = await tg.grab_tournaments_from_year(self.year)
         end_tournament_scraping = timeit.default_timer()
         total_tournaments = len(tournaments)
 
@@ -44,6 +43,7 @@ class BwfScraper:
 
     async def scrape_current_month_tournaments(self):
         EchoService.echo(f"Started scraping tournaments from current month")
+        print(f"Started scraping tournaments from current month")
         start_tournament_scraping = timeit.default_timer()
 
         tg = TournamentGatherer()
@@ -57,10 +57,12 @@ class BwfScraper:
         self.tournament_list = tournaments
 
         EchoService.echo(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.")
+        print(f"Finished scraping {total_tournaments} tournaments in {tournament_time_elapsed} seconds.")
         return {"count": total_tournaments, "time": tournament_time_elapsed}
 
     async def scrape_matches(self):
         EchoService.echo(f"Started scraping matches...")
+        print(f"Started scraping matches...")
         start_Amatch_scraping = timeit.default_timer()
 
         tournament_links = [tournament['link'] for tournament in self.tournament_list]
@@ -80,10 +82,12 @@ class BwfScraper:
         self.match_list = tournament_match_list
 
         EchoService.echo(f"Finished scraping {len(tournament_match_list)} matches in {Amatch_time_elapsed} seconds.")
+        print(f"Finished scraping {len(tournament_match_list)} matches in {Amatch_time_elapsed} seconds.")
         return {"count": len(tournament_match_list), "time": Amatch_time_elapsed}
 
     async def scrape_players(self):
         EchoService.echo(f"Started scraping players...")
+        print(f"Started scraping players...")
         start_player_scraping = timeit.default_timer()
 
         self.men_pg = PlayerGatherer(self.men_players, "MS")
@@ -96,10 +100,12 @@ class BwfScraper:
         player_time_elapsed = end_player_scraping - start_player_scraping
 
         EchoService.echo(f"Finished scraping {len(self.men_pg.get_player_list()) + len(self.women_pg.get_player_list())} players in {player_time_elapsed} seconds.")
+        print(f"Finished scraping {len(self.men_pg.get_player_list()) + len(self.women_pg.get_player_list())} players in {player_time_elapsed} seconds.")
         return {"count": len(self.men_pg.get_player_list()) + len(self.women_pg.get_player_list()), "time": player_time_elapsed}
     
     async def scrape_players_info(self):
         EchoService.echo(f"Started scraping player info...")
+        print(f"Started scraping player info...")
         start_info_scraping = timeit.default_timer()
         
         await self.men_pg.grab_all_player_info()
@@ -112,6 +118,7 @@ class BwfScraper:
         self.player_list.update(self.men_pg.get_player_list())
 
         EchoService.echo(f"Finished scraping {len(self.player_list)} player infos in {info_time_elapsed} seconds.")
+        print(f"Finished scraping {len(self.player_list)} player infos in {info_time_elapsed} seconds.")
         return {"count": len(self.player_list), "time": info_time_elapsed}
     
     def change_names_to_ids(self):
@@ -129,10 +136,10 @@ class BwfScraper:
     def record_scraping_benchmarks(self, tournament_bm, match_bm, player_bm, player_info_bm):
         with open('./bwfapi/benchmarks/scraping.csv', 'a+', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([self.year, self.event, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
-            writer.writerow([self.year, self.event, "Match Scrape", match_bm['count'], match_bm['time']])
-            writer.writerow([self.year, self.event, "Player Scrape", player_bm['count'], player_bm['time']])
-            writer.writerow([self.year, self.event, "Player Info Scrape", player_info_bm['count'], player_info_bm['time']])
+            writer.writerow([self.year, "Tournament Scrape", tournament_bm['count'], tournament_bm['time']])
+            writer.writerow([self.year, "Match Scrape", match_bm['count'], match_bm['time']])
+            writer.writerow([self.year, "Player Scrape", player_bm['count'], player_bm['time']])
+            writer.writerow([self.year, "Player Info Scrape", player_info_bm['count'], player_info_bm['time']])
 
     async def scrape_current_month(self):
         await self.scrape_current_month_tournaments()
@@ -142,22 +149,22 @@ class BwfScraper:
         self.change_names_to_ids()
         # self.record_scraping_benchmarks(tournament_bm, match_bm, player_bm, player_info_bm)
 
-    def scrape_year(self):
-        tournament_bm = self.scrape_year_tournaments()
-        match_bm = self.scrape_matches()
-        player_bm = self.scrape_players()
-        player_info_bm = self.scrape_players_info()
+    async def scrape_year(self):
+        tournament_bm = await self.scrape_year_tournaments()
+        match_bm = await self.scrape_matches()
+        player_bm = await self.scrape_players()
+        player_info_bm = await self.scrape_players_info()
         self.change_names_to_ids()
-        # self.record_scraping_benchmarks(tournament_bm, match_bm, player_bm, player_info_bm)
+        self.record_scraping_benchmarks(tournament_bm, match_bm, player_bm, player_info_bm)
 
 def write_benchmark_headers():
      with open('./bwfapi/benchmarks/scraping.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Year", "Event", "Functionality", "Count", "Time in seconds"])
+        writer.writerow(["Year", "Functionality", "Count", "Time in seconds"])
 
-def scrape_year_matches(event, year):
-    scraper = BwfScraper(year, event)
-    scraper.scrape_year()
+async def scrape_year_matches(year):
+    scraper = BwfScraper(year)
+    await scraper.scrape_year()
     dboperator = DBOperator()
 
     dboperator.insert_tournaments(scraper.get_tournament_list()) #works
@@ -199,15 +206,14 @@ def lol(event, year):
     print(f"{event} {year}")
 
 ############### MAIN SCRAPER SECTION #################
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # write_benchmark_headers()
-    dboperator = DBOperator()
-    dboperator.reset_database()
-    dboperator.close()
+    # dboperator = DBOperator()
+    # dboperator.reset_database()
+    # dboperator.close()
 
-    asyncio.run(scrape_current_month_matches())
+    # asyncio.run(scrape_current_month_matches())
 
-    # for year in range(2008, 2022):
-    #     scrape_year_matches("MS", year)
-    #     time.sleep(5)
-    #     scrape_year_matches("WS", year)
+    # for year in range(2013, 2022):
+    #     asyncio.run(scrape_year_matches(year))
+    #     time.sleep(10)
