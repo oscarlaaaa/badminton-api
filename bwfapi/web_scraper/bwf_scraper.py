@@ -1,7 +1,5 @@
 import csv
-import asyncio
 import timeit
-import time
 from .db import DBOperator
 from .scrapers import TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
 from .services import EchoService
@@ -201,9 +199,6 @@ async def scrape_current_month_matches():
         return {"STATUS": "SUCCESS"}
     except:
         return {"STATUS": "ERROR"}
-
-def lol(event, year):
-    print(f"{event} {year}")
 
 ############### MAIN SCRAPER SECTION #################
 # if __name__ == "__main__":
