@@ -14,7 +14,7 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 
 ## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches
-- [x] Compile list of BWF Tournaments either manually or through web-scrapinging
+- [x] Compile list of BWF Tournaments either manually or through web-scraping
 - [x] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
 - [x] Concurrent scraping for tournament gatherer
 - [x] Concurrent scraping for match gatherer
@@ -24,13 +24,14 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 - [X] Refactor and clean-up scraper code
 - [x] Establish back-end API foundation for periodic DB updates using FastAPI
 - [X] Set-up SQLAlchemy models and DB connection
-- [ ] Establish API endpoints to facilitate simple JSON get requests
+- [X] Establish API endpoints to facilitate simple JSON get requests
 - [ ] Refactor and clean-up API code
 - [ ] Load all scraped data onto hosted AWS MySQL server
-- [ ] Build simple static landing page to show people how to use the API
+- [X] Build simple static landing page to show people how to use the API
+- [ ] Deploy onto cloud-service like AWS or Heroku
 
 ## Technologies Used
-* Python3
-* FastAPI
+* Python3 (BeautifulSoup, Aiohttp)
+* FastAPI (SQLAlchemy)
 * MySQL 
-* AWS (soon)
+* AWS or Heroku (soon)
