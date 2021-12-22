@@ -65,6 +65,19 @@ async def get_player(player_id: str="", db: Session=Depends(get_db)) -> dict:
         raise NoResultsException(status_code=404, detail="Player could not found")
     return player
 
+VALID_EVENTS = {"MS", "WS", ""}
+@app.get("/players/top")
+async def get_top_wins(event: str="", limit: int=10, db: Session=Depends(get_db)) -> dict:
+    if limit < 1:
+        raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
+    if event.upper() not in VALID_EVENTS:
+        raise InvalidParameterException(status_code=404, detail=f"Event must be WS, MS, or blank.")
+
+    players = crud.get_top_win_players(db, event=event, limit=limit)
+    if players is None:
+        raise NoResultsException(status_code=404, detail="Error in querying top players")
+    return players
+
 @app.get("/search") ## takes in /search?name=<STUFF>
 async def search_player(name: str="", limit: int=20, db: Session=Depends(get_db)) -> dict:
     if limit < 1:
