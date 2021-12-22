@@ -59,5 +59,5 @@ def get_tournament_matches(db: Session, tournament_id: str, limit: int) -> Optio
 
 def search_tournament(db: Session, search_text: str, limit: int) -> Optional[dict]:
     result = db.query(models.Tournament).filter(
-        models.Tournament.name.contains(search_text)).limit(limit).all()
+        models.Tournament.name.contains(search_text)).order_by(desc(models.Tournament.startDate)).limit(limit).all()
     return format_response(result, f"GET request tournaments with '{search_text}' in their name; limit of '{limit}'")
