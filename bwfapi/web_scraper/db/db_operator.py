@@ -1,10 +1,10 @@
 from decouple import config
 import mysql.connector
 from mysql.connector import errorcode
-from .queries.tables import get_tables, get_resets
-from .queries.database import drop_database, create_database
-from .queries.insert import get_insert_queries
-from .queries.select import query_player_id_by_name
+from web_scraper.db.queries.tables import get_tables, get_resets
+from web_scraper.db.queries.database import drop_database, create_database
+from web_scraper.db.queries.insert import get_insert_queries
+from web_scraper.db.queries.select import query_player_id_by_name
 
 class DBOperator:
     def __init__(self):
@@ -48,7 +48,6 @@ class DBOperator:
         cursor = self.connection.cursor()
         queries = self.RESETS['tables']
 
-        
         for query in queries:
             try:
                 cursor.execute(query)
