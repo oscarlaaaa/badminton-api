@@ -1,10 +1,10 @@
+import random
 from fastapi import FastAPI
 from fastapi_utils.tasks import repeat_every
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
-
 import logging
-from web_scraper import scrape_current_month_matches
+from web_scraper.bwf_scraper import scrape_current_month_matches
 from web_scraper.services import EchoService
 from api.routes import player, match, tournament
 
@@ -15,8 +15,9 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 app.mount("/index", StaticFiles(directory="static", html=True), name="static")
 
+wait = random.randint(0, 5)
 @app.on_event("startup")
-@repeat_every(seconds=999999, raise_exceptions=True, wait_first=True)  # 1 week
+@repeat_every(seconds=60 * 60 * 24 * (30 + wait), raise_exceptions=True, wait_first=True)  # ~1 month
 async def update_database():
     logger.info("Updating database")
     EchoService.echo("Running scraping script")
