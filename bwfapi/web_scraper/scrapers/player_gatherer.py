@@ -1,5 +1,6 @@
 import aiohttp
 import asyncio
+import random, time
 from bs4 import BeautifulSoup
 
 class PlayerGatherer:
@@ -23,6 +24,8 @@ class PlayerGatherer:
 
     async def grab_player(self, link, session):
         async with session.get(self.format_link(link)) as resp:
+            
+            time.sleep(random.randint(0, 10))
             html_text = await resp.text()
 
             soup = BeautifulSoup(html_text, 'lxml')

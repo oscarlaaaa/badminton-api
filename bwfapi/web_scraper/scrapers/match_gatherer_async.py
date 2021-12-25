@@ -1,11 +1,12 @@
-import requests
-import aiohttp
-import asyncio
-import nest_asyncio
-nest_asyncio.apply()
+import requests, aiohttp
+import asyncio, nest_asyncio
+import random, time
 from datetime import datetime
 from bs4 import BeautifulSoup
+
 from .match import Match
+
+nest_asyncio.apply()
 
 class AsyncMatchGatherer:
     PLAYERS_IN_ROW = 2
@@ -86,7 +87,7 @@ class AsyncMatchGatherer:
         return output
 
     def is_invalid_matchrow(self, match_row):
-        if match_row.find('span', class_='score') is None or match_row.find('td', class_='plannedtime') is None or len(match_row.find('span', class_='score').find_all('span')) == 0:
+        if match_row.find('span', class_='score') is None or len(match_row.find('span', class_='score').find_all('span')) == 0:
             return True
 
     def collect_players(self, winner, loser, match_row):
@@ -101,6 +102,8 @@ class AsyncMatchGatherer:
 
     ## collects and creates a match object from a given match row and appends to master matches list
     def collect_match_row_data(self, match_row, tournament_id, level):
+        
+        time.sleep(random.randint(0, 10))
         if self.is_invalid_matchrow(match_row):
             return
         
@@ -120,9 +123,12 @@ class AsyncMatchGatherer:
             self.player_links.append(links[1])
         
         points = [list(map(int, score.text.split('-'))) for score in match_row.find('span', class_='score').find_all('span')]
-
-        date_time = match_row.find('td', class_='plannedtime').text
-        date = self.extract_date(date_time)
+        
+        date = None
+        date_time = match_row.find('td', class_='plannedtime')
+        if date_time is not None:
+            date_time = date_time.text
+            date = self.extract_date(date_time)
             
         duration = self.convert_time_string_to_minutes([duration.text for duration in match_row.find_all('td')][-2])
 
@@ -168,7 +174,7 @@ class AsyncMatchGatherer:
         self.match_list.sort(key=lambda match: datetime.strptime(match.get_date(), '%m/%d/%Y'))
 
     ## compiles a list of every match stored within it
-    async def collect_all_match_data(self, sort=True):
+    async def collect_all_match_data(self):
         async with aiohttp.ClientSession() as session:
             output = await asyncio.gather(*[self.collect_match_data(link, session) for link in self.tournament_list])
             return [item for sublist in output for item in sublist]

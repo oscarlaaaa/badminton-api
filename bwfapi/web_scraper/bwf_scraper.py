@@ -1,8 +1,13 @@
 import csv
 import timeit
-from .db import DBOperator
-from .scrapers import TournamentGatherer, AsyncMatchGatherer, Match, PlayerGatherer
-from .services import EchoService
+from web_scraper.db.db_operator import DBOperator
+from web_scraper.scrapers.tournament_gatherer import TournamentGatherer
+from web_scraper.scrapers.match_gatherer_async import AsyncMatchGatherer
+from web_scraper.scrapers.match import Match 
+from web_scraper.scrapers.player_gatherer import PlayerGatherer
+from web_scraper.services import EchoService
+import asyncio
+import time, random
 
 class BwfScraper:
     def __init__(self, year=0):
@@ -70,7 +75,7 @@ class BwfScraper:
         mg_womens = AsyncMatchGatherer(event="WS", tournament_list=tournament_links)
         tournament_match_list = tournament_match_list + await mg_womens.collect_all_match_data()
 
-        AsyncMatchGatherer.sort_match_data2(tournament_match_list)
+        # AsyncMatchGatherer.sort_match_data2(tournament_match_list)
 
         end_Amatch_scraping = timeit.default_timer()
         Amatch_time_elapsed = end_Amatch_scraping - start_Amatch_scraping
@@ -141,8 +146,11 @@ class BwfScraper:
 
     async def scrape_current_month(self):
         await self.scrape_current_month_tournaments()
+        time.sleep(random.randint(0, 10))
         await self.scrape_matches()
+        time.sleep(random.randint(0, 10))
         await self.scrape_players()
+        time.sleep(random.randint(0, 10))
         await self.scrape_players_info()
         self.change_names_to_ids()
         # self.record_scraping_benchmarks(tournament_bm, match_bm, player_bm, player_info_bm)
@@ -201,14 +209,25 @@ async def scrape_current_month_matches():
         return {"STATUS": "ERROR"}
 
 ############### MAIN SCRAPER SECTION #################
-# if __name__ == "__main__":
+if __name__ == "__main__":
     # write_benchmark_headers()
     # dboperator = DBOperator()
     # dboperator.reset_database()
     # dboperator.close()
-
-    # asyncio.run(scrape_current_month_matches())
-
-    # for year in range(2013, 2022):
-    #     asyncio.run(scrape_year_matches(year))
-    #     time.sleep(10)
+    asyncio.run(scrape_current_month_matches())
+    # years_missed = []
+    # for year in (2008, 2018):
+        # failed = True
+        # while failed:
+            # try:
+                # print(f'----------------------SCRAPING {year}-----------------------')
+                # asyncio.run(scrape_year_matches(year))
+                # failed = False
+                # print("wooo")
+            # except:
+            #     years_missed.append(year)
+            # finally:
+                # print('\n\n\n')
+            # time.sleep(10)
+    
+    # print(f"MISSING: {str(years_missed)}")
