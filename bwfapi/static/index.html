@@ -68,7 +68,7 @@
                     </div>
                     <ul class="list-group w-100 list-group-flush">
                         <li class="list-group-item">
-                            <p class="text-success m-2">https://baddy-api.com/search?name=lee&limit=2</p>
+                            <p class="text-success m-2">https://baddy-api.com/player/search?name=lee&limit=2</p>
                         </li>
                     </ul>
                 </div>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="my-4 text-start px-4">
-                <h4>Player Get by ID</h4>
+                <h4>Get Player by ID</h4>
                 <p>Gets a player by their ID (obtainable through the search-by-name API) returns a
                     JSON response with
                     the corresponding player, or an error if no one is found.</p>
@@ -128,12 +128,171 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div class="my-4 text-start">
+                <h4>Get Top Winning Players (incom)</h4>
+                <p>Search for players by event and returns a JSON response with
+                    a list of players with the highest win rates from that event.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">event</td>
+                            <td>The event you'd like to query. Accepts "MS" or "WS" for Men's Singles and Women's Singles respectively. <i>(Required)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to limit your search by. Defaults to 10. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">https://baddy-api.com/player/top?event=MS&limit=5</p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request players with 'lee' in their name; limit of '2'","status":"success","status_code":200,"data":[{"id":"04D8494F-9735-46D4-9AB4-693FAAA7EE13","country":null,"playHand":null,"birthDate":null,"name":"ESMYLEE LOPEZ","event":"MS","height":null},{"id":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440","country":"KOREA","playHand":"L","birthDate":"1980-04-17","name":"HYUN IL LEE","event":"MS","height":176}]}</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="my-4 text-start">
+                <h4>Get Player Head-To-Head Record (incom)</h4>
+                <p>Search for players by ID and returns a JSON response with
+                    a list of players along with the wins/losses against those players. Can be sorted in ascending or descending order by wins or losses.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">player_id</td>
+                            <td>The id of the player you'd like to query. <b>(Required)</b></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">wins</td>
+                            <td>What parameter to return results by. Accepts 'True' for wins, and 'False' for losses. Defaults to True. <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">desc</td>
+                            <td>How to order the result parameters by. Accepts 'True' for descending, and 'False' for ascending order. Defaults to True. <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to limit your search by. Defaults to 10. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">https://baddy-api.com/player/h2h?name=lee&limit=2</p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request players with 'lee' in their name; limit of '2'","status":"success","status_code":200,"data":[{"id":"04D8494F-9735-46D4-9AB4-693FAAA7EE13","country":null,"playHand":null,"birthDate":null,"name":"ESMYLEE LOPEZ","event":"MS","height":null},{"id":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440","country":"KOREA","playHand":"L","birthDate":"1980-04-17","name":"HYUN IL LEE","event":"MS","height":176}]}</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
+            <div class="my-4 text-start px-4">
+                <h4>Get Matches by Player ID (incom)</h4>
+                <p>Searches matches containing a player id and returns a
+                    JSON response of the matches involving the player, or an error if no one
+                    is found.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">player_id</td>
+                            <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">start_year</td>
+                            <td>The start year of the period you'd like to search. Defaults to 2008. <i>(optional)</i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">end_year</td>
+                            <td>The end year of the period you'd like to search. Must be equal or greater than start year. Defaults to next year.
+                                <i>(optional)</i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to return. Defaults to 50. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">
+                                http://localhost:8000/matches?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&start_year=2020&limit=5
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request matches between '00127A4D-2889-44A8-921B-7AFFBBC1DE1D' and '4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E'; start of '2008'; end of '2022'; limit of '50'","status":"success","status_code":200,"data":[{"loserId":"4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E","tournamentId":"8385F683-15A3-4E8B-8FBF-EF71992BF553","duration":29,"winnerId":"00127A4D-2889-44A8-921B-7AFFBBC1DE1D"}]}    </code></pre>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="my-4 text-start px-4">
-                <h4>Matches by Player (and Opponent) IDs</h4>
-                <p>Searches matches containing a player id and an opponent_id (optional) and returns a
-                    JSON response of the matches involving the player (and opponent if included), or an error if no one
+                <h4>Matches by Player and Opponent IDs</h4>
+                <p>Searches matches containing a player id and an opponent_id and returns a
+                    JSON response of the matches involving the player and opponent, or an error if no one
                     is found.</p>
                 <table class="table text-start my-3">
                     <thead class="table-light">
@@ -175,6 +334,61 @@
                         <li class="list-group-item">
                             <p class="text-success m-2">
                                 http://localhost:8000/matches?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Response</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <pre
+                                class="text-primary json"><code>
+                                {"request":"GET request matches between '00127A4D-2889-44A8-921B-7AFFBBC1DE1D' and '4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E'; start of '2008'; end of '2022'; limit of '50'","status":"success","status_code":200,"data":[{"loserId":"4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E","tournamentId":"8385F683-15A3-4E8B-8FBF-EF71992BF553","duration":29,"winnerId":"00127A4D-2889-44A8-921B-7AFFBBC1DE1D"}]}    </code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="my-4 text-start px-4">
+                <h4>Get Matches by Tournament ID (incom)</h4>
+                <p>Searches matches containing a tournament id and returns a
+                    JSON response of all matches in the tournament of the event (if included), or an error if none
+                    are found.</p>
+                <table class="table text-start my-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Query Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-success">tournament_id</td>
+                            <td>The id of the tournament whose matches you'd like to query for. <b>(Required) </b>.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">event</td>
+                            <td>The event of the matches you'd like to search. Defaults to both. <i>(optional)</i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-success">limit</td>
+                            <td>How many results to return. Defaults to 50. <i>(optional)</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="card text-start">
+                    <div class="card-header w-100 text-start">
+                        <b>Example Query</b>
+                    </div>
+                    <ul class="list-group w-100 list-group-flush">
+                        <li class="list-group-item">
+                            <p class="text-success m-2">
+                                http://localhost:8000/matches?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&start_year=2020&limit=5
                             </p>
                         </li>
                     </ul>
