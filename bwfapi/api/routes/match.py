@@ -44,12 +44,12 @@ async def search_vs_matches(player_id: str="", opponent_id: str="", limit: int=5
     return matches
 
 @router.get("/tournament")
-async def search_tournament_matches(tournament_id: str="", limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
+async def search_tournament_matches(tournament_id: str="", event: str="", limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_tournament_matches called for tournament_id={tournament_id}, limit={limit}")
     if tournament_id == "":
         raise InvalidParameterException(status_code=404, detail=f"Must include tournament_id parameter in query.")
     
-    matches = crud.get_tournament_matches(db, tournament_id=tournament_id, limit=limit)
+    matches = crud.get_tournament_matches(db, tournament_id=tournament_id, event=event, limit=limit)
     if matches is None:
         raise NoResultsException(status_code=404, detail=f"No matches found for tournament {tournament_id}.")
     return matches

@@ -44,12 +44,14 @@ async def search_player(name: str="", limit: int=20, db: Session=Depends(depende
     return players
 
 @router.get("/h2h")
-async def get_head_to_heads(player_id: str="", limit: int=10, db: Session=Depends(dependencies.get_db)) -> dict:
-    EchoService.echo(f"get_head_to_heads called for player_id={player_id}, limit={limit}")
+async def get_head_to_heads(player_id: str="", wins: bool=True, desc: bool=True, limit: int=10, db: Session=Depends(dependencies.get_db)) -> dict:
+    sortby = "wins" if wins else "losses"
+    order = "descending" if desc else "ascending"
+    EchoService.echo(f"get_head_to_heads called for player_id={player_id} sorted by {sortby} in {order}, limit={limit}")
     if limit < 1:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
 
-    h2h = crud.get_player_head_to_heads(db, player_id=player_id, limit=limit)
+    h2h = crud.get_player_head_to_heads(db, player_id=player_id, wins=wins, desc=desc, limit=limit)
     if h2h is None:
         raise NoResultsException(status_code=404, detail=f"No head to heads found for {player_id}.")
     return h2h
