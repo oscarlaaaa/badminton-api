@@ -10,7 +10,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}}
 )
 
-@router.get("/")
+@router.get("")
 async def get_player(player_id: str="", db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"get_player called for player_id={player_id}")
     player = crud.get_player(db, player_id=player_id)
@@ -43,15 +43,16 @@ async def search_player(name: str="", limit: int=20, db: Session=Depends(depende
         raise NoResultsException(status_code=404, detail=f"No player with {name} in their name.")
     return players
 
-@router.get("/h2h")
-async def get_head_to_heads(player_id: str="", wins: bool=True, desc: bool=True, limit: int=10, db: Session=Depends(dependencies.get_db)) -> dict:
-    sortby = "wins" if wins else "losses"
-    order = "descending" if desc else "ascending"
+
+@router.get("/records")
+async def get_records(player_id: str="", sort_wins: bool=True, sort_desc: bool=True, limit: int=10, db: Session=Depends(dependencies.get_db)) -> dict:
+    sortby = "wins" if sort_wins else "losses"
+    order = "descending" if sort_desc else "ascending"
     EchoService.echo(f"get_head_to_heads called for player_id={player_id} sorted by {sortby} in {order}, limit={limit}")
     if limit < 1:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
 
-    h2h = crud.get_player_head_to_heads(db, player_id=player_id, wins=wins, desc=desc, limit=limit)
+    h2h = crud.get_player_records(db, player_id=player_id, sort_wins=sort_wins, sort_desc=sort_desc, limit=limit)
     if h2h is None:
         raise NoResultsException(status_code=404, detail=f"No head to heads found for {player_id}.")
     return h2h
