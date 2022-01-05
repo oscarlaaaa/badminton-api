@@ -23,33 +23,25 @@ def get_player(db: Session, player_id: str) -> Optional[dict]:
     return format_response(result, f"GET request for player '{player_id}'")
 
 def search_player(db: Session, search_text: str, limit: int) -> Optional[dict]:
-    parts = search_text.split()
-    filter_list = [models.Player.name.contains(part) for part in parts]
-
+    filter_list = [models.Player.name.contains(part) for part in search_text.split()]
     result = db.query(models.Player) \
-        .filter(or_(*filter_list)) \
+        .filter(and_(*filter_list)) \
             .limit(limit) \
                 .all()
-
-    # result = db.query(models.Player) \
-    #     .filter(models.Player.name.contains(search_text)) \
-    #         .limit(limit) \
-    #             .all()
-
     return format_response(result, f"GET request players with '{search_text}' in their name; limit of '{limit}'")
 
 def get_top_win_players(db: Session, event: str, limit: int) -> Optional[dict]:
-    result = db.query(models.Match.winnerId, models.Player.name, func.count(models.Match.winnerId, Integer).label("wins")). \
+    result = db.query(models.Match.winnerId, models.Player.name, func.count(models.Match.winnerId).label("wins")). \
         join(models.Player, and_(models.Player.event.contains(event), (models.Player.id == models.Match.winnerId))). \
             group_by(models.Match.winnerId) \
                 .order_by(desc("wins")) \
                     .limit(limit) \
                         .all()
 
-    return format_response(result, f"GET top {limit} players from {event} according to win-rate")
+    return format_response(result, f"GET top '{limit}' players from '{event}' according to win-rate")
 
 ## this beautiful query was thanks to vivian wu @ https://github.com/vvnwu
-def get_player_head_to_heads(db: Session, player_id: str, wins: bool, desc: bool, limit: int) -> Optional[dict]:
+def get_player_records(db: Session, player_id: str, sort_wins: bool, sort_desc: bool, limit: int) -> Optional[dict]:
     players1 = db.query(models.Match.winnerId.label("opponent")) \
         .filter(models.Match.loserId == player_id) \
             .group_by(models.Match.winnerId)
@@ -70,59 +62,82 @@ def get_player_head_to_heads(db: Session, player_id: str, wins: bool, desc: bool
         .outerjoin(wins_sq, players_sq.columns.opponent == wins_sq.columns.loserId) \
             .outerjoin(losses_sq, players_sq.columns.opponent == losses_sq.columns.winnerId) \
     
-    if desc:
-        results = results.order_by(desc("wins" if wins else "losses"))
+    if sort_desc:
+        results = results.order_by(desc("wins" if sort_wins else "losses"))
     else:
-        results = results.order_by("wins" if wins else "losses")
-
-    is_desc = "desc" if desc else "asc"
-    is_wins = "wins" if wins else "losses"
-    return format_response(results, f"GET head-to-head records of player {player_id} sorted by {is_wins}, {is_desc}; limit of '{limit}'")
+        results = results.order_by("wins" if sort_wins else "losses")
+    results = results.limit(limit).all()
+    is_desc = "desc" if sort_desc else "asc"
+    is_wins = "wins" if sort_wins else "losses"
+    return format_response(results, f"GET head-to-head records of player '{player_id}' sorted by '{is_wins}', '{is_desc}'; limit of '{limit}'")
 
 ## Matches
+def get_match(db: Session, player_id: str, opponent_id: str, tournament_id: str) -> Optional[dict]:
+    match = db.query(models.Match).filter(and_(models.Match.tournamentId == tournament_id, 
+        or_(and_(models.Match.winnerId == player_id, models.Match.loserId == opponent_id), and_(models.Match.winnerId == opponent_id, models.Match.loserId == player_id)))).subquery()
+    
+    sets = db.query(models.Set).filter(and_(models.Set.tournamentId == tournament_id, 
+        or_(and_(models.Set.winnerId == player_id, models.Set.loserId == opponent_id), and_(models.Set.winnerId == opponent_id, models.Set.loserId == player_id)))) \
+            .order_by(models.Set.round) \
+                .subquery()
+    
+    result = db.query(match, sets.columns.round, sets.columns.winnerScore, sets.columns.loserScore) \
+        .outerjoin(sets, match.columns.winnerId == sets.columns.winnerId).all()
+
+    return format_response(result, f"GET request match with player ids '{player_id}', '{opponent_id}'; tournament id '{tournament_id}'")
+
 def get_player_matches(db: Session, player_id: str, start_year: int, end_year: int, limit: int) -> Optional[dict]:
     start = f"{start_year}-01-01"
     end = f"{end_year}-01-01"
-    result = db.query(models.Match).join(models.Tournament) \
-        .filter(models.Tournament.startDate.between(start, end)) \
-            .limit(limit) \
-                .all()
-
+    result = db.query(models.Match) \
+        .join(models.Tournament) \
+            .filter(models.Tournament.startDate.between(start, end)) \
+                .limit(limit) \
+                    .all()
+    
+    print(result)
     return format_response(result, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
 
 
-def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: int) -> Optional[dict]:
-    result = db.query(models.Match).filter(models.Match.tournamentId == tournament_id) \
-        .join(models.Player, models.Match.loserId.contains(models.Player.event)) \
-            .filter(models.Player.event == event) \
-                .limit(limit) \
-                    .all()
 
-    return format_response(result, f"GET matches of event {event} from tournament {tournament_id}")
+def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: int) -> Optional[dict]:
+    result = db.query(models.Match) \
+        .filter(models.Match.tournamentId == tournament_id) \
+            .join(models.Player, models.Match.loserId.contains(models.Player.id)) \
+                .filter(models.Player.event == event) \
+                    .limit(limit) \
+                        .all()
+
+    return format_response(result, f"GET matches of event '{event}' from tournament '{tournament_id}'")
 
 
 def get_vs_matches(db: Session, player_id: str, opponent_id: str, limit: int) -> Optional[dict]:
-    result = db.query(models.Match).join(models.Tournament) \
-        .filter(or_(and_((models.Match.winnerId == player_id), (models.Match.loserId == opponent_id)), and_((models.Match.loserId == player_id), (models.Match.winnerId == opponent_id)))) \
-            .limit(limit) \
-                .all()
+    result = db.query(models.Match) \
+        .join(models.Tournament) \
+            .filter(or_(and_((models.Match.winnerId == player_id), (models.Match.loserId == opponent_id)), 
+                and_((models.Match.loserId == player_id), (models.Match.winnerId == opponent_id)))) \
+                .limit(limit) \
+                    .all()
 
     return format_response(result, f"GET request matches between '{player_id}' and '{opponent_id}'; limit of '{limit}'")
 
 
 ## Tournaments
-def search_tournament(db: Session, search_text: str, limit: int) -> Optional[dict]:
-    result = db.query(models.Tournament) \
-        .filter(models.Tournament.name.contains(search_text)) \
-            .order_by(desc(models.Tournament.startDate)) \
-                .limit(limit) \
-                    .all()
-
-    return format_response(result, f"GET request tournaments with '{search_text}' in their name; limit of '{limit}'")
-
 def get_tournament(db: Session, tournament_id: str) -> Optional[dict]:
     result = db.query(models.Tournament) \
         .filter(models.Tournament.id == tournament_id) \
             .first()
     
     return format_response(result, f"GET request for tournament '{tournament_id}'")
+
+def search_tournament(db: Session, search_text: str, start_year: int, end_year: int, limit: int) -> Optional[dict]:
+    start = f"{start_year}-01-01"
+    end = f"{end_year}-01-01"
+    filter_list = [models.Tournament.name.contains(part) for part in search_text.split()]
+    result = db.query(models.Tournament) \
+        .filter(and_(and_(*filter_list), models.Tournament.startDate.between(start, end))) \
+            .limit(limit) \
+                .all()
+
+    return format_response(result, f"GET request tournaments with '{search_text}' in their name; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
+

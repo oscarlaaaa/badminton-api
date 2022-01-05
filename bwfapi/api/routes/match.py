@@ -13,6 +13,17 @@ router = APIRouter(
     responses={404: {"description": "Not found"}}
 )
 
+@router.get("")
+async def get_match(player_id: str="", opponent_id: str="", tournament_id: str="", db: Session=Depends(dependencies.get_db)) -> dict:
+    EchoService.echo(f"search_player_matches called for player_id={player_id}, opponent_id={opponent_id}, tournament_id={tournament_id}")
+    if player_id == "" or opponent_id == "" or tournament_id == "":
+        raise InvalidParameterException(status_code=404, detail=f"Must include player, opponent, and tournament ids.")
+    
+    match = crud.get_match(db, player_id=player_id, opponent_id=opponent_id, tournament_id=tournament_id)
+    if match is None:
+        raise NoResultsException(status_code=404, detail=f"No match found for player_id={player_id}, opponent_id={opponent_id}, tournament_id={tournament_id}.")
+    return match
+
 @router.get("/player")
 async def search_player_matches(player_id: str="", start_year: int=START_YEAR, end_year: int=END_YEAR, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_player_matches called for player_id={player_id}, start_year={start_year}, end_year={end_year}, limit={limit}")
@@ -42,6 +53,7 @@ async def search_vs_matches(player_id: str="", opponent_id: str="", limit: int=5
     if matches is None:
         raise NoResultsException(status_code=404, detail=f"No matches between {player_id} and {opponent_id}.")
     return matches
+
 
 @router.get("/tournament")
 async def search_tournament_matches(tournament_id: str="", event: str="", limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
