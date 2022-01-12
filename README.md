@@ -27,8 +27,8 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 - [X] Establish API endpoints to facilitate simple JSON get requests
 - [X] Refactor and clean-up API code
 - [X] Build simple static landing page to show people how to use the API
-- [ ] Build Docker Image
-- [ ] Load all scraped data onto hosted AWS MySQL server
+- [x] Build Docker Image
+- [x] Load all scraped data onto hosted AWS MySQL server
 - [ ] Deploy onto cloud-service like AWS or Heroku
 
 ## Technologies Used
