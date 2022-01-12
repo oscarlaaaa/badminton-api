@@ -10,11 +10,11 @@ from web_scraper.services import EchoService
 from api.routes import player, match, tournament
 
 ## Snippet taken from: https://philstories.medium.com/fastapi-logging-f6237b84ea64
-logging.config.fileConfig('bwfapi/logging.conf', disable_existing_loggers=False)
+logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-app.mount("/index", StaticFiles(directory="bwfapi/static", html=True), name="static")
+app.mount("/index", StaticFiles(directory="./static", html=True), name="static")
 
 wait = random.randint(0, 5)
 @app.on_event("startup")

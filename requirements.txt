@@ -39,7 +39,8 @@ pip
 protobuf               
 pycodestyle            
 pydantic               
-pyee                   
+pyee    
+pymysql               
 pyppeteer              
 pyquery                
 python-decouple        

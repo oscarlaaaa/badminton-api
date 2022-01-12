@@ -6,12 +6,13 @@ from web_scraper.db.queries.database import drop_database, create_database
 from web_scraper.db.queries.insert import get_insert_queries
 from web_scraper.db.queries.select import query_player_id_by_name
 
+
 class DBOperator:
     def __init__(self):
         try:
             self.connection = mysql.connector.connect(user=config('MYSQL_USER'),
-                                                      host=config(
-                                                          'MYSQL_HOST'),
+                                                      host=config('MYSQL_HOST'), 
+                                                      password=config('MYSQL_PASS'),
                                                       database=config('MYSQL_DB'))
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
