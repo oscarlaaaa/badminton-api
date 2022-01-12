@@ -1,4 +1,5 @@
 import random
+import uvicorn
 from fastapi import FastAPI
 from fastapi_utils.tasks import repeat_every
 from fastapi.staticfiles import StaticFiles
@@ -9,11 +10,11 @@ from web_scraper.services import EchoService
 from api.routes import player, match, tournament
 
 ## Snippet taken from: https://philstories.medium.com/fastapi-logging-f6237b84ea64
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+logging.config.fileConfig('bwfapi/logging.conf', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-app.mount("/index", StaticFiles(directory="static", html=True), name="static")
+app.mount("/index", StaticFiles(directory="bwfapi/static", html=True), name="static")
 
 wait = random.randint(0, 5)
 @app.on_event("startup")
@@ -26,9 +27,12 @@ async def update_database():
 
 @app.get("/")
 async def root():
-    response = RedirectResponse(url="/index")
+    response = RedirectResponse(url="index")
     return response
 
 app.include_router(player.router)
 app.include_router(match.router)
 app.include_router(tournament.router)
+
+if __name__ == "__main__":
+    uvicorn.run('server:app', host='0.0.0.0', port=8000, reload=False, root_path="")
