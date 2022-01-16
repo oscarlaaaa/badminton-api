@@ -3,11 +3,14 @@
 
 A badminton singles match API that has scraped match data from tournamentsoftware.com stored in an SQL database from between 2007 and present day. The database is automatically updated periodically every month. Endpoints for players, matches, and tournaments are all established in the application. 
 
+Right now the database only supports Singles events (Men's and Women's), but the API may expand to accommodate Doubles events in the future.
+
 ## Current Features
 * Regular database updates scraped directly from TournamentSoftware every month
 * Multiple endpoints to facilitate various datapoint collections
 * Flexible endpoint queries to provide limits, parameters, and more
 * Landing page with detailed API usage instructions + FastAPI generated /docs page
+* Async-focused design for robust responsiveness
 * A very cool creator :sunglasses:
 
 ## Motivation
@@ -17,7 +20,6 @@ This project is made for the purpose of providing data for a data analysis/visua
 Visit [here](https://dldwjto324.execute-api.us-east-2.amazonaws.com/ "Badminton API") for detailed information on how to access the various endpoints of the API.
 
 Visit [here instead](https://dldwjto324.execute-api.us-east-2.amazonaws.com/docs "Badminton API FastAPI Docs") for the FastAPI-generated documentation, or to test out the various endpoints.
-
 
 ## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches
@@ -45,4 +47,7 @@ Visit [here instead](https://dldwjto324.execute-api.us-east-2.amazonaws.com/docs
 * AWS Lambda/Amplify/Gateway
 
 ## How Can I Contribute?
-If you'd like more or different endpoints for the project, feel free to clone the project, establish local database credentials in a .env file in the root folder, and submit a pull request.
+If you'd like more or different endpoints for the project, feel free to clone the project, establish local database credentials in a .env file in the root folder, and submit a pull request. You can also test out the various endpoints and let me know if there are any bugs or convenience issues!
+
+### Credits
+Special thanks to [Vivian](http://github.com/vvnwu) for helping me debug stuff
