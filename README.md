@@ -1,16 +1,23 @@
-# BWF Match/Player API
+# BWF Badminton API
+![Landing page](https://i.imgur.com/sbkgNVp.png)
 
-## Overview
-A simple API that has scraped match data from tournamentsoftware.com stored in an SQL database, and can return the match, tournament, and opponent history of a player from between 2007 and present day. The database is automatically updated periodically every week.
+A badminton singles match API that has scraped match data from tournamentsoftware.com stored in an SQL database from between 2007 and present day. The database is automatically updated periodically every month. Endpoints for players, matches, and tournaments are all established in the application. 
 
-Note: This project is not affiliated with BWF or TournamentSoftware in any way, shape, or form and does not profit from the data gathered.
+## Current Features
+* Regular database updates scraped directly from TournamentSoftware every month
+* Multiple endpoints to facilitate various datapoint collections
+* Flexible endpoint queries to provide limits, parameters, and more
+* Landing page with detailed API usage instructions + FastAPI generated /docs page
+* A very cool creator :sunglasses:
+
+## Motivation
+This project is made for the purpose of providing data for a data analysis/visualization project which is in the works. Stay tuned!
 
 ## How to Use
-1. Clone the repository onto a local machine
-2. pip install all the required dependencies (outlined in requirements.txt inside of the bwfapi folder)
-3. Open a terminal and navigate into the /bwfapi folder
-4. Run the following command:  ```uvicorn server:app --reload```
-5. Open a web browser and navigate to ```localhost:8000```
+Visit [here](https://dldwjto324.execute-api.us-east-2.amazonaws.com/ "Badminton API") for detailed information on how to access the various endpoints of the API.
+
+Visit [here instead](https://dldwjto324.execute-api.us-east-2.amazonaws.com/docs "Badminton API FastAPI Docs") for the FastAPI-generated documentation, or to test out the various endpoints.
+
 
 ## Tasks to Complete
 - [x] Scrape matches from relevant event and return list of Matches
@@ -29,10 +36,13 @@ Note: This project is not affiliated with BWF or TournamentSoftware in any way, 
 - [X] Build simple static landing page to show people how to use the API
 - [x] Build Docker Image
 - [x] Load all scraped data onto hosted AWS MySQL server
-- [ ] Deploy onto cloud-service like AWS or Heroku
+- [X] Deploy onto cloud-service like AWS or Heroku
 
 ## Technologies Used
-* Python3 (BeautifulSoup, Aiohttp)
-* FastAPI (SQLAlchemy)
-* MySQL 
-* AWS or Heroku (soon)
+* Python3 (BeautifulSoup, Aiohttp, SQLAlchemy)
+* FastAPI 
+* MySQL (AWS RDS)
+* AWS Lambda/Amplify/Gateway
+
+## How Can I Contribute?
+If you'd like more or different endpoints for the project, feel free to clone the project, establish local database credentials in a .env file in the root folder, and submit a pull request.
