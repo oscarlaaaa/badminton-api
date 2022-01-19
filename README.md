@@ -21,7 +21,7 @@ Visit [here](https://badminton-api.com/ "Badminton API") for detailed informatio
 
 Visit [here instead](https://badminton-api.com/docs "Badminton API FastAPI Docs") for the FastAPI-generated documentation, or to test out the various endpoints.
 
-## Tasks to Complete
+## Progress Roadmap
 - [x] Scrape matches from relevant event and return list of Matches
 - [x] Compile list of BWF Tournaments either manually or through web-scraping
 - [x] Make match data stored more complex to allow for greater data points (ex. time of day, bwf tournament level, etc.)
