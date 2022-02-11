@@ -46,8 +46,18 @@ Visit [here instead](https://badminton-api.com/docs "Badminton API FastAPI Docs"
 * MySQL (AWS RDS)
 * AWS Lambda/Amplify/Gateway
 
+## What I've Learned
+* Web-scraping and data processing
+* Asynchronous design and concurrency
+* API development and design
+* ORMs and how useful they are!
+* To space out your webscraping so you don't get IP banned on a site you actually use regularly 🤡
+
 ## How Can I Contribute?
 If you'd like more or different endpoints for the project, feel free to clone the project, establish local database credentials in a .env file in the root folder, and submit a pull request. You can also test out the various endpoints and let me know if there are any bugs or convenience issues!
 
-### Credits
+## License
+This product is licensed under the MIT license. 
+
+## Credits
 Special thanks to [Vivian](http://github.com/vvnwu) for helping me debug stuff
