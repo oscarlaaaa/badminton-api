@@ -1,1 +1,1 @@
-web: uvicorn bwf.server:app --host=0.0.0.0 --port=${PORT:-5000}
+web: uvicorn bwfapi.server:app --host=0.0.0.0 --port=${PORT:-5000}
