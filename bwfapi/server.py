@@ -56,4 +56,4 @@ app.include_router(match.router)
 app.include_router(tournament.router)
 
 if __name__ == "__main__":
-    uvicorn.run('server:app', host='0.0.0.0', port=8000, reload=False, root_path="")
+    uvicorn.run('server:app', host='0.0.0.0', port=5000, reload=False, root_path="")
