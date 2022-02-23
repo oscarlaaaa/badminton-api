@@ -19,12 +19,12 @@
 
 import csv
 import timeit
-from web_scraper.db.db_operator import DBOperator
-from web_scraper.scrapers.tournament_gatherer import TournamentGatherer
-from web_scraper.scrapers.match_gatherer_async import AsyncMatchGatherer
-from web_scraper.scrapers.match import Match 
-from web_scraper.scrapers.player_gatherer import PlayerGatherer
-from web_scraper.services import EchoService
+from bwfapi.web_scraper.db.db_operator import DBOperator
+from bwfapi.web_scraper.scrapers.tournament_gatherer import TournamentGatherer
+from bwfapi.web_scraper.scrapers.match_gatherer_async import AsyncMatchGatherer
+from bwfapi.web_scraper.scrapers.match import Match 
+from bwfapi.web_scraper.scrapers.player_gatherer import PlayerGatherer
+from bwfapi.web_scraper.services import EchoService
 import asyncio
 import time, random
 

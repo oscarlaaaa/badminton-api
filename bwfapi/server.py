@@ -24,9 +24,9 @@ from fastapi_utils.tasks import repeat_every
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 import logging
-from web_scraper.bwf_scraper import scrape_current_month_matches
-from web_scraper.services import EchoService
-from api.routes import player, match, tournament
+from bwfapi.web_scraper.bwf_scraper import scrape_current_month_matches
+from bwfapi.web_scraper.services import EchoService
+from bwfapi.api.routes import player, match, tournament
 
 ## Snippet taken from: https://philstories.medium.com/fastapi-logging-f6237b84ea64
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)

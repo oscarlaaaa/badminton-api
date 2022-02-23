@@ -20,9 +20,9 @@
 from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
 
-from web_scraper.services import EchoService
-from api.exceptions import InvalidParameterException, NoResultsException
-from api import crud, dependencies
+from bwfapi.web_scraper.services import EchoService
+from bwfapi.api.exceptions import InvalidParameterException, NoResultsException
+from bwfapi.api import crud, dependencies
 from datetime import date
 
 START_YEAR = 2008
