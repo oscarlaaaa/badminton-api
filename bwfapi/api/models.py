@@ -19,7 +19,7 @@
 
 from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from sqlalchemy.orm import relationship
-from api.database import Base
+from bwfapi.api.database import Base
 
 class Player(Base):
     __tablename__ = "player"

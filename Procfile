@@ -1,1 +1,1 @@
-web: python bwfapi/server.py
+web: uvicorn bwf.server:app --host=0.0.0.0 --port=${PORT:-5000}
