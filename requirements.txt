@@ -8,5 +8,5 @@ python-decouple==3.6
 requests==2.27.1
 requests_html==0.10.0
 SQLAlchemy==1.4.31
-starlette==0.18.0
+starlette==0.17.1
 uvicorn==0.17.5
