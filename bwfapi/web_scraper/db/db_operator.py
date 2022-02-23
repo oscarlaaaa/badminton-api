@@ -20,10 +20,10 @@
 from decouple import config
 import mysql.connector
 from mysql.connector import errorcode
-from bwfapi.web_scraper.db.queries.tables import get_tables, get_resets
-from bwfapi.web_scraper.db.queries.database import drop_database, create_database
-from bwfapi.web_scraper.db.queries.insert import get_insert_queries
-from bwfapi.web_scraper.db.queries.select import query_player_id_by_name
+from web_scraper.db.queries.tables import get_tables, get_resets
+from web_scraper.db.queries.database import drop_database, create_database
+from web_scraper.db.queries.insert import get_insert_queries
+from web_scraper.db.queries.select import query_player_id_by_name
 
 
 class DBOperator:

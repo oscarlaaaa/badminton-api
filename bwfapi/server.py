@@ -24,16 +24,18 @@ from fastapi_utils.tasks import repeat_every
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 import logging
-from bwfapi.web_scraper.bwf_scraper import scrape_current_month_matches
-from bwfapi.web_scraper.services import EchoService
-from bwfapi.api.routes import player, match, tournament
+from os import path
+from web_scraper.bwf_scraper import scrape_current_month_matches
+from web_scraper.services import EchoService
+from api.routes import player, match, tournament
 
 ## Snippet taken from: https://philstories.medium.com/fastapi-logging-f6237b84ea64
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+log_file_path = path.join(path.dirname(path.abspath(__file__)), 'logging.conf')
+logging.config.fileConfig(log_file_path, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-app.mount("/index", StaticFiles(directory="./static", html=True), name="static")
+app.mount("/index", StaticFiles(directory="bwfapi/static", html=True), name="static")
 
 wait = random.randint(0, 5)
 @app.on_event("startup")

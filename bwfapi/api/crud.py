@@ -21,7 +21,7 @@ from sqlalchemy import func, and_, desc, or_, union_all
 from sqlalchemy.sql.functions import coalesce
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.sqltypes import Integer
-from bwfapi.api import models
+from api import models
 from typing import Optional, Union
 
 def format_response(data: Optional[Union[str, int]], req: str) -> Optional[dict]:

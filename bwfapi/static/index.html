@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
-    <title>Hello</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/L0OhMJE.png">
+    <title>Badminton Singles API</title>
     <style>
         .list-group-item.active {
             background-color: #eb0000 !important;
@@ -24,25 +25,22 @@
             <div class="mb-5 text-center">
                 <h5>An API that returns data scraped from tournamentsoftware.com formatted in JSON.
                 </h5>
+                <h5>Built with: Python, FastAPI, BeautifulSoup4, AWS RDS (MySQL), and Heroku.</h5>
                 <p><small>Disclaimer: This is a personal project, and is not affiliated with BWF and/or
                         TournamentSoftware
-                        in any way, shape, or form.</small></p>
+                        in any way, shape, or form. I do not profit from the data scraped.</small></p>
             </div>
             <div class="my-5 text-start">
                 <h2>Data Collection</h2>
-                <p>All data was scraped from various Men's and Women's Singles matches throughout TournamentSoftware
-                    as
-                    well
-                    as the respective players' profiles from from 2008 - 2021.
-                    Due to the design of the web-scraper as well as to eliminate any outliers or strange data, some
-                    matches
-                    have not been added into the database.
+                <p>All data was scraped from various Men's and Women's Singles matches throughout 
+                    TournamentSoftware as well as the respective players' profiles from from 
+                    2008 - 2022. Due to the design of the web-scraper as well as to eliminate 
+                    any outliers or strange data, some matches have not been added into the database.
                 </p>
-                <p>Data was populated with an initial scrape up to the time of deployment, and is automatically
-                    updated
-                    every
-                    week with newer matches up to the current day. All data is stored in a private MySQL database hosted
-                    on AWS.
+                <p>Data was populated with an initial scrape up to the time of deployment, and is 
+                    automatically updated every week with newer matches up to the current day. All 
+                    data is stored in a private MySQL database hosted on AWS. To view the FastAPI 
+                    documentation, click <a href="http://api.badminton-api.com">here</a>.
                 </p>
             </div>
         </header>
@@ -50,7 +48,7 @@
     <div class="container my-4 d-flex flex-row">
         <div id="api-navbar" class="list-group w-25 me-3 my-1"
             style="top:20px;position:sticky;align-self:flex-start;font-size:11pt">
-            <strong class="d-block h6 my-2 pb-2 border-bottom fs-4">Queries</strong>
+            <strong class="d-block h6 my-2 pb-2 border-bottom fs-4">Endpoints</strong>
             <p class="fs-5 mt-3 mb-0">Player</p>
             <a class="list-group-item list-group-item-action" href="#player-get">Get Player</a>
             <a class="list-group-item list-group-item-action" href="#player-search">Search Player</a>
@@ -95,7 +93,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    https://baddy-api.com/player?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440</p>
+                                    http://api.badminton-api.com/player?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440</p>
                             </li>
                         </ul>
                     </div>
@@ -146,7 +144,7 @@
                         </div>
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
-                                <p class="text-success m-2">https://baddy-api.com/player/search?name=chong%20wei&limit=2
+                                <p class="text-success m-2">http://api.badminton-api.com/player/search?name=chong%20wei&limit=2
                                 </p>
                             </li>
                         </ul>
@@ -205,7 +203,7 @@
                                 <td class="text-success">event</td>
                                 <td>The event you'd like to query. Accepts "MS" or "WS" for Men's Singles and
                                     Women's
-                                    Singles respectively. <i>(Required)</i></td>
+                                    Singles respectively. <b>(Required)</b></td>
                             </tr>
                             <tr>
                                 <td class="text-success">limit</td>
@@ -219,7 +217,7 @@
                         </div>
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
-                                <p class="text-success m-2">https://baddy-api.com/player/top?event=MS&limit=2</p>
+                                <p class="text-success m-2">http://api.badminton-api.com/player/top?event=MS&limit=2</p>
                             </li>
                         </ul>
                     </div>
@@ -295,7 +293,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    https://baddy-api.com/player/records?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&wins=true&desc=true&limit=3
+                                    http://api.badminton-api.com/player/records?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&wins=true&desc=true&limit=3
                                 </p>
                             </li>
                         </ul>
@@ -350,17 +348,17 @@
                         <tbody>
                             <tr>
                                 <td class="text-success">player_id</td>
-                                <td>The id of a player in the match. <b>(Required) </b>.
+                                <td>The id of a player in the match. <b>(Required) </b>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="text-success">opponent_id</td>
-                                <td>The id of the opponent in the match. <b>(Required) </b>.
+                                <td>The id of the opponent in the match. <b>(Required) </b>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="text-success">tournament_id</td>
-                                <td>The id of the tournament of the match. <b>(Required) </b>.
+                                <td>The id of the tournament of the match. <b>(Required) </b>
                                 </td>
                             </tr>
                         </tbody>
@@ -372,7 +370,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/match?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=0AB7EB15-13AF-43A4-B502-DCD2B58DE81C&tournament_id=87EF6111-1C3B-4D4F-BC5D-BA7826606509
+                                    http://api.badminton-api.com/match?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=0AB7EB15-13AF-43A4-B502-DCD2B58DE81C&tournament_id=87EF6111-1C3B-4D4F-BC5D-BA7826606509
                                 </p>
                             </li>
                         </ul>
@@ -438,7 +436,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-success">player_id</td>
-                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>.
+                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>
                                 </td>
                             </tr>
                             <tr>
@@ -467,7 +465,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/match/player?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&start_year=2016&end_year=2018&limit=3
+                                    http://api.badminton-api.com/match/player?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&start_year=2016&end_year=2018&limit=3
                                 </p>
                             </li>
                         </ul>
@@ -525,7 +523,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-success">player_id</td>
-                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>.
+                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>
                                 </td>
                             </tr>
                             <tr>
@@ -545,7 +543,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/match/vs?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E&limit=50
+                                    http://api.badminton-api.com/match/vs?player_id=00127A4D-2889-44A8-921B-7AFFBBC1DE1D&opponent_id=4936E803-3FC7-4B24-9CD8-54BE4B6C2B9E&limit=50
                                 </p>
                             </li>
                         </ul>
@@ -593,7 +591,7 @@
                             <tr>
                                 <td class="text-success">tournament_id</td>
                                 <td>The id of the tournament whose matches you'd like to query for. <b>(Required)
-                                    </b>.
+                                    </b>
                                 </td>
                             </tr>
                             <tr>
@@ -615,7 +613,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/match/tournament?tournament_id=8385F683-15A3-4E8B-8FBF-EF71992BF553&event=WS&limit=3
+                                    http://api.badminton-api.com/match/tournament?tournament_id=8385F683-15A3-4E8B-8FBF-EF71992BF553&event=WS&limit=3
                                 </p>
                             </li>
                         </ul>
@@ -676,7 +674,7 @@
                                 <td>tournament_id</td>
                                 <td>Searches matches containing a tournament id and returns a JSON response of all
                                     matches in the tournament of the event (if included), or an error if none are found.
-                                    (Required)</td>
+                                    <b>(Required)</b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -687,7 +685,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/tournament?tournament_id=8385F683-15A3-4E8B-8FBF-EF71992BF553
+                                    http://api.badminton-api.com/tournament?tournament_id=8385F683-15A3-4E8B-8FBF-EF71992BF553
                                 </p>
                             </li>
                         </ul>
@@ -732,7 +730,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-success">name</td>
-                                <td>The id of the tournament you'd like to query. <i>(optional)</i>.
+                                <td>The id of the tournament you'd like to query. <i>(optional)</i>
                                 </td>
                             </tr>
                             <tr>
@@ -761,7 +759,7 @@
                         <ul class="list-group w-100 list-group-flush">
                             <li class="list-group-item">
                                 <p class="text-success m-2">
-                                    http://baddy-api.com/tournament/search?name=england&start_year=2020&end_year=2023&limit=50
+                                    http://api.badminton-api.com/tournament/search?name=england&start_year=2020&end_year=2023&limit=50
                                 </p>
                             </li>
                         </ul>

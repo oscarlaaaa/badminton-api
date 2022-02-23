@@ -10,3 +10,4 @@ requests_html==0.10.0
 SQLAlchemy==1.4.31
 starlette==0.17.1
 uvicorn==0.17.5
+mysql-connector==2.2.9
