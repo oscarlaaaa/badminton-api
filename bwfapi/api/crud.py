@@ -110,7 +110,7 @@ def get_player_matches(db: Session, player_id: str, start_year: int, end_year: i
     end = f"{end_year}-01-01"
     result = db.query(models.Match) \
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
-            .filter(models.Tournament.startDate.between(start, end)) \
+            .filter(and_(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id)), models.Tournament.startDate.between(start, end))) \
                 .limit(limit) \
                     .all()
     
