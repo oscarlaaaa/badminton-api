@@ -41,6 +41,7 @@ app.mount("/index", StaticFiles(directory="bwfapi/static", html=True), name="sta
 origins = [
     "http://localhost",
     "http://localhost:8080",
+    "http://analytics.badminton-api.com"
 ]
 
 app.add_middleware(
