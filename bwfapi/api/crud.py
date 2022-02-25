@@ -109,7 +109,7 @@ def get_player_matches(db: Session, player_id: str, start_year: int, end_year: i
     start = f"{start_year}-01-01"
     end = f"{end_year}-01-01"
     result = db.query(models.Match) \
-        .join(models.Tournament) \
+        .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .filter(models.Tournament.startDate.between(start, end)) \
                 .limit(limit) \
                     .all()
@@ -132,7 +132,7 @@ def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: i
 
 def get_vs_matches(db: Session, player_id: str, opponent_id: str, limit: int) -> Optional[dict]:
     result = db.query(models.Match) \
-        .join(models.Tournament) \
+        .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .filter(or_(and_((models.Match.winnerId == player_id), (models.Match.loserId == opponent_id)), 
                 and_((models.Match.loserId == player_id), (models.Match.winnerId == opponent_id)))) \
                 .limit(limit) \
