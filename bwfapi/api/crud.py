@@ -123,7 +123,13 @@ def get_player_matches(db: Session, player_id: str, start_year: int, end_year: i
     return format_response(results, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
 
 def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) -> Optional[dict]:
-    result = db.query(models.Tournament.startDate, models.Match, coalesce(func.sum(models.Set.winnerScore), 0).label("winnerPoints"), coalesce(func.sum(models.Set.loserScore), 0).label("loserPoints"), coalesce(func.count(models.Set.winnerId).label("setCount"))) \
+    result = db.query(models.Tournament.startDate, \
+                        models.Match.winnerId, \
+                        models.Match.loserId, \
+                        models.Match.tournamentId, \
+                        coalesce(func.sum(models.Set.winnerScore), 0).label("winnerPoints"), \
+                        coalesce(func.sum(models.Set.loserScore), 0).label("loserPoints"), \
+                        coalesce(func.count(models.Set.tournamentId)).label("setCount")) \
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .join(models.Set, and_(models.Match.winnerId.contains(models.Set.winnerId), models.Match.loserId.contains(models.Set.loserId), models.Match.tournamentId.contains(models.Set.tournamentId))) \
                 .filter(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id))) \
