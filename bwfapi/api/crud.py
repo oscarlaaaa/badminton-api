@@ -109,7 +109,7 @@ def get_match(db: Session, player_id: str, opponent_id: str, tournament_id: str)
 def get_player_matches(db: Session, player_id: str, start_year: int, end_year: int, sort_desc: bool, limit: int) -> Optional[dict]:
     start = f"{start_year}-01-01"
     end = f"{end_year}-01-01"
-    result = db.query(models.Match) \
+    results = db.query(models.Match) \
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .filter(and_(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id)), models.Tournament.startDate.between(start, end))) \
     
@@ -117,13 +117,21 @@ def get_player_matches(db: Session, player_id: str, start_year: int, end_year: i
         results = results.order_by(desc(models.Tournament.startDate))
     else:
         results = results.order_by(models.Tournament.startDate)
-                    
+
     results = results.limit(limit).all()
     
-    print(result)
-    return format_response(result, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
+    return format_response(results, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
 
-
+def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) -> Optional[dict]:
+    result = db.query(models.Tournament.startDate, models.Match, coalesce(func.sum(models.Set.winnerScore), 0).label("winnerPoints"), coalesce(func.sum(models.Set.loserScore), 0).label("loserPoints"), coalesce(func.count(models.Set.winnerId).label("setCount"))) \
+        .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
+            .join(models.Set, and_(models.Match.winnerId.contains(models.Set.winnerId), models.Match.loserId.contains(models.Set.loserId), models.Match.tournamentId.contains(models.Set.tournamentId))) \
+                .filter(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id))) \
+                    .group_by(models.Match.winnerId, models.Match.loserId, models.Match.tournamentId) \
+                        .order_by(models.Tournament.startDate) \
+                            .all()
+    
+    return format_response(result, f"GET detailed matches of '{player_id}'")
 
 def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: int) -> Optional[dict]:
     result = db.query(models.Match) \

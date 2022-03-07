@@ -59,6 +59,18 @@ async def search_player_matches(player_id: str="", start_year: int=START_YEAR, e
         raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
     return matches
 
+@router.get("/player_detailed")
+async def search_detailed_player_matches(player_id: str="", sort_desc: bool=True, db: Session=Depends(dependencies.get_db)) -> dict:
+    EchoService.echo(f"search_detailed_player_matches called for player_id={player_id}")
+    if player_id == "":
+        raise InvalidParameterException(status_code=404, detail=f"Must include player_id parameter in query.")
+
+    matches = crud.get_detailed_player_matches(db, player_id=player_id, sort_desc=sort_desc)
+
+    if matches is None:
+        raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
+    return matches
+
 @router.get("/vs")
 async def search_vs_matches(player_id: str="", opponent_id: str="", sort_desc: bool=True, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_vs_matches called for player_id={player_id}, opponent_id={opponent_id}, limit={limit}")

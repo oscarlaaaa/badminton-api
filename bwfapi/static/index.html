@@ -57,6 +57,7 @@
             <p class="fs-5 mt-3 mb-0">Match</p>
             <a class="list-group-item list-group-item-action" href="#match-get">Get Match</a>
             <a class="list-group-item list-group-item-action" href="#match-player">Get Matches by Player</a>
+            <a class="list-group-item list-group-item-action" href="#match-player-detailed">Get Detailed Matches by Player</a>
             <a class="list-group-item list-group-item-action" href="#match-vs">Get Matches of Player and Opponent</a>
             <a class="list-group-item list-group-item-action" href="#match-tournament">Get Matches from Tournament</a>
             <p class="fs-5 mt-3 mb-0">Tournament</p>
@@ -270,13 +271,13 @@
                                 <td>The id of the player you'd like to query. <b>(Required)</b></td>
                             </tr>
                             <tr>
-                                <td class="text-success">wins</td>
+                                <td class="text-success">sort_wins</td>
                                 <td>What parameter to return results by. Accepts 'True' for wins, and 'False' for
                                     losses. Defaults to True. <i>(optional)</i></td>
                             </tr>
                             <tr>
-                                <td class="text-success">desc</td>
-                                <td>How to order the result parameters by. Accepts 'True' for descending, and
+                                <td class="text-success">sort_desc</td>
+                                <td>Whether to sort the results by ascending or descending wins/losses. Accepts 'True' for descending, and
                                     'False'
                                     for ascending order. Defaults to True. <i>(optional)</i></td>
                             </tr>
@@ -453,6 +454,12 @@
                                     <i>(optional)</i></td>
                             </tr>
                             <tr>
+                                <td class="text-success">sort_desc</td>
+                                <td>Whether to order the results by ascending or descending date. Accepts 'True' for descending, and
+                                    'False'
+                                    for ascending order. Defaults to ascending. <i>(optional)</i></td>
+                            </tr>
+                            <tr>
                                 <td class="text-success">limit</td>
                                 <td>How many results to return. Defaults to 50. <i>(optional)</i></td>
                             </tr>
@@ -482,24 +489,93 @@
                                         "request":"GET request matches from player id '0800FC8B-CBAB-4AC1-B6C7-F3D419906440'; start of '2016'; end of '2018'; limit of '3'",
                                         "status":"success",
                                         "status_code":200,
-                                        "data":[
+                                        "data":
+                                        [
                                             {
                                                 "loserId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440",
-                                                "tournamentId":"002C8A35-BC9C-4734-82AE-3108812CA72B",
-                                                "winnerId":"39EC811A-3BDF-4E29-93E9-CD1F0BD65990",
-                                                "duration":28
+                                                "tournamentId":"DF3A18B4-508C-473A-BB77-ABC795C6D7D5",
+                                                "duration":46,
+                                                "winnerId":"8F42FC23-89C1-40CF-8F20-8519DE2BE4EF"
                                             },
                                             {
-                                                "loserId":"B7031DD3-B09C-47E9-ACBD-8B7E5D1678FE",
+                                                "loserId":"A815B039-2D22-4DF8-9BE9-591B7EFAFE75",
                                                 "tournamentId":"002C8A35-BC9C-4734-82AE-3108812CA72B",
-                                                "winnerId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440",
-                                                "duration":34
-                                            },{
-                                                "loserId":"B4C578E6-C57D-4414-B7E5-F5C25E21D9E5",
+                                                "duration":29,
+                                                "winnerId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440"
+                                            },
+                                            {
+                                                "loserId":"5F58A45F-1BDD-42AC-A68C-0A88D7E02A38",
                                                 "tournamentId":"002C8A35-BC9C-4734-82AE-3108812CA72B",
-                                                "winnerId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440",
-                                                "duration":52
+                                                "duration":51,
+                                                "winnerId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440"
                                             }
+                                        ]
+                                    }</code></pre>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="match-player">Get Detailed Matches by Player ID</h4>
+                <div class="mb-4 text-start ps-3">
+                    <p>Searches matches containing a player id and returns a
+                        detailed JSON response of all the matches involving the player, or an error if none
+                        are found. This runs much slower than the regular 'Get Matches by Player ID', so use sparingly.</p>
+                    <table class="table text-start my-3">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Query Parameter</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-success">player_id</td>
+                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-success">sort_desc</td>
+                                <td>Whether to order the results by ascending or descending date. Accepts 'True' for descending, and
+                                    'False'
+                                    for ascending order. Defaults to ascending. <i>(optional)</i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="card text-start">
+                        <div class="card-header w-100 text-start">
+                            <b>Example Query</b>
+                        </div>
+                        <ul class="list-group w-100 list-group-flush">
+                            <li class="list-group-item">
+                                <p class="text-success m-2">
+                                    https://api.badminton-api.com/match/player_detailed?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&sort_desc=True
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <br />
+                    <div class="card text-start">
+                        <div class="card-header w-100 text-start">
+                            <b>Example Response</b>
+                        </div>
+                        <ul class="list-group w-100 list-group-flush">
+                            <li class="list-group-item">
+                                <pre class="text-primary json"><code>
+                                    {
+                                        "request":"GET detailed matches of '0AB7EB15-13AF-43A4-B502-DCD2B58DE81C'",
+                                        "status":"success",
+                                        "status_code":200,
+                                        "data":
+                                        [
+                                            {"startDate":"2004-09-28",
+                                            "Match":{
+                                                "loserId":"2DC02C8B-DAC3-4E9F-BC4A-9B4E2CF52755",
+                                                "tournamentId":"5D7BACD9-62E4-4776-A247-0C00E2C23A00",
+                                                "duration":0,
+                                                "winnerId":"0AB7EB15-13AF-43A4-B502-DCD2B58DE81C"
+                                            },
+                                            "winnerPoints":35,
+                                            "loserPoints":22} ...
                                         ]
                                     }</code></pre>
                             </li>
@@ -528,6 +604,12 @@
                             <tr>
                                 <td class="text-success">opponent_id</td>
                                 <td>The id of the opponent you'd like to search. <i>(optional)</i></td>
+                            </tr>
+                            <tr>
+                                <td class="text-success">sort_desc</td>
+                                <td>Whether to order the result dates in ascending or descending Order. Accepts 'True' for descending, and
+                                    'False'
+                                    for ascending order. Defaults to True. <i>(optional)</i></td>
                             </tr>
                             <tr>
                                 <td class="text-success">limit</td>
