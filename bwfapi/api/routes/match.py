@@ -44,7 +44,7 @@ async def get_match(player_id: str="", opponent_id: str="", tournament_id: str="
     return match
 
 @router.get("/player")
-async def search_player_matches(player_id: str="", start_year: int=START_YEAR, end_year: int=END_YEAR, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
+async def search_player_matches(player_id: str="", start_year: int=START_YEAR, end_year: int=END_YEAR, sort_desc: bool=True, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_player_matches called for player_id={player_id}, start_year={start_year}, end_year={end_year}, limit={limit}")
     if start_year > end_year:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a start date after the end date.")
@@ -53,21 +53,21 @@ async def search_player_matches(player_id: str="", start_year: int=START_YEAR, e
     if player_id == "":
         raise InvalidParameterException(status_code=404, detail=f"Must include player_id parameter in query.")
 
-    matches = crud.get_player_matches(db, player_id=player_id, start_year=start_year, end_year=end_year, limit=limit)
+    matches = crud.get_player_matches(db, player_id=player_id, start_year=start_year, end_year=end_year, sort_desc=sort_desc, limit=limit)
 
     if matches is None:
         raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
     return matches
 
 @router.get("/vs")
-async def search_vs_matches(player_id: str="", opponent_id: str="", limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
+async def search_vs_matches(player_id: str="", opponent_id: str="", sort_desc: bool=True, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_vs_matches called for player_id={player_id}, opponent_id={opponent_id}, limit={limit}")
     if limit < 1:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
     if player_id == "" or opponent_id == "":
         raise InvalidParameterException(status_code=404, detail=f"Must include player_id and opponent_id parameters in query.")
 
-    matches = crud.get_vs_matches(db, player_id=player_id, opponent_id=opponent_id,  limit=limit)
+    matches = crud.get_vs_matches(db, player_id=player_id, opponent_id=opponent_id, sort_desc=sort_desc, limit=limit)
 
     if matches is None:
         raise NoResultsException(status_code=404, detail=f"No matches between {player_id} and {opponent_id}.")

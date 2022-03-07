@@ -85,6 +85,7 @@ def get_player_records(db: Session, player_id: str, sort_wins: bool, sort_desc: 
         results = results.order_by(desc("wins" if sort_wins else "losses"))
     else:
         results = results.order_by("wins" if sort_wins else "losses")
+        
     results = results.limit(limit).all()
     is_desc = "desc" if sort_desc else "asc"
     is_wins = "wins" if sort_wins else "losses"
@@ -105,14 +106,19 @@ def get_match(db: Session, player_id: str, opponent_id: str, tournament_id: str)
 
     return format_response(result, f"GET request match with player ids '{player_id}', '{opponent_id}'; tournament id '{tournament_id}'")
 
-def get_player_matches(db: Session, player_id: str, start_year: int, end_year: int, limit: int) -> Optional[dict]:
+def get_player_matches(db: Session, player_id: str, start_year: int, end_year: int, sort_desc: bool, limit: int) -> Optional[dict]:
     start = f"{start_year}-01-01"
     end = f"{end_year}-01-01"
     result = db.query(models.Match) \
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .filter(and_(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id)), models.Tournament.startDate.between(start, end))) \
-                .limit(limit) \
-                    .all()
+    
+    if sort_desc:
+        results = results.order_by(desc(models.Tournament.startDate))
+    else:
+        results = results.order_by(models.Tournament.startDate)
+                    
+    results = results.limit(limit).all()
     
     print(result)
     return format_response(result, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
@@ -130,13 +136,18 @@ def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: i
     return format_response(result, f"GET matches of event '{event}' from tournament '{tournament_id}'")
 
 
-def get_vs_matches(db: Session, player_id: str, opponent_id: str, limit: int) -> Optional[dict]:
+def get_vs_matches(db: Session, player_id: str, opponent_id: str, sort_desc: bool, limit: int) -> Optional[dict]:
     result = db.query(models.Match) \
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .filter(or_(and_((models.Match.winnerId == player_id), (models.Match.loserId == opponent_id)), 
-                and_((models.Match.loserId == player_id), (models.Match.winnerId == opponent_id)))) \
-                .limit(limit) \
-                    .all()
+                and_((models.Match.loserId == player_id), (models.Match.winnerId == opponent_id)))) 
+
+    if sort_desc:
+        results = results.order_by(desc(models.Tournament.startDate))
+    else:
+        results = results.order_by(models.Tournament.startDate)
+
+    results = results.limit(limit).all()
 
     return format_response(result, f"GET request matches between '{player_id}' and '{opponent_id}'; limit of '{limit}'")
 
