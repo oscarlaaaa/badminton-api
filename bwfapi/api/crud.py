@@ -127,10 +127,13 @@ def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) ->
         .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
             .join(models.Set, and_(models.Match.winnerId.contains(models.Set.winnerId), models.Match.loserId.contains(models.Set.loserId), models.Match.tournamentId.contains(models.Set.tournamentId))) \
                 .filter(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id))) \
-                    .group_by(models.Match.winnerId, models.Match.loserId, models.Match.tournamentId) \
-                        .order_by(models.Tournament.startDate) \
-                            .all()
-    
+                    .group_by(models.Match.winnerId, models.Match.loserId, models.Match.tournamentId) 
+
+    if sort_desc:
+        result = result.order_by(desc(models.Tournament.startDate)).all()
+    else:
+        result = result.order_by(models.Tournament.startDate).all()
+
     return format_response(result, f"GET detailed matches of '{player_id}'")
 
 def get_tournament_matches(db: Session, tournament_id: str, event: str, limit: int) -> Optional[dict]:
