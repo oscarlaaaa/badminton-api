@@ -130,9 +130,9 @@ def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) ->
                         coalesce(func.sum(models.Set.winnerScore), 0).label("winnerPoints"), \
                         coalesce(func.sum(models.Set.loserScore), 0).label("loserPoints"), \
                         coalesce(func.count(models.Set.tournamentId)).label("setCount")) \
-        .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
-            .join(models.Set, and_(models.Match.winnerId.contains(models.Set.winnerId), models.Match.loserId.contains(models.Set.loserId), models.Match.tournamentId.contains(models.Set.tournamentId))) \
-                .filter(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id))) \
+        .filter(or_((models.Match.winnerId == player_id), (models.Match.loserId == player_id))) \
+            .join(models.Tournament, models.Match.tournamentId.contains(models.Tournament.id)) \
+                .join(models.Set, and_(models.Match.winnerId.contains(models.Set.winnerId), models.Match.loserId.contains(models.Set.loserId), models.Match.tournamentId.contains(models.Set.tournamentId))) \
                     .group_by(models.Match.winnerId, models.Match.loserId, models.Match.tournamentId) 
 
     if sort_desc:
