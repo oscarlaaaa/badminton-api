@@ -123,6 +123,7 @@ def get_player_matches(db: Session, player_id: str, start_year: int, end_year: i
     return format_response(results, f"GET request matches from player id '{player_id}'; start of '{start_year}'; end of '{end_year}'; limit of '{limit}'")
 
 def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) -> Optional[dict]:
+    RESULT_LIMIT = 200
     result = db.query(models.Tournament.startDate, \
                         models.Match.winnerId, \
                         models.Match.loserId, \
@@ -136,9 +137,9 @@ def get_detailed_player_matches(db: Session, player_id: str, sort_desc: bool) ->
                     .group_by(models.Match.winnerId, models.Match.loserId, models.Match.tournamentId) 
 
     if sort_desc:
-        result = result.order_by(desc(models.Tournament.startDate)).all()
+        result = result.order_by(desc(models.Tournament.startDate)).limit(RESULT_LIMIT).all()
     else:
-        result = result.order_by(models.Tournament.startDate).all()
+        result = result.order_by(models.Tournament.startDate).limit(RESULT_LIMIT).all()
 
     return format_response(result, f"GET detailed matches of '{player_id}'")
 
