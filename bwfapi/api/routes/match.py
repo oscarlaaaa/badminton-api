@@ -39,6 +39,7 @@ async def get_match(player_id: str="", opponent_id: str="", tournament_id: str="
         raise InvalidParameterException(status_code=404, detail=f"Must include player, opponent, and tournament ids.")
     
     match = crud.get_match(db, player_id=player_id, opponent_id=opponent_id, tournament_id=tournament_id)
+    
     if match is None:
         raise NoResultsException(status_code=404, detail=f"No match found for player_id={player_id}, opponent_id={opponent_id}, tournament_id={tournament_id}.")
     return match
@@ -93,6 +94,7 @@ async def search_tournament_matches(tournament_id: str="", event: str="", limit:
         raise InvalidParameterException(status_code=404, detail=f"Must include tournament_id parameter in query.")
     
     matches = crud.get_tournament_matches(db, tournament_id=tournament_id, event=event, limit=limit)
+
     if matches is None:
         raise NoResultsException(status_code=404, detail=f"No matches found for tournament {tournament_id}.")
     return matches
