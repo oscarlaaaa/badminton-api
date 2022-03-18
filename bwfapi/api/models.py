@@ -47,6 +47,10 @@ class Match(Base):
     loserId = Column(String, ForeignKey("player.id"), primary_key=True)
     tournamentId = Column(String, ForeignKey("tournament.id"), primary_key=True)
     duration = Column(Integer)
+    startDate = Column(Date)
+    winnerPoints = Column(Integer)
+    loserPoints = Column(Integer)
+    setCount = Column(Integer)
 
     winner = relationship("Player", foreign_keys="Match.winnerId")
     loser = relationship("Player", foreign_keys="Match.loserId")

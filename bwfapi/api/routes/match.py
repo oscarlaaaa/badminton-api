@@ -45,12 +45,12 @@ async def get_match(player_id: str="", opponent_id: str="", tournament_id: str="
     return match
 
 @router.get("/player")
-async def search_player_matches(player_id: str="", start_year: int=START_YEAR, end_year: int=END_YEAR, sort_desc: bool=True, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:
+async def search_player_matches(player_id: str="", start_year: int=START_YEAR, end_year: int=END_YEAR, sort_desc: bool=True, limit: int=0, db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"search_player_matches called for player_id={player_id}, start_year={start_year}, end_year={end_year}, limit={limit}")
     if start_year > end_year:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a start date after the end date.")
-    if limit < 1:
-        raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
+    if limit < 0:
+        raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 0.")
     if player_id == "":
         raise InvalidParameterException(status_code=404, detail=f"Must include player_id parameter in query.")
 
@@ -60,17 +60,17 @@ async def search_player_matches(player_id: str="", start_year: int=START_YEAR, e
         raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
     return matches
 
-@router.get("/player_detailed")
-async def search_detailed_player_matches(player_id: str="", sort_desc: bool=True, db: Session=Depends(dependencies.get_db)) -> dict:
-    EchoService.echo(f"search_detailed_player_matches called for player_id={player_id}")
-    if player_id == "":
-        raise InvalidParameterException(status_code=404, detail=f"Must include player_id parameter in query.")
+# @router.get("/player_detailed")
+# async def search_detailed_player_matches(player_id: str="", sort_desc: bool=True, db: Session=Depends(dependencies.get_db)) -> dict:
+#     EchoService.echo(f"search_detailed_player_matches called for player_id={player_id}")
+#     if player_id == "":
+#         raise InvalidParameterException(status_code=404, detail=f"Must include player_id parameter in query.")
 
-    matches = crud.get_detailed_player_matches(db, player_id=player_id, sort_desc=sort_desc)
+#     matches = crud.get_detailed_player_matches(db, player_id=player_id, sort_desc=sort_desc)
 
-    if matches is None:
-        raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
-    return matches
+#     if matches is None:
+#         raise NoResultsException(status_code=404, detail=f"No matches from {player_id}.")
+#     return matches
 
 @router.get("/vs")
 async def search_vs_matches(player_id: str="", opponent_id: str="", sort_desc: bool=True, limit: int=50, db: Session=Depends(dependencies.get_db)) -> dict:

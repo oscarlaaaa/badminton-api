@@ -57,7 +57,6 @@
             <p class="fs-5 mt-3 mb-0">Match</p>
             <a class="list-group-item list-group-item-action" href="#match-get">Get Match</a>
             <a class="list-group-item list-group-item-action" href="#match-player">Get Matches by Player</a>
-            <a class="list-group-item list-group-item-action" href="#match-player-detailed">Get Detailed Matches by Player</a>
             <a class="list-group-item list-group-item-action" href="#match-vs">Get Matches of Player and Opponent</a>
             <a class="list-group-item list-group-item-action" href="#match-tournament">Get Matches from Tournament</a>
             <p class="fs-5 mt-3 mb-0">Tournament</p>
@@ -425,8 +424,8 @@
                 <h4 id="match-player">Get Matches by Player ID</h4>
                 <div class="mb-4 text-start ps-3">
                     <p>Searches matches containing a player id and returns a
-                        JSON response of the matches involving the player, or an error if no one
-                        is found.</p>
+                        JSON response of the matches involving the player, or an error if none
+                        are found.</p>
                     <table class="table text-start my-3">
                         <thead class="table-light">
                             <tr>
@@ -461,7 +460,7 @@
                             </tr>
                             <tr>
                                 <td class="text-success">limit</td>
-                                <td>How many results to return. Defaults to 50. <i>(optional)</i></td>
+                                <td>How many results to return. Defaults to no limit. <i>(optional)</i></td>
                             </tr>
                         </tbody>
                     </table>
@@ -509,73 +508,6 @@
                                                 "duration":51,
                                                 "winnerId":"0800FC8B-CBAB-4AC1-B6C7-F3D419906440"
                                             }
-                                        ]
-                                    }</code></pre>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4 id="match-player-detailed">Get Detailed Matches by Player ID</h4>
-                <div class="mb-4 text-start ps-3">
-                    <p>Searches matches containing a player id and returns a
-                        detailed JSON response of all the matches involving the player, or an error if none
-                        are found. This runs much slower than the regular 'Get Matches by Player ID', so use sparingly.</p>
-                    <table class="table text-start my-3">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Query Parameter</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-success">player_id</td>
-                                <td>The id of the player whose matches you'd like to search for. <b>(Required) </b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-success">sort_desc</td>
-                                <td>Whether to order the results by ascending or descending date. Accepts 'True' for descending, and
-                                    'False'
-                                    for ascending order. Defaults to ascending. <i>(optional)</i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="card text-start">
-                        <div class="card-header w-100 text-start">
-                            <b>Example Query</b>
-                        </div>
-                        <ul class="list-group w-100 list-group-flush">
-                            <li class="list-group-item">
-                                <p class="text-success m-2">
-                                    https://api.badminton-api.com/match/player_detailed?player_id=0800FC8B-CBAB-4AC1-B6C7-F3D419906440&sort_desc=True
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <br />
-                    <div class="card text-start">
-                        <div class="card-header w-100 text-start">
-                            <b>Example Response</b>
-                        </div>
-                        <ul class="list-group w-100 list-group-flush">
-                            <li class="list-group-item">
-                                <pre class="text-primary json"><code>
-                                    {
-                                        "request":"GET detailed matches of '0AB7EB15-13AF-43A4-B502-DCD2B58DE81C'",
-                                        "status":"success",
-                                        "status_code":200,
-                                        "data":
-                                        [
-                                            {
-                                                "startDate":"2021-12-14",
-                                                "winnerId":"5F74B009-175F-4564-8C8E-7C57FDCF8D10",
-                                                "loserId":"1FA5AF39-FA2F-44C4-A82C-3AEA9ED9E954",
-                                                "tournamentId":"623F1864-AE93-442D-B9D7-A5678604B3AF",
-                                                "winnerPoints":63,
-                                                "loserPoints":47,
-                                                "setCount":3
-                                            }, ...
                                         ]
                                     }</code></pre>
                             </li>
