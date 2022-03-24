@@ -17,9 +17,9 @@ Right now the database only supports Singles events (Men's and Women's), but the
 This project is made for the purpose of providing data for a data analysis/visualization project which is in the works. Stay tuned!
 
 ## How to Use
-Visit [here](https://badminton-api.com/ "Badminton API") for detailed information on how to access the various endpoints of the API.
+Visit [here](https://api.badminton-api.com/ "Badminton API") for detailed information on how to access the various endpoints of the API.
 
-Visit [here instead](https://badminton-api.com/docs "Badminton API FastAPI Docs") for the FastAPI-generated documentation, or to test out the various endpoints.
+Visit [here instead](https://api.badminton-api.com/docs "Badminton API FastAPI Docs") for the FastAPI-generated documentation, or to test out the various endpoints.
 
 ## Progress Roadmap
 - [x] Scrape matches from relevant event and return list of Matches
