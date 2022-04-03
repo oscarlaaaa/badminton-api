@@ -45,15 +45,31 @@ class PlayerGatherer:
             self.player_list[name] = details
     
     async def grab_player_info(self, details, session):
-        details['event'] = self.event
+    
         details['country'] = None
         details['date of birth'] = None
         details['play r or l'] = None
         details['height'] = None
+        details['img link'] = None
 
         async with session.get(self.format_player_link(details['id'])) as resp:
             html_text = await resp.text()
             soup = BeautifulSoup(html_text, 'lxml')
+
+            name = soup.find('h2', class_='media__title media__title--large')
+            if name:
+                name = name.find('span', class_='nav-link__value').text
+                name = name.upper().strip()
+                index = name.find('n')
+                if index != -1:
+                    name = name[:index]
+                details['name'] = name
+
+            img = soup.find('div', class_='profile-icon__img-inner')
+            if img:
+                link_dirty = img.get('style')
+                link_clean = self.format_image_link(link_dirty)
+                details['img link'] = link_clean
 
             country = soup.find('div', class_='media__content-subinfo')
             if country:
@@ -62,7 +78,7 @@ class PlayerGatherer:
                 details['country'] = country
 
             detail_section = soup.find('dl', class_='list list--flex list--bordered')
-            if detail_section is not None:
+            if detail_section:
                 detail_section = detail_section.findAll('div', class_='list__item')
 
                 for detail in detail_section:
@@ -80,7 +96,8 @@ class PlayerGatherer:
                         continue
 
                     details[section] = value
-        
+        return details
+
     async def grab_all_players(self):
         async with aiohttp.ClientSession() as session:
             loop = asyncio.get_event_loop()

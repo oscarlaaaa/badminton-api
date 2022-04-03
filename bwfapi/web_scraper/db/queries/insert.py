@@ -3,8 +3,8 @@ INSERTS = {}
 
 INSERTS['player'] = (
     'INSERT IGNORE INTO Player '
-    ' (ID, Name, `Event`, Country, BirthDate, PlayHand, Height)'
-    ' VALUES (%s, %s, %s, %s, %s, %s, %s)'
+    ' (ID, Name, `Event`, Country, BirthDate, PlayHand, Height, imgLink)'
+    ' VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
     ';'
     )
 
