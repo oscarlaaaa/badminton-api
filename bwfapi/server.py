@@ -54,7 +54,7 @@ app.add_middleware(
 
 wait = random.randint(0, 5)
 @app.on_event("startup")
-@repeat_every(seconds=60 * 60 * 24 * (30 + wait), raise_exceptions=True, wait_first=True)  # ~1 month
+@repeat_every(seconds=60 * 60 * 24 * (15 + wait), raise_exceptions=True, wait_first=True)  # ~half a month
 async def update_database():
     logger.info("Updating database")
     EchoService.echo("Running scraping script")

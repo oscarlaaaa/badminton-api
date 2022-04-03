@@ -31,6 +31,7 @@ class Player(Base):
     birthDate = Column(Date)
     playHand = Column(String)
     height = Column(Integer)
+    img_link = Column(String)
 
 class Tournament(Base):
     __tablename__ = "tournament"
