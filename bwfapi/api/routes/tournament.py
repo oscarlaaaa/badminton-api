@@ -22,7 +22,8 @@ from sqlalchemy.orm import Session
 
 from bwfapi.web_scraper.services import EchoService
 from bwfapi.api.exceptions import InvalidParameterException, NoResultsException
-from bwfapi.api import crud, dependencies
+from bwfapi.api import dependencies
+from bwfapi.api.queries import tournament_query
 from datetime import date
 
 START_YEAR = 2008
@@ -38,7 +39,7 @@ async def get_tournament(tournament_id: str, db: Session=Depends(dependencies.ge
     if tournament_id == "":
         raise InvalidParameterException(status_code=404, detail=f"Must have tournament id.")
     
-    tournament = crud.get_tournament(db, tournament_id)
+    tournament = tournament_query.get_tournament(db, tournament_id)
     if tournament is None:
         raise NoResultsException(status_code=404, detail=f"No tournament with {tournament_id} as an id.")
     return tournament
@@ -51,9 +52,7 @@ async def search_tournament(name: str="", start_year: int=START_YEAR, end_year: 
     if start_year > end_year:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a start date after the end date.")
 
-    tournaments = crud.search_tournament(db, search_text=name, start_year=start_year, end_year=end_year, limit=limit)
+    tournaments = tournament_query.search_tournament(db, search_text=name, start_year=start_year, end_year=end_year, limit=limit)
     if tournaments is None:
         raise NoResultsException(status_code=404, detail=f"No tournament with {name} in its name between {start_year} and {end_year}.")
     return tournaments
-
-

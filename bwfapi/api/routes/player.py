@@ -22,7 +22,8 @@ from sqlalchemy.orm import Session
 
 from bwfapi.web_scraper.services import EchoService
 from bwfapi.api.exceptions import InvalidParameterException, NoResultsException
-from bwfapi.api import crud, dependencies
+from bwfapi.api import dependencies
+from bwfapi.api.queries import player_query
 
 router = APIRouter(
     prefix="/player",
@@ -32,7 +33,7 @@ router = APIRouter(
 @router.get("")
 async def get_player(player_id: str="", db: Session=Depends(dependencies.get_db)) -> dict:
     EchoService.echo(f"get_player called for player_id={player_id}")
-    player = crud.get_player(db, player_id=player_id)
+    player = player_query.get_player(db, player_id=player_id)
     if player is None:
         raise NoResultsException(status_code=404, detail="Player could not found")
     return player
@@ -46,7 +47,7 @@ async def get_top_wins(event: str="", limit: int=10, db: Session=Depends(depende
     if event.upper() not in VALID_EVENTS:
         raise InvalidParameterException(status_code=404, detail=f"Event must be WS, MS, or blank.")
 
-    players = crud.get_top_win_players(db, event=event, limit=limit)
+    players = player_query.get_top_win_players(db, event=event, limit=limit)
     if players is None:
         raise NoResultsException(status_code=404, detail="Error in querying top players")
     return players
@@ -57,7 +58,7 @@ async def search_player(name: str="", limit: int=20, db: Session=Depends(depende
     if limit < 1:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
 
-    players = crud.search_player(db, search_text=name, limit=limit)
+    players = player_query.search_player(db, search_text=name, limit=limit)
     if players is None:
         raise NoResultsException(status_code=404, detail=f"No player with {name} in their name.")
     return players
@@ -71,7 +72,7 @@ async def get_records(player_id: str="", sort_wins: bool=True, sort_desc: bool=T
     if limit < 1:
         raise InvalidParameterException(status_code=404, detail=f"Cannot have a search limit below 1.")
 
-    h2h = crud.get_player_records(db, player_id=player_id, sort_wins=sort_wins, sort_desc=sort_desc, limit=limit)
+    h2h = player_query.get_player_records(db, player_id=player_id, sort_wins=sort_wins, sort_desc=sort_desc, limit=limit)
     if h2h is None:
         raise NoResultsException(status_code=404, detail=f"No head to heads found for {player_id}.")
     return h2h
